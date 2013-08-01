@@ -1,0 +1,112 @@
+1. Enable clocks to the peripheral
+RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC , ENABLE);
+
+2. Configure pins required by the peripheral
+GPIO_StructInit (& GPIO_InitStructure);
+GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
+GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+GPIO_Init(GPIOC , &GPIO_InitStructure);
+
+
+Function - Library Constant
+Alternate function open-drain GPIO_Mode_AF_OD
+Alternate function push-pull GPIO_Mode_AF_PP
+Analog GPIO_Mode_AIN
+Input floating GPIO_Mode_IN_FLOATING
+Input pull-down GPIO_Mode_IPD
+Input pull-up GPIO_Mode_IPU
+Output open-drain GPIO_Mode_Out_OD
+Output push-pull GPIO_Mode_Out_PP
+
+
+    GPIO_Mode_AIN — аналоговый вход;
+    GPIO_Mode_IN_FLOATING — вход без подтяжки, болтающийся (англ. float) в воздухе
+    GPIO_Mode_IPD — вход с подтяжкой к земле (англ. Pull-down)
+    GPIO_Mode_IPU — вход с подтяжкой к питанию (англ. Pull-up)
+    GPIO_Mode_Out_OD — выход с открытым стоком (англ. Open Drain)
+    GPIO_Mode_Out_PP — выход двумя состояниями (англ. Push-Pull — туда-сюда)
+    GPIO_Mode_AF_OD — выход с открытым стоком для альтернативных функций (англ. Alternate Function). Используется в случаях, когда выводом должна управлять периферия, прикрепленная к данному разряду порта (например, вывод Tx USART и т.п.)
+    GPIO_Mode_AF_PP — то же самое, но с двумя состояниями
+http://ru.wikipedia.org/wiki/%D0%9F%D0%BE%D0%B4%D1%82%D1%8F%D0%B3%D0%B8%D0%B2%D0%B0%D1%8E%D1%89%D0%B8%D0%B9_%D1%80%D0%B5%D0%B7%D0%B8%D1%81%D1%82%D0%BE%D1%80
+http://en.wikipedia.org/wiki/Open_collector
+http://microtechnics.ru/stm32-uchebnyj-kurs-gpio-porty-vvoda-vyvoda/
+
+
+
+3. Configure peripheral hardware
+Files stm32f10x_ppp.[c|h]
+Init Structure ppp_InitTypeDef
+Zero Structure ppp_StructInit(ppp_InitTypeDef*)
+Initialize Peripheral ppp_Init([sub-device,] ppp_InitTypeDef*)
+De-initialize Peripheral ppp_DeInit([sub-device])
+
+
+
+APB1
+RCC_APB1Periph_BKP
+RCC_APB1Periph_CEC
+RCC_APB1Periph_DAC
+RCC_APB1Periph_I2C1
+RCC_APB1Periph_I2C2
+RCC_APB1Periph_PWR
+RCC_APB1Periph_SPI2
+RCC_APB1Periph_TIM2
+RCC_APB1Periph_TIM3
+RCC_APB1Periph_TIM4
+RCC_APB1Periph_TIM5
+RCC_APB1Periph_TIM6
+RCC_APB1Periph_TIM7
+RCC_APB1Periph_USART2
+RCC_APB1Periph_USART3
+RCC_APB1Periph_WWDG
+
+APB2
+RCC_APB2Periph_ADC1
+RCC_APB2Periph_AFIO
+RCC_APB2Periph_GPIOA
+RCC_APB2Periph_GPIOB
+RCC_APB2Periph_GPIOC
+RCC_APB2Periph_GPIOD
+RCC_APB2Periph_GPIOE ?
+RCC_APB2Periph_SPI1
+RCC_APB2Periph_TIM1
+RCC_APB2Periph_TIM15
+RCC_APB2Periph_TIM16
+RCC_APB2Periph_TIM17
+RCC_APB2Periph_USART1
+
+AHB:
+RCC_AHBPeriph_CRC
+RCC_AHBPeriph_DMA
+
+
+
+Device              Pin Function Configuration
+User Button         PA0 Input floating
+LCD Backlight       PA1 Backlight Output/Alternative function push-pull
+DAC1                PA4 DAC Output Analog
+ADC                 PA6 IN6 Input floating
+PA7                 IN7 Input floating
+Timer 1             PA8 Channel 1 Input floating
+USART 1             PA9 TX Alternative function push-pull
+                    PA10 RX Input Pull-up
+                    PA11 nCTS Input Pull-up
+                    PA12 nRTS Alternative function push-pull
+Timer 3             PB0 Channel 3 Alternative function push-pull
+                    PB1 Channel 4 Alternative function push-pull
+I2C1                PB6 SCK Alternative function open-drain
+                    PB7 SDA Alternative function open-drain
+Timer 4             PB9 Channel 4 Alternative function push-pull
+I2C2                PB10 SCK Alternative function open-drain
+                    PB11 SDA Alternative function open-drain
+SPI2                PB13 CLK Alternative function push-pull
+                    PB14 MISO Input pull-up
+                    PB15 MOSI Alternative function push-pull
+LCD control         PC0 LCD Select Output push-pull
+                    PC1 Reset Output push-pull
+                    PC2 Data/Control Output push-pull
+SD Card             PC6 Select Output push-pull
+Blue LED            PC8 Output push-pull
+Green LED           PC9 Output push-pull
+SPI EEPROM CS       PC10 Output push-pull

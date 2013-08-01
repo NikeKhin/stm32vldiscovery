@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="stm32vldiscovery" />
+		<Option pch_mode="2" />
+		<Option compiler="armelfgcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="c:/_pjt/stm32vldiscovery/bin/Debug/stm32vldiscovery.sys" prefix_auto="0" extension_auto="0" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="armelfgcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="c:/_pjt/stm32vldiscovery/bin/Release/stm32vldiscovery.sys" prefix_auto="0" extension_auto="0" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="armelfgcc" />
+				<Compiler>
+					<Add option="-O3" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-mthumb" />
+			<Add option="-std=c++11" />
+			<Add option="-W" />
+			<Add option="-fexceptions" />
+			<Add option="-mcpu=cortex-m3" />
+			<Add option="-ffunction-sections" />
+			<Add option="-fdata-sections" />
+			<Add option="-DUSE_STDPERIPH_DRIVER" />
+			<Add option="-DSTM32F10X_MD_VL" />
+			<Add option="-D__USES_CXX" />
+			<Add directory="lib/STM32F10x_StdPeriph_Driver/inc" />
+			<Add directory="lib/CMSIS/CM3/CoreSupport" />
+			<Add directory="lib/CMSIS/CM3/DeviceSupport/ST/STM32F10x" />
+			<Add directory="lib/Utilities" />
+			<Add directory="inc" />
+		</Compiler>
+		<Linker>
+			<Add option="-T stm32_flash.ld" />
+			<Add option="-mcpu=cortex-m3" />
+			<Add option="-mthumb" />
+			<Add option="-Wl,--gc-sections" />
+			<Add option="-Wl,-Map=output.map" />
+		</Linker>
+		<Unit filename="inc/adc.h" />
+		<Unit filename="inc/bus.h" />
+		<Unit filename="inc/common.h" />
+		<Unit filename="inc/dac.h" />
+		<Unit filename="inc/led.h" />
+		<Unit filename="inc/pin.h" />
+		<Unit filename="inc/stm32f10x_conf.h" />
+		<Unit filename="inc/tim.h" />
+		<Unit filename="lib/CMSIS/CM3/CoreSupport/core_cm3.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/CMSIS/CM3/CoreSupport/core_cm3.h" />
+		<Unit filename="lib/CMSIS/CM3/DeviceSupport/ST/Release_Notes_for_STM32F10x_CMSIS.html" />
+		<Unit filename="lib/CMSIS/CM3/DeviceSupport/ST/STM32F10x/startup/gcc_ride7/startup_stm32f10x_md_vl.s" />
+		<Unit filename="lib/CMSIS/CM3/DeviceSupport/ST/STM32F10x/stm32f10x.h" />
+		<Unit filename="lib/CMSIS/CM3/DeviceSupport/ST/STM32F10x/system_stm32f10x.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/CMSIS/CM3/DeviceSupport/ST/STM32F10x/system_stm32f10x.h" />
+		<Unit filename="lib/CMSIS/CMSIS debug support.htm" />
+		<Unit filename="lib/CMSIS/CMSIS_changes.htm" />
+		<Unit filename="lib/CMSIS/Documentation/CMSIS_Core.htm" />
+		<Unit filename="lib/CMSIS/License.doc" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/Release_Notes_for_STM32F10x_StdPeriph_Driver.html" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/inc/misc.h" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/inc/stm32f10x_adc.h" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/inc/stm32f10x_bkp.h" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/inc/stm32f10x_can.h" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/inc/stm32f10x_cec.h" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/inc/stm32f10x_crc.h" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/inc/stm32f10x_dac.h" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/inc/stm32f10x_dbgmcu.h" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/inc/stm32f10x_dma.h" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/inc/stm32f10x_exti.h" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/inc/stm32f10x_flash.h" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/inc/stm32f10x_fsmc.h" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/inc/stm32f10x_gpio.h" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/inc/stm32f10x_i2c.h" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/inc/stm32f10x_iwdg.h" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/inc/stm32f10x_pwr.h" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/inc/stm32f10x_rcc.h" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/inc/stm32f10x_rtc.h" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/inc/stm32f10x_sdio.h" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/inc/stm32f10x_spi.h" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/inc/stm32f10x_tim.h" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/inc/stm32f10x_usart.h" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/inc/stm32f10x_wwdg.h" />
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/src/misc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/src/stm32f10x_adc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/src/stm32f10x_bkp.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/src/stm32f10x_can.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/src/stm32f10x_cec.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/src/stm32f10x_crc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/src/stm32f10x_dac.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/src/stm32f10x_dbgmcu.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/src/stm32f10x_dma.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/src/stm32f10x_exti.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/src/stm32f10x_flash.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/src/stm32f10x_fsmc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/src/stm32f10x_gpio.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/src/stm32f10x_i2c.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/src/stm32f10x_iwdg.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/src/stm32f10x_pwr.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/src/stm32f10x_rcc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/src/stm32f10x_rtc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/src/stm32f10x_sdio.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/src/stm32f10x_spi.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/src/stm32f10x_tim.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/STM32F10x_StdPeriph_Driver/src/stm32f10x_wwdg.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/Utilities/STM32vldiscovery.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/Utilities/STM32vldiscovery.h" />
+		<Unit filename="lib/syscalls.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="main.cpp" />
+		<Unit filename="readme.txt" />
+		<Unit filename="src/adc.cpp" />
+		<Unit filename="src/bus.cpp" />
+		<Unit filename="src/dac.cpp" />
+		<Unit filename="src/led.cpp" />
+		<Unit filename="src/pin.cpp" />
+		<Unit filename="src/tim.cpp" />
+		<Unit filename="stm32_flash.ld" />
+		<Extensions>
+			<debugger>
+				<remote_debugging>
+					<options conn_type="0" serial_baud="115200" ip_address="localhost" ip_port="3333" additional_cmds="monitor reset halt&#x0A;load" />
+				</remote_debugging>
+				<remote_debugging target="Debug">
+					<options conn_type="0" serial_baud="115200" ip_address="localhost" ip_port="3333" />
+				</remote_debugging>
+			</debugger>
+			<debugger>
+				<remote_debugging>
+					<options conn_type="0" />
+				</remote_debugging>
+			</debugger>
+			<debugger>
+				<remote_debugging>
+					<options serial_baud="115200" />
+				</remote_debugging>
+			</debugger>
+			<debugger>
+				<remote_debugging>
+					<options ip_address="127.0.0.1" />
+				</remote_debugging>
+			</debugger>
+			<debugger>
+				<remote_debugging>
+					<options ip_port="3333" />
+				</remote_debugging>
+			</debugger>
+			<debugger>
+				<remote_debugging target="Debug" />
+			</debugger>
+			<code_completion />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
