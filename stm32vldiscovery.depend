@@ -19,7 +19,7 @@
 
 1283843570 c:\_pjt\stm32vldiscovery\lib\cmsis\cm3\devicesupport\st\stm32f10x\system_stm32f10x.h
 
-1367864448 c:\_pjt\stm32vldiscovery\inc\stm32f10x_conf.h
+1376057451 c:\_pjt\stm32vldiscovery\inc\stm32f10x_conf.h
 	"stm32f10x_adc.h"
 	"stm32f10x_dac.h"
 	"stm32f10x_exti.h"
@@ -52,14 +52,14 @@
 1283843574 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\misc.c
 	"misc.h"
 
-1283843576 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_adc.c
+1376054241 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_adc.c
 	"stm32f10x_adc.h"
 	"stm32f10x_rcc.h"
 
 1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_adc.h
 	"stm32f10x.h"
 
-1283843576 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_bkp.c
+1376057290 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_bkp.c
 	"stm32f10x_bkp.h"
 	"stm32f10x_rcc.h"
 
@@ -198,7 +198,8 @@
 1284464974 c:\_pjt\stm32vldiscovery\lib\utilities\stm32vldiscovery.h
 	"STM32f10x.h"
 
-1375277887 source:c:\_pjt\stm32vldiscovery\main.cpp
+1379345872 source:c:\_pjt\stm32vldiscovery\main.cpp
+	<string>
 	"bus.h"
 	"pin.h"
 	"adc.h"
@@ -210,13 +211,13 @@
 	<stm32f10x.h>
 	"STM32vldiscovery.h"
 
-1375266825 c:\_pjt\stm32vldiscovery\inc\bus.h
+1379346053 c:\_pjt\stm32vldiscovery\inc\bus.h
 	"common.h"
 
-1375277813 source:c:\_pjt\stm32vldiscovery\src\bus.cpp
+1379345872 source:c:\_pjt\stm32vldiscovery\src\bus.cpp
 	"bus.h"
 
-1375268079 c:\_pjt\stm32vldiscovery\inc\pin.h
+1379345674 c:\_pjt\stm32vldiscovery\inc\pin.h
 	"common.h"
 	"bus.h"
 
@@ -243,13 +244,13 @@
 1375277908 c:\_pjt\stm32vldiscovery\inc\led.h
 	"common.h"
 
-1375267102 source:c:\_pjt\stm32vldiscovery\src\tim.cpp
+1375277930 source:c:\_pjt\stm32vldiscovery\src\tim.cpp
 	"tim.h"
 
 1375277747 c:\_pjt\stm32vldiscovery\inc\tim.h
 	"common.h"
 	"bus.h"
 
-1375275186 source:c:\_pjt\stm32vldiscovery\src\pin.cpp
+1379345995 source:c:\_pjt\stm32vldiscovery\src\pin.cpp
 	"pin.h"
 

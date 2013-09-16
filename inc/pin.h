@@ -15,7 +15,7 @@ public:
     void setupSlowOutAnalog();
     void setupSlowInAnalog();
 private:
-    APB &bus;
+    APB &bus = bus2;
     uint16_t pin;
     GPIO_TypeDef* base = nullptr;
 };

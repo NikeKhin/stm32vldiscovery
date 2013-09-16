@@ -31,7 +31,8 @@
 		<Compiler>
 			<Add option="-mthumb" />
 			<Add option="-std=c++11" />
-			<Add option="-W" />
+			<Add option="-w" />
+			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 			<Add option="-mcpu=cortex-m3" />
 			<Add option="-ffunction-sections" />

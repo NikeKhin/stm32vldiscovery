@@ -1,32 +1,27 @@
 #include "pin.h"
 
 
-//TODO: move
-extern APB1 bus1;
-extern APB2 bus2;
-
-
-Pin::Pin(APinID id):bus(bus2),base(GPIOA)
+Pin::Pin(APinID id):base(GPIOA)
 {
     this->pin = 0x0001 << static_cast<uint8_t>(id);
     bus.enable(PeripheralID::gpioa);
 }
-Pin::Pin(BPinID id):bus(bus2),base(GPIOB)
+Pin::Pin(BPinID id):base(GPIOB)
 {
     this->pin = 0x0001 << static_cast<uint8_t>(id);
     bus.enable(PeripheralID::gpiob);
 }
-Pin::Pin(CPinID id):bus(bus2),base(GPIOC)
+Pin::Pin(CPinID id):base(GPIOC)
 {
     this->pin = 0x0001 << static_cast<uint8_t>(id);
     bus.enable(PeripheralID::gpioc);
 }
-Pin::Pin(DPinID id):bus(bus2),base(GPIOC)
+Pin::Pin(DPinID id):base(GPIOC)
 {
     this->pin = 0x0001 << static_cast<uint8_t>(id);
     bus.enable(PeripheralID::gpiod);
 }
-Pin::Pin(EPinID id):bus(bus2),base(GPIOD)
+Pin::Pin(EPinID id):base(GPIOD)
 {
     this->pin = 0x0001 << static_cast<uint8_t>(id);
     bus.enable(PeripheralID::gpioe);
