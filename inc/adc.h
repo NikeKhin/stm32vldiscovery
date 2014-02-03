@@ -26,7 +26,7 @@ public:
 protected:
     ADC_TypeDef* base = nullptr;
     APB &bus;
-    Pin pin;
+    Pin<APinID> pin = {APinID::pa0};
 };
 
 #endif // ADC_H

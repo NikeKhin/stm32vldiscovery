@@ -29,13 +29,14 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-mcpu=cortex-m3" />
 			<Add option="-mthumb" />
 			<Add option="-std=c++11" />
 			<Add option="-W" />
 			<Add option="-fexceptions" />
-			<Add option="-mcpu=cortex-m3" />
 			<Add option="-ffunction-sections" />
 			<Add option="-fdata-sections" />
+			<Add option="-mthumb" />
 			<Add option="-DUSE_STDPERIPH_DRIVER" />
 			<Add option="-DSTM32F10X_MD_VL" />
 			<Add option="-D__USES_CXX" />
@@ -218,6 +219,7 @@
 				<remote_debugging target="Debug" />
 			</debugger>
 			<code_completion />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

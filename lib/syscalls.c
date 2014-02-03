@@ -39,10 +39,10 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <stm32f10x.h>//AN: Added
+#include <stm32f10x.h>//NK: Added
 
 /***************************************************************************/
-//AN: Added platform specific
+//NK: Added platform specific
 
 #define STDIN USART1
 void uart_putc(char ch)
@@ -68,7 +68,7 @@ int _read_r (struct _reent *r, int file, char * ptr, int len)
   len = len;
 
 
-#if 1 //AN: Turned on
+#if 1 //NK: Turned on
   int index;
 
   /* For example, input string by UART */
@@ -103,7 +103,7 @@ int _write_r (struct _reent *r, int file, char * ptr, int len)
   file = file;
   ptr = ptr;
 
-#if 1 //AN: Turned on
+#if 1 //NK: Turned on
   int index;
 
   /* For example, output string by UART */
@@ -188,7 +188,7 @@ int _isatty_r(struct _reent *r, int fd)
 }
 
 /***************************************************************************/
-//AN: Added
+//NK: Added
 int _getpid()
 {
 	return 1;

@@ -4,14 +4,16 @@
 #include "common.h"
 #include "bus.h"
 
+template<class T>
 class Pin
 {
 public:
-    Pin(APinID id);
-    Pin(BPinID id);
-    Pin(CPinID id);
-    Pin(DPinID id);
-    Pin(EPinID id);
+    Pin(T id);
+    //Pin(APinID id);
+    //Pin(BPinID id);
+    //Pin(CPinID id);
+    //Pin(DPinID id);
+    //Pin(EPinID id);
     void setupSlowOutAnalog();
     void setupSlowInAnalog();
 private:
