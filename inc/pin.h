@@ -4,19 +4,38 @@
 #include "common.h"
 #include "bus.h"
 
-class Pin
+class PinBase
+{
+protected:
+    uint16_t pin;
+    PinBase(uint8_t id){
+        this->pin = 0x0001 << id;
+    };
+};
+
+template<class T>
+class Pin: public PinBase
 {
 public:
-    Pin(APinID id);
-    Pin(BPinID id);
-    Pin(CPinID id);
-    Pin(DPinID id);
-    Pin(EPinID id);
-    void setupSlowOutAnalog();
-    void setupSlowInAnalog();
+    Pin(T id);
+    void setupSlowOutAnalog()
+    {
+        GPIO_InitTypeDef GPIO_InitStructure;
+        GPIO_InitStructure.GPIO_Pin = pin;
+        GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+        GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+        GPIO_Init(base, &GPIO_InitStructure);
+    };
+    void setupSlowInAnalog()
+    {
+        GPIO_InitTypeDef GPIO_InitStructure;
+        GPIO_InitStructure.GPIO_Pin = pin;
+        GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+        GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+        GPIO_Init(base, &GPIO_InitStructure);
+    };
 private:
-    APB &bus = bus2;
-    uint16_t pin;
+    APB &bus;
     GPIO_TypeDef* base = nullptr;
 };
 

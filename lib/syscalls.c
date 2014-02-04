@@ -38,8 +38,8 @@
 #include <errno.h>
 #include <string.h>
 #include <sys/stat.h>
-#include <stm32f10x.h>//NK: Added
 #include <sys/types.h>
+#include <stm32f10x.h>//NK: Added
 
 /***************************************************************************/
 //NK: Added platform specific
@@ -66,8 +66,6 @@ int _read_r (struct _reent *r, int file, char * ptr, int len)
   file = file;
   ptr = ptr;
   len = len;
-
-
 #if 1 //NK: Turned on
   int index;
 

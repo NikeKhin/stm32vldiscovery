@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1283843568 source:c:\_pjt\stm32vldiscovery\lib\cmsis\cm3\coresupport\core_cm3.c
+1391496888 source:c:\_pjt\stm32vldiscovery\lib\cmsis\cm3\coresupport\core_cm3.c
 	<stdint.h>
 
 1367001240 source:c:\_pjt\stm32vldiscovery\lib\cmsis\cm3\devicesupport\st\stm32f10x\startup\gcc_ride7\startup_stm32f10x_md_vl.s
@@ -19,6 +19,8 @@
 
 1283843570 c:\_pjt\stm32vldiscovery\lib\cmsis\cm3\devicesupport\st\stm32f10x\system_stm32f10x.h
 
+1379621352 D
+
 1376057451 c:\_pjt\stm32vldiscovery\inc\stm32f10x_conf.h
 	"stm32f10x_adc.h"
 	"stm32f10x_dac.h"
@@ -30,6 +32,32 @@
 	"stm32f10x_tim.h"
 	"stm32f10x_usart.h"
 	"misc.h"
+
+1391451674 gin/master
+	"stm32f10x_adc.h"
+	"stm32f10x_dac.h"
+	"stm32f10x_exti.h"
+	"stm32f10x_flash.h"
+	"stm32f10x_gpio.h"
+	"stm32f10x_pwr.h"
+	"stm32f10x_rcc.h"
+	"stm32f10x_tim.h"
+	"stm32f10x_usart.h"
+	"misc.h"
+	"stm32f10x_adc.h"
+	"stm32f10x_rcc.h"
+	"stm32f10x_bkp.h"
+	"stm32f10x_rcc.h"
+	"bus.h"
+	"pin.h"
+	"adc.h"
+	"dac.h"
+	"tim.h"
+	"led.h"
+	"common.h"
+	"bus.h"
+	"tim.h"
+	"pin.h"
 
 1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_exti.h
 	"stm32f10x.h"
@@ -184,7 +212,7 @@
 1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_wwdg.h
 	"stm32f10x.h"
 
-1364918767 source:c:\_pjt\stm32vldiscovery\lib\syscalls.c
+1391496992 source:c:\_pjt\stm32vldiscovery\lib\syscalls.c
 	<stdlib.h>
 	<errno.h>
 	<string.h>
@@ -207,7 +235,7 @@
 	"tim.h"
 	"led.h"
 
-1375266880 c:\_pjt\stm32vldiscovery\inc\common.h
+1391505189 c:\_pjt\stm32vldiscovery\inc\common.h
 	<stm32f10x.h>
 	"STM32vldiscovery.h"
 
@@ -217,22 +245,22 @@
 1379345872 source:c:\_pjt\stm32vldiscovery\src\bus.cpp
 	"bus.h"
 
-1379345674 c:\_pjt\stm32vldiscovery\inc\pin.h
+1391515905 c:\_pjt\stm32vldiscovery\inc\pin.h
 	"common.h"
 	"bus.h"
 
-1375277862 source:c:\_pjt\stm32vldiscovery\src\adc.cpp
+1391496741 source:c:\_pjt\stm32vldiscovery\src\adc.cpp
 	"adc.h"
 
-1375277747 c:\_pjt\stm32vldiscovery\inc\adc.h
+1391496741 c:\_pjt\stm32vldiscovery\inc\adc.h
 	"common.h"
 	"bus.h"
 	"pin.h"
 
-1375277922 source:c:\_pjt\stm32vldiscovery\src\dac.cpp
+1391496741 source:c:\_pjt\stm32vldiscovery\src\dac.cpp
 	"dac.h"
 
-1375277747 c:\_pjt\stm32vldiscovery\inc\dac.h
+1391496741 c:\_pjt\stm32vldiscovery\inc\dac.h
 	"common.h"
 	"bus.h"
 	"pin.h"
@@ -251,6 +279,6 @@
 	"common.h"
 	"bus.h"
 
-1379345995 source:c:\_pjt\stm32vldiscovery\src\pin.cpp
+1391515187 source:c:\_pjt\stm32vldiscovery\src\pin.cpp
 	"pin.h"
 

@@ -29,12 +29,12 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-mcpu=cortex-m3" />
 			<Add option="-mthumb" />
 			<Add option="-std=c++11" />
 			<Add option="-w" />
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
-			<Add option="-mcpu=cortex-m3" />
 			<Add option="-ffunction-sections" />
 			<Add option="-fdata-sections" />
 			<Add option="-DUSE_STDPERIPH_DRIVER" />
@@ -219,6 +219,16 @@
 				<remote_debugging target="Debug" />
 			</debugger>
 			<code_completion />
+			<envvars />
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

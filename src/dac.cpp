@@ -4,7 +4,7 @@
 extern APB1 bus1;
 extern APB2 bus2;
 
-Dac1::Dac1():bus(bus1),base(DAC),pin(APinID::pa4),tim()
+Dac1::Dac1():bus(bus1),base(DAC),tim()
 {
     bus.enable(PeripheralID::dac);
     pin.setupSlowOutAnalog();
