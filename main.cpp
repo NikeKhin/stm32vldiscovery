@@ -1,3 +1,6 @@
+#include <string>
+using namespace std;
+
 #include "bus.h"
 #include "pin.h"
 #include "adc.h"
@@ -7,8 +10,8 @@
 
 
 //---------------------------------
-APB1 bus1;
-APB2 bus2;
+//APB1 bus1;
+//APB2 bus2;
 
 
 // Private function prototypes -----------------------------------------------
@@ -90,9 +93,7 @@ void assert_failed(uint8_t* file, uint32_t line)
 
     /* Infinite loop */
     /* Use call stack to find out the caller and reason */
-    while (1)
-    {
-    }
+    while (1);
 }
 #endif
 /*

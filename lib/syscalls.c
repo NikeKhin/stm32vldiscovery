@@ -66,8 +66,6 @@ int _read_r (struct _reent *r, int file, char * ptr, int len)
   file = file;
   ptr = ptr;
   len = len;
-
-
 #if 1 //NK: Turned on
   int index;
 

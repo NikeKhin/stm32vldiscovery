@@ -4,6 +4,13 @@
 #include "common.h"
 
 //--------------------------------------
+// Declare two objects of correspondingly APB1 and APB2 classes
+class APB1;
+class APB2;
+extern APB1 bus1;
+extern APB2 bus2;
+
+//--------------------------------------
 class APB
 {
 public:
@@ -14,8 +21,8 @@ public:
 class APB1 : public APB
 {
 public:
-    APB1();
-    virtual ~APB1();
+    APB1() = default;
+    virtual ~APB1() = default;
     void enable(PeripheralID);
     void disable(PeripheralID);
 };
@@ -23,8 +30,8 @@ public:
 class APB2 : public APB
 {
 public:
-    APB2();
-    virtual ~APB2();
+    APB2() = default;
+    virtual ~APB2() = default;
     void enable(PeripheralID);
     void disable(PeripheralID);
 };

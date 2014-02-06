@@ -1,25 +1,27 @@
 # depslib dependency file v1.0
-1389299614 source:c:\_pjt\stm32vldiscovery\lib\cmsis\cm3\coresupport\core_cm3.c
+1391496888 source:c:\_pjt\stm32vldiscovery\lib\cmsis\cm3\coresupport\core_cm3.c
 	<stdint.h>
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\cmsis\cm3\devicesupport\st\stm32f10x\startup\gcc_ride7\startup_stm32f10x_md_vl.s
+1367001240 source:c:\_pjt\stm32vldiscovery\lib\cmsis\cm3\devicesupport\st\stm32f10x\startup\gcc_ride7\startup_stm32f10x_md_vl.s
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\cmsis\cm3\devicesupport\st\stm32f10x\system_stm32f10x.c
+1283843570 source:c:\_pjt\stm32vldiscovery\lib\cmsis\cm3\devicesupport\st\stm32f10x\system_stm32f10x.c
 	"stm32f10x.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\cmsis\cm3\devicesupport\st\stm32f10x\stm32f10x.h
+1366745623 c:\_pjt\stm32vldiscovery\lib\cmsis\cm3\devicesupport\st\stm32f10x\stm32f10x.h
 	"core_cm3.h"
 	"system_stm32f10x.h"
 	<stdint.h>
 	"stm32f10x_conf.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\cmsis\cm3\coresupport\core_cm3.h
+1283843568 c:\_pjt\stm32vldiscovery\lib\cmsis\cm3\coresupport\core_cm3.h
 	<stdint.h>
 	<intrinsics.h>
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\cmsis\cm3\devicesupport\st\stm32f10x\system_stm32f10x.h
+1283843570 c:\_pjt\stm32vldiscovery\lib\cmsis\cm3\devicesupport\st\stm32f10x\system_stm32f10x.h
 
-1379621352 c:\_pjt\stm32vldiscovery\inc\stm32f10x_conf.h
+1379621352 D
+
+1376057451 c:\_pjt\stm32vldiscovery\inc\stm32f10x_conf.h
 	"stm32f10x_adc.h"
 	"stm32f10x_dac.h"
 	"stm32f10x_exti.h"
@@ -31,160 +33,186 @@
 	"stm32f10x_usart.h"
 	"misc.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_exti.h
+1391451674 gin/master
+	"stm32f10x_adc.h"
+	"stm32f10x_dac.h"
+	"stm32f10x_exti.h"
+	"stm32f10x_flash.h"
+	"stm32f10x_gpio.h"
+	"stm32f10x_pwr.h"
+	"stm32f10x_rcc.h"
+	"stm32f10x_tim.h"
+	"stm32f10x_usart.h"
+	"misc.h"
+	"stm32f10x_adc.h"
+	"stm32f10x_rcc.h"
+	"stm32f10x_bkp.h"
+	"stm32f10x_rcc.h"
+	"bus.h"
+	"pin.h"
+	"adc.h"
+	"dac.h"
+	"tim.h"
+	"led.h"
+	"common.h"
+	"bus.h"
+	"tim.h"
+	"pin.h"
+
+1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_exti.h
 	"stm32f10x.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_flash.h
+1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_flash.h
 	"stm32f10x.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_gpio.h
+1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_gpio.h
 	"stm32f10x.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_pwr.h
+1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_pwr.h
 	"stm32f10x.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_rcc.h
+1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_rcc.h
 	"stm32f10x.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\misc.h
+1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\misc.h
 	"stm32f10x.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\misc.c
+1283843574 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\misc.c
 	"misc.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_adc.c
+1376054241 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_adc.c
 	"stm32f10x_adc.h"
 	"stm32f10x_rcc.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_adc.h
+1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_adc.h
 	"stm32f10x.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_bkp.c
+1376057290 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_bkp.c
 	"stm32f10x_bkp.h"
 	"stm32f10x_rcc.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_bkp.h
+1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_bkp.h
 	"stm32f10x.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_can.c
+1283843576 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_can.c
 	"stm32f10x_can.h"
 	"stm32f10x_rcc.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_can.h
+1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_can.h
 	"stm32f10x.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_cec.c
+1283843576 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_cec.c
 	"stm32f10x_cec.h"
 	"stm32f10x_rcc.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_cec.h
+1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_cec.h
 	"stm32f10x.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_crc.c
+1283843576 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_crc.c
 	"stm32f10x_crc.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_crc.h
+1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_crc.h
 	"stm32f10x.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_dac.c
+1283843576 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_dac.c
 	"stm32f10x_dac.h"
 	"stm32f10x_rcc.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_dac.h
+1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_dac.h
 	"stm32f10x.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_dbgmcu.c
+1283843576 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_dbgmcu.c
 	"stm32f10x_dbgmcu.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_dbgmcu.h
+1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_dbgmcu.h
 	"stm32f10x.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_dma.c
+1283843576 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_dma.c
 	"stm32f10x_dma.h"
 	"stm32f10x_rcc.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_dma.h
+1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_dma.h
 	"stm32f10x.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_exti.c
+1283843576 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_exti.c
 	"stm32f10x_exti.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_flash.c
+1283843576 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_flash.c
 	"stm32f10x_flash.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_fsmc.c
+1283843576 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_fsmc.c
 	"stm32f10x_fsmc.h"
 	"stm32f10x_rcc.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_fsmc.h
+1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_fsmc.h
 	"stm32f10x.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_gpio.c
+1283843576 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_gpio.c
 	"stm32f10x_gpio.h"
 	"stm32f10x_rcc.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_i2c.c
+1283843576 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_i2c.c
 	"stm32f10x_i2c.h"
 	"stm32f10x_rcc.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_i2c.h
+1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_i2c.h
 	"stm32f10x.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_iwdg.c
+1283843576 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_iwdg.c
 	"stm32f10x_iwdg.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_iwdg.h
+1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_iwdg.h
 	"stm32f10x.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_pwr.c
+1283843576 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_pwr.c
 	"stm32f10x_pwr.h"
 	"stm32f10x_rcc.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_rcc.c
+1283843576 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_rcc.c
 	"stm32f10x_rcc.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_rtc.c
+1283843576 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_rtc.c
 	"stm32f10x_rtc.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_rtc.h
+1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_rtc.h
 	"stm32f10x.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_sdio.c
+1283843576 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_sdio.c
 	"stm32f10x_sdio.h"
 	"stm32f10x_rcc.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_sdio.h
+1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_sdio.h
 	"stm32f10x.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_spi.c
+1283843576 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_spi.c
 	"stm32f10x_spi.h"
 	"stm32f10x_rcc.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_spi.h
+1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_spi.h
 	"stm32f10x.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_tim.c
+1283843576 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_tim.c
 	"stm32f10x_tim.h"
 	"stm32f10x_rcc.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_tim.h
+1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_tim.h
 	"stm32f10x.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_usart.c
+1283843576 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_usart.c
 	"stm32f10x_usart.h"
 	"stm32f10x_rcc.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_usart.h
+1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_usart.h
 	"stm32f10x.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_wwdg.c
+1283843576 source:c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\src\stm32f10x_wwdg.c
 	"stm32f10x_wwdg.h"
 	"stm32f10x_rcc.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_wwdg.h
+1283843574 c:\_pjt\stm32vldiscovery\lib\stm32f10x_stdperiph_driver\inc\stm32f10x_wwdg.h
 	"stm32f10x.h"
 
-1389299868 source:c:\_pjt\stm32vldiscovery\lib\syscalls.c
+1391496992 source:c:\_pjt\stm32vldiscovery\lib\syscalls.c
 	<stdlib.h>
 	<errno.h>
 	<string.h>
@@ -192,13 +220,14 @@
 	<sys/types.h>
 	<stm32f10x.h>
 
-1379621352 source:c:\_pjt\stm32vldiscovery\lib\utilities\stm32vldiscovery.c
+1284464914 source:c:\_pjt\stm32vldiscovery\lib\utilities\stm32vldiscovery.c
 	"STM32vldiscovery.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\lib\utilities\stm32vldiscovery.h
+1284464974 c:\_pjt\stm32vldiscovery\lib\utilities\stm32vldiscovery.h
 	"STM32f10x.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\main.cpp
+1379345872 source:c:\_pjt\stm32vldiscovery\main.cpp
+	<string>
 	"bus.h"
 	"pin.h"
 	"adc.h"
@@ -206,50 +235,50 @@
 	"tim.h"
 	"led.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\inc\common.h
+1391505189 c:\_pjt\stm32vldiscovery\inc\common.h
 	<stm32f10x.h>
 	"STM32vldiscovery.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\inc\bus.h
+1379346053 c:\_pjt\stm32vldiscovery\inc\bus.h
 	"common.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\src\bus.cpp
+1379345872 source:c:\_pjt\stm32vldiscovery\src\bus.cpp
 	"bus.h"
 
-1391449836 c:\_pjt\stm32vldiscovery\inc\pin.h
+1391515905 c:\_pjt\stm32vldiscovery\inc\pin.h
 	"common.h"
 	"bus.h"
 
-1391451336 source:c:\_pjt\stm32vldiscovery\src\adc.cpp
+1391496741 source:c:\_pjt\stm32vldiscovery\src\adc.cpp
 	"adc.h"
 
-1391451772 c:\_pjt\stm32vldiscovery\inc\adc.h
+1391496741 c:\_pjt\stm32vldiscovery\inc\adc.h
 	"common.h"
 	"bus.h"
 	"pin.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\src\dac.cpp
+1391496741 source:c:\_pjt\stm32vldiscovery\src\dac.cpp
 	"dac.h"
 
-1391451849 c:\_pjt\stm32vldiscovery\inc\dac.h
+1391496741 c:\_pjt\stm32vldiscovery\inc\dac.h
 	"common.h"
 	"bus.h"
 	"pin.h"
 	"tim.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\src\led.cpp
+1375268355 source:c:\_pjt\stm32vldiscovery\src\led.cpp
 	"led.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\inc\led.h
+1375277908 c:\_pjt\stm32vldiscovery\inc\led.h
 	"common.h"
 
-1379621352 source:c:\_pjt\stm32vldiscovery\src\tim.cpp
+1375277930 source:c:\_pjt\stm32vldiscovery\src\tim.cpp
 	"tim.h"
 
-1379621352 c:\_pjt\stm32vldiscovery\inc\tim.h
+1375277747 c:\_pjt\stm32vldiscovery\inc\tim.h
 	"common.h"
 	"bus.h"
 
-1391451674 source:c:\_pjt\stm32vldiscovery\src\pin.cpp
+1391515187 source:c:\_pjt\stm32vldiscovery\src\pin.cpp
 	"pin.h"
 
