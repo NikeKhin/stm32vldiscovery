@@ -16,9 +16,9 @@ class Timer6:public Timer
 public:
     Timer6();
     ~Timer6();
-protected:
+private:
     TIM_TypeDef* base = nullptr;
-    APB &bus;
+    const APB *bus = nullptr;
     //Pin pin;
 };
 
