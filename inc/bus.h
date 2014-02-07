@@ -31,10 +31,11 @@ public:
 
 template<class T>
 class Bus{
-    static T bus;
+    static T bus = Bus<T>();
 public:
     Bus()=default;
-    operator const APB* () const {return &this->bus;};
+    operator const APB* () const {return &(Bus<T>::bus);};
 };
+
 
 #endif // BUS_H

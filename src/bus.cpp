@@ -1,5 +1,6 @@
 #include "bus.h"
 
+
 template<>
 APB2 Bus<APB2>::bus;
 
