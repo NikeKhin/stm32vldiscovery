@@ -31,7 +31,7 @@ public:
 
 template<class T>
 class Bus{
-    static T bus = Bus<T>();
+    static T bus;
 public:
     Bus()=default;
     operator const APB* () const {return &(Bus<T>::bus);};
