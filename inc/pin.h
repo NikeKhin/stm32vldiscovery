@@ -35,7 +35,7 @@ public:
         GPIO_Init(base, &GPIO_InitStructure);
     };
 private:
-    APB &bus;
+    const APB *bus = nullptr;
     GPIO_TypeDef* base = nullptr;
 };
 

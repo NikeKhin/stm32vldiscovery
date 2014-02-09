@@ -24,7 +24,7 @@ public:
     void stop();
 private:
     DAC_TypeDef* base = nullptr;//TODO: DAC channel is important
-    APB &bus;
+    const APB *bus = nullptr;
     Pin<APinID> pin = {APinID::pa4};
     Timer6 tim;
 };
