@@ -5,7 +5,7 @@
 extern APB1 bus1;
 extern APB2 bus2;
 
-Timer6::Timer6():bus(Bus<APB1>()),base(TIM6)//,pin(APinID::pa0)
+Timer6::Timer6():bus(Bus1()),base(TIM6)//,pin(APinID::pa0)
 {
     bus->enable(PeripheralID::tim6);
     //TODO: find correct HAL function
