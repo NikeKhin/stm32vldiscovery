@@ -4,7 +4,7 @@
 //extern APB1 bus1;
 //extern APB2 bus2;
 
-ADConverter1::ADConverter1():bus(Bus<APB2>()),base(ADC1)
+ADConverter1::ADConverter1():bus(Bus2()),base(ADC1)
 {
     //RCC_ADCCLKConfig(RCC_PCLK2_Div2);
     // Clock the bus
