@@ -1,12 +1,9 @@
 #include "dac.h"
 
-//TODO: move
-extern APB1 bus1;
-extern APB2 bus2;
 
-Dac1::Dac1():bus(bus1),base(DAC),tim()
+Dac1::Dac1():bus(Bus1()),base(DAC),tim()
 {
-    bus.enable(PeripheralID::dac);
+    bus->enable(PeripheralID::dac);
     pin.setupSlowOutAnalog();
 }
 Dac1::~Dac1()
