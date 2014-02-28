@@ -2,10 +2,11 @@
 
 
 template<>
-APB2 Bus<APB2>::bus = APB2();
+APB1 Bus1::bus = APB1();
 
 template<>
-APB1 Bus<APB1>::bus = APB1();
+APB2 Bus2::bus = APB2();
+
 
 void APB1::enable(PeripheralID id) const
 {

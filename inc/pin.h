@@ -4,6 +4,13 @@
 #include "common.h"
 #include "bus.h"
 
+class IOPort
+{
+    enum : uint8_t {p0,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15};
+    uint16_t read();
+    void write(uint16_t value);
+};
+
 class PinBase
 {
 protected:
