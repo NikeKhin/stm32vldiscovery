@@ -1,10 +1,10 @@
 #include "dac.h"
 
 
-Dac1::Dac1():bus(Bus1()),base(DAC),tim()
+Dac1::Dac1():/*bus(Bus1()),*/base(DAC),tim()
 {
-    bus->enable(PeripheralID::dac);
-    pin.setupSlowOutAnalog();
+    //bus.enable(PeripheralID::dac);
+    //pin.setupSlowOutAnalog();
 }
 Dac1::~Dac1()
 {

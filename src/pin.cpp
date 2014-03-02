@@ -1,12 +1,12 @@
 #include "pin.h"
-
+/*
 template<>
 Pin<APinID>::Pin(APinID id):
     PinBase(static_cast<uint8_t>(id)),
     bus(Bus2()),
     base(GPIOA)
 {
-    bus->enable(PeripheralID::gpioa);
+    bus.enable(PeripheralID::gpioa);
 }
 template<>
 Pin<BPinID>::Pin(BPinID id):
@@ -40,4 +40,4 @@ Pin<EPinID>::Pin(EPinID id):
 {
     bus->enable(PeripheralID::gpioe);
 }
-
+*/

@@ -4,34 +4,46 @@
 #include "common.h"
 #include "bus.h"
 
-class IOPort
+template<PeripheralID port, typename T_busname>
+class Port: public Device<T_busname>
 {
-    enum : uint8_t {p0,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15};
+    //some static staff (common for all class instances) may come here
+    // i.e. the port state variables
+protected:
+    GPIO_TypeDef *base = GPIOA;//TODO: specify the peripheralID
+public:
+    Port():Device<T_busname>(PeripheralID::gpioa){ //TODO: specify the peripheralID
+
+    }
     uint16_t read();
     void write(uint16_t value);
 };
 
-class PinBase
+//TODO: check port-bus correspondence. It is definitely wrong
+using PortA = Port<PeripheralID::gpioa,Bus2>;
+using PortB = Port<PeripheralID::gpiob,Bus2>;
+using PortC = Port<PeripheralID::gpioc,Bus2>;
+using PortD = Port<PeripheralID::gpiod,Bus2>;
+using PortE = Port<PeripheralID::gpioe,Bus2>;
+//using PortF = Port<GPIOF,Bus2>;
+//using PortG = Port<GPIOG,Bus2>;
+
+template<class T_portname>
+class Pin: public T_portname
 {
 protected:
     uint16_t pin;
-    PinBase(uint8_t id){
+public:
+    Pin(uint8_t id){
         this->pin = 0x0001 << id;
     };
-};
-
-template<class T>
-class Pin: public PinBase
-{
-public:
-    Pin(T id);
     void setupSlowOutAnalog()
     {
         GPIO_InitTypeDef GPIO_InitStructure;
         GPIO_InitStructure.GPIO_Pin = pin;
         GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
         GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
-        GPIO_Init(base, &GPIO_InitStructure);
+        //GPIO_Init(base, &GPIO_InitStructure);
     };
     void setupSlowInAnalog()
     {
@@ -39,11 +51,16 @@ public:
         GPIO_InitStructure.GPIO_Pin = pin;
         GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
         GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
-        GPIO_Init(base, &GPIO_InitStructure);
+        //GPIO_Init(base, &GPIO_InitStructure);
     };
-private:
-    const APB *bus = nullptr;
-    GPIO_TypeDef* base = nullptr;
 };
+
+using PinA = Pin<PortA>;
+using PinB = Pin<PortB>;
+using PinC = Pin<PortC>;
+using PinD = Pin<PortD>;
+using PinE = Pin<PortE>;
+//using PinF = Pin<PortF>;
+//using PinG = Pin<PortG>;
 
 #endif // PIN_H

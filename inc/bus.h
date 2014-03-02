@@ -3,43 +3,48 @@
 
 #include "common.h"
 
+
 /**
-    @brief Pure vitrual class with interface methods for APB.
-    @class APB
-    Base class for APB1 and APB2 types.
+    @brief Template class for APB1 and APB2 types.
+    @class Bus
  */
-class APB
+template<BusID T>
+class Bus
 {
+    // We may keep some static members here if we need to preserve state
+    // I.e. the bus state variables
 public:
-     /// Start clocking virtual method
+    /// Default constructor
+    Bus()=default;
+
+     /// Start clocking the peripheral device identified by PID
      /// @param pid - peripheral device identifier
      /// @return void
-    virtual void enable(PeripheralID pid) const = 0;
+    void enable(PeripheralID pid) const;
 
-     /// Stop clocking virtual method
+     /// Stop clocking the peripheral device identified by PID
      /// @param pid - peripheral device identifier
      /// @return void
-    virtual void disable(PeripheralID pid) const  = 0;
+    void disable(PeripheralID pid) const;
+
+     /// Conversion operator
+     /// @return Bus*
+    //operator const Bus* () const {return this;};
 };
 
-class APB1 : public APB
+template <typename T_busname>
+class Device
 {
-public:
-    APB1() = default;
-    virtual ~APB1() = default;
-    void enable(PeripheralID) const;
-    void disable(PeripheralID) const;
+protected:
+    Device(PeripheralID pid){
+        bus.enable(pid); //TODO: store and disable it in dtor
+    };
+    static T_busname bus;
 };
 
-class APB2 : public APB
-{
-public:
-    APB2() = default;
-    virtual ~APB2() = default;
-    void enable(PeripheralID) const;
-    void disable(PeripheralID) const;
-};
 
+
+/*
 template<class T>
 class Bus{
     static T bus;
@@ -47,8 +52,11 @@ public:
     Bus()=default;
     operator const APB* () const {return &(Bus<T>::bus);};
 };
+*/
+using Bus1 = Bus<BusID::APB1>;
+using Bus2 = Bus<BusID::APB2>;
 
-using Bus1 = Bus<APB1>;
-using Bus2 = Bus<APB2>;
+
+
 
 #endif // BUS_H

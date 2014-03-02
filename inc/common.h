@@ -30,6 +30,10 @@ enum class EPinID : uint8_t
     pe0,pe1,pe2,pe3,pe4,pe5,pe6,pe7,pe8,pe9,pe10,pe11,pe12,pe13,pe14,pe15
 };
 
+enum class BusID : uint32_t
+{
+    AHP, APB1, APB2
+};
 enum class PeripheralID : uint32_t
 {
     //APB1
