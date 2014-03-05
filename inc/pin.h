@@ -4,7 +4,7 @@
 #include "common.h"
 #include "bus.h"
 
-template<PeripheralID port, typename T_busname>
+template<PeripheralID pid, typename T_busname>
 class Port: public Device<T_busname>
 {
     //some static staff (common for all class instances) may come here
@@ -12,7 +12,7 @@ class Port: public Device<T_busname>
 protected:
     GPIO_TypeDef *base = GPIOA;//TODO: specify the peripheralID
 public:
-    Port():Device<T_busname>(PeripheralID::gpioa){ //TODO: specify the peripheralID
+    Port():Device<T_busname>(pid){ //TODO: specify the peripheralID
 
     }
     uint16_t read();
