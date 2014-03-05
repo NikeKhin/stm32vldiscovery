@@ -16,6 +16,7 @@ void Dac1::start()
     DAC_Cmd(DAC_Channel_1,ENABLE);
     //DAC->CR |= DAC_CR_EN1;
 }
+
 void Dac1::stop()
 {
 }

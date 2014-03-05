@@ -1,12 +1,5 @@
 #include "bus.h"
 
-/*
-template<>
-APB1 Bus1::bus = APB1();
-
-template<>
-APB2 Bus2::bus = APB2();
-*/
 template<>
 void Bus1::enable(PeripheralID id) const
 {

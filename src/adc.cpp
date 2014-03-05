@@ -46,11 +46,13 @@ void ADConverter1::start()
     //Check the end of ADC1 calibration
     while(ADC_GetCalibrationStatus(base));
 }
+
 void ADConverter1::stop()
 {
     //Disable the ADC
     ADC_Cmd(base, DISABLE);
 }
+
 uint16_t ADConverter1::read()
 {
     uint16_t value;
