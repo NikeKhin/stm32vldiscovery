@@ -5,8 +5,9 @@
 
 
 /**
-    @brief Template class for APB1 and APB2 types.
-    @class Bus
+  @brief Template class for APB1 and APB2 types.
+  Possible template parameters BusID::APB1 and BusID::APB2
+  @class Bus
  */
 template<BusID T>
 class Bus
@@ -26,35 +27,36 @@ public:
      /// @param pid - peripheral device identifier
      /// @return void
     void disable(PeripheralID pid) const;
-
-     /// Conversion operator
-     /// @return Bus*
-    //operator const Bus* () const {return this;};
 };
 
+
+using Bus1 = Bus<BusID::APB1>;
+using Bus2 = Bus<BusID::APB2>;
+
+
+/**
+    @brief Protected constructor enables the device
+    Possible template parameters Bus1 and Bus2 (see 'using' clause above)
+*/
 template <typename T_busname>
 class Device
 {
+private:
+    /// Peripheral ID (one of DAC, ADC, TIM, GPIO etc.)
+    PeripheralID _pid;
+
 protected:
-    Device(PeripheralID pid){
-        bus.enable(pid); //TODO: store and disable it in dtor
+    /**
+      @brief Protected constructor enables the device
+    */
+    Device(PeripheralID pid): _pid{pid}{
+        bus.enable(_pid);
     };
+    ~Device(){
+        bus.disable(_pid);
+    }
     static T_busname bus;
 };
-
-
-
-/*
-template<class T>
-class Bus{
-    static T bus;
-public:
-    Bus()=default;
-    operator const APB* () const {return &(Bus<T>::bus);};
-};
-*/
-using Bus1 = Bus<BusID::APB1>;
-using Bus2 = Bus<BusID::APB2>;
 
 
 

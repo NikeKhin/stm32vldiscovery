@@ -10,11 +10,10 @@ class Port: public Device<T_busname>
     //some static staff (common for all class instances) may come here
     // i.e. the port state variables
 protected:
-    GPIO_TypeDef *base = GPIOA;//TODO: specify the peripheralID
+    GPIO_TypeDef *base;
 public:
-    Port():Device<T_busname>(pid){ //TODO: specify the peripheralID
+    Port(PeripheralID pid);
 
-    }
     uint16_t read();
     void write(uint16_t value);
 };
@@ -27,6 +26,8 @@ using PortD = Port<PeripheralID::gpiod,Bus2>;
 using PortE = Port<PeripheralID::gpioe,Bus2>;
 //using PortF = Port<GPIOF,Bus2>;
 //using PortG = Port<GPIOG,Bus2>;
+
+
 
 template<class T_portname>
 class Pin: public T_portname
