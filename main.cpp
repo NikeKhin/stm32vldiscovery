@@ -9,16 +9,15 @@ using namespace std;
 #include "led.h"
 
 
-//---------------------------------
-//APB1 bus1;
-//APB2 bus2;
-
 
 // Private function prototypes -----------------------------------------------
 void Delay(__IO uint32_t nCount);
 
 int main()
 {
+
+    OutAnalogPin<PortC> pc(9);
+
     ADConverter1 adc;
 //    printf("\r\n ADC value: %d \r\n", AD_value);
 //    TemperatureC = (uint16_t)((V25-AD_value)/Avg_Slope+25);

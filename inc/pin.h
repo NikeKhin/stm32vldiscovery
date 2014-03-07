@@ -35,7 +35,7 @@ class Pin: public T_portname
 protected:
     uint16_t _pin;
 public:
-    Pin(uint8_t id){
+    Pin(uint8_t id):T_portname{
         this->_pin = 0x0001 << id;
     };
     void set(bool value){
@@ -46,13 +46,13 @@ public:
         //uint8_t GPIO_ReadOutputDataBit(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);
     }
 };
-
+/*
 using PinA = Pin<PortA>;
 using PinB = Pin<PortB>;
 using PinC = Pin<PortC>;
 using PinD = Pin<PortD>;
 using PinE = Pin<PortE>;
-
+*/
 
 template<typename T_portname>
 class InFloatingPin: public Pin<T_portname>
