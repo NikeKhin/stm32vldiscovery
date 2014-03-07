@@ -38,24 +38,24 @@ using Bus2 = Bus<BusID::APB2>;
     @brief Protected constructor enables the device
     Possible template parameters Bus1 and Bus2 (see 'using' clause above)
 */
-template <typename T_busname>
+template <PeripheralID pid, typename T_busname>
 class Device
 {
 private:
     /// Peripheral ID (one of DAC, ADC, TIM, GPIO etc.)
-    PeripheralID _pid;
+    PeripheralID _pid = {pid};
 
 protected:
     /**
       @brief Protected constructor enables the device
     */
-    Device(PeripheralID pid): _pid{pid}{
+    Device(){
         bus.enable(_pid);
     };
     ~Device(){
         bus.disable(_pid);
     }
-    static T_busname bus;
+    T_busname bus;//TODO: find a way to make it static?
 };
 
 

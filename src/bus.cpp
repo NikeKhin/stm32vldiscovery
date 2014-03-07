@@ -1,5 +1,7 @@
 #include "bus.h"
 
+
+
 template<>
 void Bus1::enable(PeripheralID id) const
 {

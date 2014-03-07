@@ -4,15 +4,15 @@
 #include "common.h"
 #include "bus.h"
 
-template<PeripheralID id, typename T_busname>
-class Port: public Device<T_busname>
+template<PeripheralID pid, typename T_busname>
+class Port: public Device<pid, T_busname>
 {
     //some static staff (common for all class instances) may come here
     // i.e. the port state variables
 protected:
     GPIO_TypeDef *base;
 public:
-    Port(PeripheralID pid);
+    Port();
 
     uint16_t read(){
         //uint16_t GPIO_ReadInputData(GPIO_TypeDef* GPIOx);
@@ -35,7 +35,7 @@ class Pin: public T_portname
 protected:
     uint16_t _pin;
 public:
-    Pin(uint8_t id):T_portname{
+    Pin(uint8_t id){
         this->_pin = 0x0001 << id;
     };
     void set(bool value){
@@ -57,6 +57,7 @@ using PinE = Pin<PortE>;
 template<typename T_portname>
 class InFloatingPin: public Pin<T_portname>
 {
+public:
     InFloatingPin(uint8_t id):Pin<T_portname>(id){
         GPIO_InitTypeDef GPIO_InitStructure;
         GPIO_InitStructure.GPIO_Pin = Pin<T_portname>::_pin;
@@ -68,6 +69,7 @@ class InFloatingPin: public Pin<T_portname>
 template<typename T_portname>
 class OutAnalogPin: public Pin<T_portname>
 {
+public:
     OutAnalogPin(uint8_t id):Pin<T_portname>(id){
         GPIO_InitTypeDef GPIO_InitStructure;
         GPIO_InitStructure.GPIO_Pin = Pin<T_portname>::_pin;
