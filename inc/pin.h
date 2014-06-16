@@ -4,8 +4,8 @@
 #include "common.h"
 #include "bus.h"
 
-template<PeripheralID pid>
-class Port: public Device
+template<typename T, T pid>
+class Port: public Device<T>
 {
     //some static staff (common for all class instances) may come here
     // i.e. the port state variables
@@ -22,15 +22,14 @@ public:
     }
 };
 
-using PortA = Port<PeripheralID::gpioa>;
-using PortB = Port<PeripheralID::gpiob>;
-using PortC = Port<PeripheralID::gpioc>;
-using PortD = Port<PeripheralID::gpiod>;
-using PortE = Port<PeripheralID::gpioe>;
+using PortA = Port<APB2, APB2::gpioa>;
+using PortB = Port<APB2, APB2::gpiob>;
+using PortC = Port<APB2, APB2::gpioc>;
+using PortD = Port<APB2, APB2::gpiod>;
+using PortE = Port<APB2, APB2::gpioe>;
 
-
-template<typename T_portname>
-class Pin: public T_portname
+template<typename T>
+class Pin: public T
 {
 protected:
     uint16_t _pin;
@@ -46,13 +45,6 @@ public:
         //uint8_t GPIO_ReadOutputDataBit(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);
     }
 };
-/*
-using PinA = Pin<PortA>;
-using PinB = Pin<PortB>;
-using PinC = Pin<PortC>;
-using PinD = Pin<PortD>;
-using PinE = Pin<PortE>;
-*/
 
 template<typename T_portname>
 class InFloatingPin: public Pin<T_portname>

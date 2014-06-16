@@ -1,36 +1,36 @@
 #include "pin.h"
 
 template<>
-Port<PeripheralID::gpioa>::Port():
-    Device(PeripheralID::gpioa),
+Port<APB2,APB2::gpioa>::Port():
+    Device(APB2::gpioa),
     base(GPIOA)
 {
 }
 
 template<>
-Port<PeripheralID::gpiob>::Port():
-    Device(PeripheralID::gpiob),
+Port<APB2,APB2::gpiob>::Port():
+    Device(APB2::gpiob),
     base(GPIOB)
 {
 }
 
 template<>
-Port<PeripheralID::gpioc>::Port():
-    Device(PeripheralID::gpioc),
+Port<APB2,APB2::gpioc>::Port():
+    Device(APB2::gpioc),
     base(GPIOC)
 {
 }
 
 template<>
-Port<PeripheralID::gpiod>::Port():
-    Device(PeripheralID::gpiod),
+Port<APB2,APB2::gpiod>::Port():
+    Device(APB2::gpiod),
     base(GPIOD)
 {
 }
 
 template<>
-Port<PeripheralID::gpioe>::Port():
-    Device(PeripheralID::gpioe),
+Port<APB2,APB2::gpioe>::Port():
+    Device(APB2::gpioe),
     base(GPIOE)
 {
 }

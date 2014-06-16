@@ -30,13 +30,9 @@ enum class EPinID : uint8_t
     pe0,pe1,pe2,pe3,pe4,pe5,pe6,pe7,pe8,pe9,pe10,pe11,pe12,pe13,pe14,pe15
 };
 
-enum class BusID : uint32_t
+
+enum class APB1 : uint32_t
 {
-    AHP, APB1, APB2
-};
-enum class PeripheralID : uint32_t
-{
-    //APB1
     bkp=RCC_APB1Periph_BKP,
     cec=RCC_APB1Periph_CEC,
     dac=RCC_APB1Periph_DAC,
@@ -53,7 +49,10 @@ enum class PeripheralID : uint32_t
     usart2=RCC_APB1Periph_USART2,
     usart3=RCC_APB1Periph_USART3,
     wwdg=RCC_APB1Periph_WWDG,
-    //APB2
+    the_bus
+};
+enum class APB2: uint32_t
+{
     adc1=RCC_APB2Periph_ADC1,
     afio=RCC_APB2Periph_AFIO,
     gpioa=RCC_APB2Periph_GPIOA,
@@ -67,9 +66,13 @@ enum class PeripheralID : uint32_t
     tim16=RCC_APB2Periph_TIM16,
     tim17=RCC_APB2Periph_TIM17,
     usart1=RCC_APB2Periph_USART1,
-    //AHB
+    the_bus
+};
+enum class AHB: uint32_t
+{
     crc=RCC_AHBPeriph_CRC,
-    dma1=RCC_AHBPeriph_DMA1
+    dma1=RCC_AHBPeriph_DMA1,
+    the_bus
 };
 
 
