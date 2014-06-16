@@ -53,6 +53,9 @@
 			<Add option="-Wl,--gc-sections" />
 			<Add option="-Wl,-Map=output.map" />
 		</Linker>
+		<ExtraCommands>
+			<Add after="arm-none-eabi-size.exe -A -x $(TARGET_OUTPUT_FILE)" />
+		</ExtraCommands>
 		<Unit filename="LICENSE" />
 		<Unit filename="README.md" />
 		<Unit filename="inc/adc.h" />

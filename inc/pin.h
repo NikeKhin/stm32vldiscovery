@@ -4,8 +4,8 @@
 #include "common.h"
 #include "bus.h"
 
-template<PeripheralID pid, typename T_busname>
-class Port: public Device<pid, T_busname>
+template<PeripheralID pid>
+class Port: public Device
 {
     //some static staff (common for all class instances) may come here
     // i.e. the port state variables
@@ -22,11 +22,11 @@ public:
     }
 };
 
-using PortA = Port<PeripheralID::gpioa,Bus2>;
-using PortB = Port<PeripheralID::gpiob,Bus2>;
-using PortC = Port<PeripheralID::gpioc,Bus2>;
-using PortD = Port<PeripheralID::gpiod,Bus2>;
-using PortE = Port<PeripheralID::gpioe,Bus2>;
+using PortA = Port<PeripheralID::gpioa>;
+using PortB = Port<PeripheralID::gpiob>;
+using PortC = Port<PeripheralID::gpioc>;
+using PortD = Port<PeripheralID::gpiod>;
+using PortE = Port<PeripheralID::gpioe>;
 
 
 template<typename T_portname>
