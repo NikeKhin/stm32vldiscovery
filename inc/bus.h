@@ -3,14 +3,25 @@
 
 #include "common.h"
 
-//--------------------------------------
+/**
+    \brief Pure vitrual class with interface methods for APB.
+    \class APB
+    Base class for APB1 and APB2 types.
+ */
 class APB
 {
 public:
+     /// Start clocking virtual method
+     /// \param PeripheralID - peripheral device identifier
+     /// \return void
     virtual void enable(PeripheralID) const = 0;
+
+     /// Stop clocking virtual method
+     /// \param PeripheralID - peripheral device identifier
+     /// \return void
     virtual void disable(PeripheralID) const  = 0;
 };
-//--------------------------------------
+
 class APB1 : public APB
 {
 public:
@@ -19,7 +30,7 @@ public:
     void enable(PeripheralID) const;
     void disable(PeripheralID) const;
 };
-//--------------------------------------
+
 class APB2 : public APB
 {
 public:
@@ -37,5 +48,7 @@ public:
     operator const APB* () const {return &(Bus<T>::bus);};
 };
 
+using Bus1 = Bus<APB1>;
+using Bus2 = Bus<APB2>;
 
 #endif // BUS_H
