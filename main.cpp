@@ -16,46 +16,20 @@ void Delay(__IO uint32_t nCount);
 int main()
 {
 
-    OutAnalogPin<PortC> pc(9);
+    DigitalOut<PortC> pc(9);
 
-    ADConverter1 adc;
-//    printf("\r\n ADC value: %d \r\n", AD_value);
-//    TemperatureC = (uint16_t)((V25-AD_value)/Avg_Slope+25);
-//    printf("Temperature: %d%cC\r\n", TemperatureC, 176);
-
-
-    Dac1 dac;
-    dac.start();
-
-    Led led3(LedID::blue), led4(LedID::green);
-
-    adc.start();
-
-    const float Avg_Slope = 4.3; //when avg_slope=4.3mV/C at ref 3.3V
-    int16_t V25 = adc.read();//1750when V25=1.41V at ref 3.3V
     while (1)
     {
-        int16_t AD_value;
-        AD_value = adc.read();
-
-        //temperatureC = ((V25-AD_value)/Avg_Slope);
-
         // Turn on LD2 and LD3
-        led3.on();
-        led4.on();
+        pc.set(true);
         // Insert delay
         Delay(0xAFFFF);
         // Turn off LD3 and LD4
-        led3.off();
-        led4.off();
+        pc.set(false);
         // Insert delay
         Delay(0xAFFFF);
-
-//    printf("\r\n ADC value: %d \r\n", AD_value);
     }
 
-    // Infinite loop
-    while (true) {}
     return 0;
 }
 

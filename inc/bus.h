@@ -5,8 +5,8 @@
 
 
 /**
-  @brief Template class for APB1 and APB2 types.
-  Possible template parameters APB1 and APB2
+  @brief Template class for APB1 and APB2 bus types.
+  Possible template parameters APB1 and APB2 enumerations (see common.h)
   @class Bus
  */
 template<typename T>
@@ -33,7 +33,8 @@ public:
 
 /**
     @brief Protected constructor enables the device
-    Possible template parameters Bus1 and Bus2 (see 'using' clause above)
+    Possible template parameters APB1 and APB2 enumerations (see common.h)
+    @class Device
 */
 template <typename T>
 class Device

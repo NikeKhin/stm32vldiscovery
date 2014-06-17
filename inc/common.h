@@ -9,6 +9,7 @@ enum class LedID : uint8_t
 {
     blue,green
 };
+
 enum class APinID : uint8_t
 {
     pa0,pa1,pa2,pa3,pa4,pa5,pa6,pa7,pa8,pa9,pa10,pa11,pa12,pa13,pa14,pa15
