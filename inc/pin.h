@@ -5,33 +5,29 @@
 #include "bus.h"
 
 /**
-    @brief GPIO port (16-bit)
-    Possible template parameters APB1 or APB2 and their corresponding values
     @class Device
+    @brief GPIO port (16-bit)
+
+    Possible template parameters APB1 or APB2 and their corresponding values
+    @param T - the bus enum type, containing its peripheral device identifiers (e.g. APB1 or APB2)
+    @param pid - peripheral GPIO device identifier (e.g. APB2::gpioc)
 */
 template<typename T, T pid>
 class Port: public Device<T>
 {
-    //some static staff (common for all class instances) may come here
+    // TODO: some static staff (common for all class instances) may come here
     // i.e. the port state variables
 protected:
-    /// Declared in standard peripheral library
+    /// GPIO handle structure. Declared in standard peripheral library
     GPIO_TypeDef *_base;
 public:
-    /**
-      @brief Default specialized constructor
-    */
+    /// Default specialized constructor
     Port();
-
-    /**
-      @brief Read 16 bits of the port simultaneously
-    */
+    /// Read 16 bits of the port simultaneously
     uint16_t read(){
         return GPIO_ReadInputData(_base);
     }
-    /**
-      @brief Write 16 bits of the port simultaneously
-    */
+    /// Write 16 bits of the port simultaneously
     void write(uint16_t value){
         GPIO_Write(_base, value);
     }
@@ -48,22 +44,31 @@ using PortE = Port<APB2, APB2::gpioe>;
 
 
 /**
-    @brief Specific pin of a 16-bit GPIO port
-    Possible template parameters are PortA...PortE (see type aliasing above)
     @class Pin
+    @brief Specific pin of a 16-bit GPIO port
+
+    Possible template parameters are PortA...PortE (see type aliasing above)
+    @param T - the type alias for the specific GPIO port (e.g. PortC)
 */
 template<typename T>
 class Pin: public T
 {
 protected:
+    /// The set bit on the bit position of the pin number
     uint16_t _pin;
 public:
+    /// Constructs the pin
+    /// @param id the pin number of the 16-pin port
     Pin(uint8_t id){
         this->_pin = 0x0001 << id;
     };
+    /// Set/reset current pin value
+    /// @param value the boolean value of the set pin state
     void set(bool value){
         GPIO_WriteBit(T::_base, _pin, value?Bit_SET:Bit_RESET);
     }
+    /// Get current pin state
+    /// @returns bool the pin state
     bool get(){
         //uint8_t GPIO_ReadInputDataBit(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);
         //uint8_t GPIO_ReadOutputDataBit(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);
@@ -72,9 +77,11 @@ public:
 
 
 /**
+    @class DigitalOut
     @brief Specific pin of a 16-bit GPIO port configured to be digital output push-pull mode
+
     Possible template parameters are PortA...PortE (see type aliasing above)
-    @class Device
+    @param T - the type alias for the specific GPIO port (e.g. PortC)
 */
 template<typename T>
 class DigitalOut: public Pin<T>

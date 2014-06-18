@@ -32,6 +32,12 @@ enum class EPinID : uint8_t
 };
 
 
+/**
+  @class APB1
+  @brief Enumeration of all APB1 devices, initialized with original values from SPL.
+
+  Intended for use as a template parameter for various device classes
+ */
 enum class APB1 : uint32_t
 {
     bkp=RCC_APB1Periph_BKP,
@@ -52,6 +58,12 @@ enum class APB1 : uint32_t
     wwdg=RCC_APB1Periph_WWDG,
     the_bus
 };
+/**
+  @class APB2
+  @brief Enumeration of all APB2 devices, initialized with original values from SPL.
+
+  Intended for use as a template parameter for various device classes
+ */
 enum class APB2: uint32_t
 {
     adc1=RCC_APB2Periph_ADC1,
@@ -69,6 +81,12 @@ enum class APB2: uint32_t
     usart1=RCC_APB2Periph_USART1,
     the_bus
 };
+/**
+  @class AHB
+  @brief Enumeration of all APB1 devices, initialized with original values from SPL.
+
+  Intended for use as a template parameter for various device classes
+ */
 enum class AHB: uint32_t
 {
     crc=RCC_AHBPeriph_CRC,
