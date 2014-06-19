@@ -60,6 +60,7 @@ public:
     /// Constructs the pin
     /// @param id the pin number of the 16-pin port
     Pin(uint8_t id){
+        //static_assert(id>15,"pin number of the 16-pin port should be in range 0:15");
         this->_pin = 0x0001 << id;
     };
     /// Set/reset current pin value
@@ -95,7 +96,11 @@ public:
         GPIO_Init(T::_base, &GPIO_InitStructure);
     }
 };
-
+using DigitalOutA=DigitalOut<PortA>;
+using DigitalOutB=DigitalOut<PortB>;
+using DigitalOutC=DigitalOut<PortC>;
+using DigitalOutD=DigitalOut<PortD>;
+using DigitalOutE=DigitalOut<PortE>;
 
 /**
     @brief Specific pin of a 16-bit GPIO port configured to be floating input

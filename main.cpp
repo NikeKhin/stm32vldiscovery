@@ -16,16 +16,19 @@ void Delay(__IO uint32_t nCount);
 int main()
 {
 
-    DigitalOut<PortC> pc(9);
+    DigitalOut<PortC> pc9(9);
+    DigitalOutC pc8(8);
 
     while (1)
     {
         // Turn on LD2 and LD3
-        pc.set(true);
+        pc9.set(true);
+        pc8.set(false);
         // Insert delay
         Delay(0xAFFFF);
         // Turn off LD3 and LD4
-        pc.set(false);
+        pc9.set(false);
+        pc8.set(true);
         // Insert delay
         Delay(0xAFFFF);
     }
