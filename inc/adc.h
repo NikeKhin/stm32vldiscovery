@@ -25,8 +25,8 @@ public:
     uint16_t read();
 protected:
     ADC_TypeDef* base = nullptr;
-    const APB *bus = nullptr;
-    Pin<APinID> pin = {APinID::pa0};
+    //const BusBase &bus;
+    //Pin<APinID> pin = {APinID::pa0};
 };
 
 #endif // ADC_H

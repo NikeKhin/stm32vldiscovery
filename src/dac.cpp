@@ -1,10 +1,10 @@
 #include "dac.h"
 
 
-Dac1::Dac1():bus(Bus1()),base(DAC),tim()
+Dac1::Dac1():/*bus(Bus1()),*/base(DAC),tim()
 {
-    bus->enable(PeripheralID::dac);
-    pin.setupSlowOutAnalog();
+    //bus.enable(PeripheralID::dac);
+    //pin.setupSlowOutAnalog();
 }
 Dac1::~Dac1()
 {
@@ -16,6 +16,7 @@ void Dac1::start()
     DAC_Cmd(DAC_Channel_1,ENABLE);
     //DAC->CR |= DAC_CR_EN1;
 }
+
 void Dac1::stop()
 {
 }

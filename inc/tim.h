@@ -18,7 +18,7 @@ public:
     ~Timer6();
 private:
     TIM_TypeDef* base = nullptr;
-    const APB *bus = nullptr;
+    //const BusBase *bus = nullptr;
     //Pin pin;
 };
 

@@ -1,16 +1,13 @@
 #include "adc.h"
 
-//TODO: move
-//extern APB1 bus1;
-//extern APB2 bus2;
 
-ADConverter1::ADConverter1():bus(Bus2()),base(ADC1)
+ADConverter1::ADConverter1():/*bus(Bus2()),*/base(ADC1)
 {
     //RCC_ADCCLKConfig(RCC_PCLK2_Div2);
     // Clock the bus
-    bus->enable(PeripheralID::adc1);
+    //bus.enable(PeripheralID::adc1);
     // Setup pin
-    pin.setupSlowInAnalog();
+    //pin.setupSlowInAnalog();
     //ADC configuration
     ADC_InitTypeDef ADC_InitStructure;
     //select independent conversion mode (single)
@@ -49,11 +46,13 @@ void ADConverter1::start()
     //Check the end of ADC1 calibration
     while(ADC_GetCalibrationStatus(base));
 }
+
 void ADConverter1::stop()
 {
     //Disable the ADC
     ADC_Cmd(base, DISABLE);
 }
+
 uint16_t ADConverter1::read()
 {
     uint16_t value;
