@@ -3,6 +3,8 @@ stm32vldiscovery
 Hardware abstraction library (HAL) implemented in C++ as a wrapper for Standard Peripheral Library (SPL) aka Standard Firmware Library provided by ST.
 The purpose is to provide simple and self-descriptive interface for peripherals and make it possible to start using it without reading manuals.
 
+Interface is loosely similar to [mbed Microcontroller Library](https://mbed.org/handbook/mbed-SDK).
+
 See additional information in Russian [in the blog](https://c4arm.blogspot.com/)
 
 Example:
@@ -35,3 +37,14 @@ http://www.st.com/web/en/catalog/tools/PF259429
 v1.0.1
 STSW-STM32136 STM32F401 discovery (STM32F401VC MCU) firmware package (UM1660)
 http://www.st.com/web/en/catalog/tools/PF259428
+
+Official documentation and samples
+==================
+STSW-STM32028 STM32's ADC modes and their applications (AN3116)
+http://www.st.com/web/en/catalog/tools/PF257864
+1.0
+
+
+License information
+==================
+mbed Microcontroller Library - http://www.apache.org/licenses/LICENSE-2.0

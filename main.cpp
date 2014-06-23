@@ -18,9 +18,13 @@ int main()
 
     DigitalOut<PortC> pc9(9);
     DigitalOutC pc8(8);
+    DigitalOutA pa0(0);
 
     while (1)
     {
+        // pause blinking
+        if(pa0.get())
+            Delay(0xBFFFF);
         // Turn on LD2 and LD3
         pc9.set(true);
         pc8.set(false);
@@ -72,17 +76,3 @@ void assert_failed(uint8_t* file, uint32_t line)
     while (1);
 }
 #endif
-/*
-To fit flash size:
--Wl,--gc-sections
-*/
-
-/*
-Button:
-http://robocraft.ru/blog/ARM/666.html
-http://www.cs.indiana.edu/~geobrown/book.pdf
-http://habrahabr.ru/post/161863/
-http://en.radzio.dxp.pl/stm32vldiscovery/lesson2,reading,the,button.html
-*/
-
-
