@@ -71,8 +71,18 @@ public:
     /// Get current pin state
     /// @returns bool the pin state
     bool get(){
-        //uint8_t GPIO_ReadInputDataBit(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);
-        //uint8_t GPIO_ReadOutputDataBit(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);
+        return static_cast<bool>(GPIO_ReadInputDataBit(T::_base, _pin));
+        //TODO: uint8_t GPIO_ReadOutputDataBit(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);
+    }
+
+    /// Cast to bool with current pin state
+    /// @returns bool the pin state
+    operator bool(){
+        return get();
+    }
+    Pin<T>& operator=(bool value){
+        set(value);
+        return *this;
     }
 };
 
@@ -101,6 +111,41 @@ using DigitalOutB=DigitalOut<PortB>;
 using DigitalOutC=DigitalOut<PortC>;
 using DigitalOutD=DigitalOut<PortD>;
 using DigitalOutE=DigitalOut<PortE>;
+
+
+
+/**
+    @class DigitalIn
+    @brief Specific pin of a 16-bit GPIO port configured to be digital input mode
+
+    Possible template parameters are PortA...PortE (see type aliasing above)
+    @param T - the type alias for the specific GPIO port (e.g. PortC)
+*/
+template<typename T>
+class DigitalIn: public Pin<T>
+{
+public:
+    DigitalIn(uint8_t id):Pin<T>(id){
+        GPIO_InitTypeDef GPIO_InitStructure;
+        GPIO_InitStructure.GPIO_Pin = Pin<T>::_pin;
+        GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+        GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+        GPIO_Init(T::_base, &GPIO_InitStructure);
+    }
+};
+using DigitalInA=DigitalIn<PortA>;
+using DigitalInB=DigitalIn<PortB>;
+using DigitalInC=DigitalIn<PortC>;
+using DigitalInD=DigitalIn<PortD>;
+using DigitalInE=DigitalIn<PortE>;
+
+
+
+
+
+
+
+
 
 /**
     @brief Specific pin of a 16-bit GPIO port configured to be floating input
