@@ -3,14 +3,16 @@ stm32vldiscovery
 Hardware abstraction library (HAL) implemented in C++ as a wrapper for Standard Peripheral Library (SPL) aka Standard Firmware Library provided by ST.
 The purpose is to provide simple and self-descriptive interface for peripherals and make it possible to start using it without reading manuals.
 
+See additional information in Russian [in the blog](https://c4arm.blogspot.com/)
+
 Example:
 ________
-`
+```C++
 {
     Dac dac(1);
     dac.write(0);
 }
-`
+```
 Current SPL libraries
 ==================
 STSW-STM32078 STM32VLDISCOVERY firmware package (AN3268)
