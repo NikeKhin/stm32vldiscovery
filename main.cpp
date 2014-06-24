@@ -18,7 +18,7 @@ int main()
             wait(1_s);
         // Turn on LD2 and LD3
         pc9=true;
-        pc8=!pc9;
+        pc8=false;
         // Insert delay
         wait(500_ms);
         // Turn off LD3 and LD4
@@ -27,9 +27,6 @@ int main()
         // Insert delay
         wait(500_ms);
     }
-
-IS_GPIO_PIN(0);
-
     return 0;
 }
 

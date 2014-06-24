@@ -91,7 +91,7 @@ LoopFillZerobss:
   cmp   r2, r3
   bcc   FillZerobss
 
-/* AN: Call C++ constructors for global and static objects. From Freddie Chopin's example */
+/* NK: Call C++ constructors for global and static objects. From Freddie Chopin's example */
 #ifdef __USES_CXX
  ldr  r0, =__libc_init_array
  blx  r0
@@ -102,7 +102,7 @@ LoopFillZerobss:
 /* Call the application's entry point.*/
   bl    main
   bx    lr
-/* AN: Call C++ destructors for global and static objects */
+/* NK: Call C++ destructors for global and static objects */
 #ifdef __USES_CXX
  ldr  r0, =__libc_fini_array
  blx  r0

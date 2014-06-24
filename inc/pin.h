@@ -70,10 +70,7 @@ public:
     }
     /// Get current pin state
     /// @returns bool the pin state
-    bool get(){
-        return static_cast<bool>(GPIO_ReadInputDataBit(T::_base, _pin));
-        //TODO: uint8_t GPIO_ReadOutputDataBit(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);
-    }
+    virtual bool get() = 0;
     /// Cast to bool with current pin state
     /// @returns bool the pin state
     operator bool(){
@@ -107,6 +104,11 @@ public:
         GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
         GPIO_Init(T::_base, &GPIO_InitStructure);
     }
+    /// Get current pin state
+    /// @returns bool the pin state
+    bool get(){
+        return static_cast<bool>(GPIO_ReadOutputDataBit(T::_base, Pin<T>::_pin));
+    }
 };
 using DigitalOutA=DigitalOut<PortA>;
 using DigitalOutB=DigitalOut<PortB>;
@@ -133,6 +135,11 @@ public:
         GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
         GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
         GPIO_Init(T::_base, &GPIO_InitStructure);
+    }
+    /// Get current pin state
+    /// @returns bool the pin state
+    bool get(){
+        return static_cast<bool>(GPIO_ReadInputDataBit(T::_base, Pin<T>::_pin));
     }
 };
 using DigitalInA=DigitalIn<PortA>;
