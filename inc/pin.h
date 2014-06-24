@@ -74,12 +74,14 @@ public:
         return static_cast<bool>(GPIO_ReadInputDataBit(T::_base, _pin));
         //TODO: uint8_t GPIO_ReadOutputDataBit(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);
     }
-
     /// Cast to bool with current pin state
     /// @returns bool the pin state
     operator bool(){
         return get();
     }
+    /// Assignement operator
+    /// @param the boolean value of pin state to be set
+    /// @returns Pin<T>& returns own reference
     Pin<T>& operator=(bool value){
         set(value);
         return *this;

@@ -95,4 +95,31 @@ enum class AHB: uint32_t
 };
 
 
+class Time{
+    uint64_t _time; //The time in microseconds
+public:
+    constexpr Time(uint64_t t):_time{t}{
+    }
+    operator uint64_t(){
+        return _time;
+    }
+    uint64_t ticks(){
+        /// External High Speed oscillator (HSE) speed
+        return HSE_VALUE*_time/1000000UL;
+    }
+};
+
+constexpr Time  operator"" _s(uint64_t t){
+    return t*1000000UL;
+}
+constexpr Time operator"" _ms(uint64_t t){
+    return t*1000UL;
+}
+constexpr Time operator"" _us(uint64_t t){
+    return t*1UL;
+}
+
+
+void wait(Time us);
+
 #endif // COMMON_H

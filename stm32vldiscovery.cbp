@@ -58,6 +58,7 @@
 		</ExtraCommands>
 		<Unit filename="LICENSE" />
 		<Unit filename="README.md" />
+		<Unit filename="common.cpp" />
 		<Unit filename="inc/adc.h" />
 		<Unit filename="inc/bus.h" />
 		<Unit filename="inc/common.h" />

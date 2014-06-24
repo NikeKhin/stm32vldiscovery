@@ -64,7 +64,11 @@
   *   If expr is true, it returns no value.
   * @retval None
   */
-  #define assert_param(expr) ((expr) ? (void)0 : assert_failed((uint8_t *)__FILE__, __LINE__))
+#define assert_param(expr) ((expr) ? (void)0 : assert_failed((uint8_t *)__FILE__, __LINE__))
+//NK: attempts to replace the assert_param macro
+//#define stringize(...) # __VA_ARGS__
+//#define i_to_string(x) stringize(x)
+//#define assert_param(expr) static_assert(expr,"static assert failed in:" __FILE__ " at " i_to_string(__LINE__))
 
 /* Exported functions ------------------------------------------------------- */
   void assert_failed(uint8_t* file, uint32_t line);

@@ -16,7 +16,7 @@
   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
   *
   * <h2><center>&copy; COPYRIGHT 2010 STMicroelectronics</center></h2>
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_can.h"
@@ -26,10 +26,10 @@
   * @{
   */
 
-/** @defgroup CAN 
+/** @defgroup CAN
   * @brief CAN driver modules
   * @{
-  */ 
+  */
 
 /** @defgroup CAN_Private_TypesDefinitions
   * @{
@@ -144,7 +144,7 @@ void CAN_DeInit(CAN_TypeDef* CANx)
 {
   /* Check the parameters */
   assert_param(IS_CAN_ALL_PERIPH(CANx));
- 
+
   if (CANx == CAN1)
   {
     /* Enable CAN1 reset state */
@@ -153,7 +153,7 @@ void CAN_DeInit(CAN_TypeDef* CANx)
     RCC_APB1PeriphResetCmd(RCC_APB1Periph_CAN1, DISABLE);
   }
   else
-  {  
+  {
     /* Enable CAN2 reset state */
     RCC_APB1PeriphResetCmd(RCC_APB1Periph_CAN2, ENABLE);
     /* Release CAN2 from reset state */
@@ -167,7 +167,7 @@ void CAN_DeInit(CAN_TypeDef* CANx)
   * @param  CANx: where x can be 1 or 2 to to select the CAN peripheral.
   * @param  CAN_InitStruct: pointer to a CAN_InitTypeDef structure that
   *   contains the configuration information for the CAN peripheral.
-  * @retval Constant indicates initialization succeed which will be 
+  * @retval Constant indicates initialization succeed which will be
   *   CANINITFAILED or CANINITOK.
   */
 uint8_t CAN_Init(CAN_TypeDef* CANx, CAN_InitTypeDef* CAN_InitStruct)
@@ -205,7 +205,7 @@ uint8_t CAN_Init(CAN_TypeDef* CANx, CAN_InitTypeDef* CAN_InitStruct)
   {
     InitStatus = CANINITFAILED;
   }
-  else 
+  else
   {
     /* Set the time triggered communication mode */
     if (CAN_InitStruct->CAN_TTCM == ENABLE)
@@ -331,13 +331,13 @@ void CAN_FilterInit(CAN_FilterInitTypeDef* CAN_FilterInitStruct)
 
     /* First 16-bit identifier and First 16-bit mask */
     /* Or First 16-bit identifier and Second 16-bit identifier */
-    CAN1->sFilterRegister[CAN_FilterInitStruct->CAN_FilterNumber].FR1 = 
+    CAN1->sFilterRegister[CAN_FilterInitStruct->CAN_FilterNumber].FR1 =
     ((0x0000FFFF & (uint32_t)CAN_FilterInitStruct->CAN_FilterMaskIdLow) << 16) |
         (0x0000FFFF & (uint32_t)CAN_FilterInitStruct->CAN_FilterIdLow);
 
     /* Second 16-bit identifier and Second 16-bit mask */
     /* Or Third 16-bit identifier and Fourth 16-bit identifier */
-    CAN1->sFilterRegister[CAN_FilterInitStruct->CAN_FilterNumber].FR2 = 
+    CAN1->sFilterRegister[CAN_FilterInitStruct->CAN_FilterNumber].FR2 =
     ((0x0000FFFF & (uint32_t)CAN_FilterInitStruct->CAN_FilterMaskIdHigh) << 16) |
         (0x0000FFFF & (uint32_t)CAN_FilterInitStruct->CAN_FilterIdHigh);
   }
@@ -347,11 +347,11 @@ void CAN_FilterInit(CAN_FilterInitTypeDef* CAN_FilterInitStruct)
     /* 32-bit scale for the filter */
     CAN1->FS1R |= filter_number_bit_pos;
     /* 32-bit identifier or First 32-bit identifier */
-    CAN1->sFilterRegister[CAN_FilterInitStruct->CAN_FilterNumber].FR1 = 
+    CAN1->sFilterRegister[CAN_FilterInitStruct->CAN_FilterNumber].FR1 =
     ((0x0000FFFF & (uint32_t)CAN_FilterInitStruct->CAN_FilterIdHigh) << 16) |
         (0x0000FFFF & (uint32_t)CAN_FilterInitStruct->CAN_FilterIdLow);
     /* 32-bit mask or Second 32-bit identifier */
-    CAN1->sFilterRegister[CAN_FilterInitStruct->CAN_FilterNumber].FR2 = 
+    CAN1->sFilterRegister[CAN_FilterInitStruct->CAN_FilterNumber].FR2 =
     ((0x0000FFFF & (uint32_t)CAN_FilterInitStruct->CAN_FilterMaskIdHigh) << 16) |
         (0x0000FFFF & (uint32_t)CAN_FilterInitStruct->CAN_FilterMaskIdLow);
   }
@@ -380,7 +380,7 @@ void CAN_FilterInit(CAN_FilterInitTypeDef* CAN_FilterInitStruct)
     /* FIFO 1 assignation for the filter */
     CAN1->FFA1R |= (uint32_t)filter_number_bit_pos;
   }
-  
+
   /* Filter activation */
   if (CAN_FilterInitStruct->CAN_FilterActivation == ENABLE)
   {
@@ -430,7 +430,7 @@ void CAN_StructInit(CAN_InitTypeDef* CAN_InitStruct)
   * @param  CAN_BankNumber: Select the start slave bank filter from 1..27.
   * @retval None.
   */
-void CAN_SlaveStartBank(uint8_t CAN_BankNumber) 
+void CAN_SlaveStartBank(uint8_t CAN_BankNumber)
 {
   /* Check the parameters */
   assert_param(IS_CAN_BANKNUMBER(CAN_BankNumber));
@@ -516,16 +516,16 @@ uint8_t CAN_Transmit(CAN_TypeDef* CANx, CanTxMsg* TxMessage)
     CANx->sTxMailBox[transmit_mailbox].TIR &= TMIDxR_TXRQ;
     if (TxMessage->IDE == CAN_ID_STD)
     {
-      assert_param(IS_CAN_STDID(TxMessage->StdId));  
+      assert_param(IS_CAN_STDID(TxMessage->StdId));
       CANx->sTxMailBox[transmit_mailbox].TIR |= ((TxMessage->StdId << 21) | TxMessage->RTR);
     }
     else
     {
       assert_param(IS_CAN_EXTID(TxMessage->ExtId));
-      CANx->sTxMailBox[transmit_mailbox].TIR |= ((TxMessage->ExtId<<3) | TxMessage->IDE | 
+      CANx->sTxMailBox[transmit_mailbox].TIR |= ((TxMessage->ExtId<<3) | TxMessage->IDE |
                                                TxMessage->RTR);
     }
-    
+
 
     /* Set up the DLC */
     TxMessage->DLC &= (uint8_t)0x0000000F;
@@ -533,11 +533,11 @@ uint8_t CAN_Transmit(CAN_TypeDef* CANx, CanTxMsg* TxMessage)
     CANx->sTxMailBox[transmit_mailbox].TDTR |= TxMessage->DLC;
 
     /* Set up the data field */
-    CANx->sTxMailBox[transmit_mailbox].TDLR = (((uint32_t)TxMessage->Data[3] << 24) | 
+    CANx->sTxMailBox[transmit_mailbox].TDLR = (((uint32_t)TxMessage->Data[3] << 24) |
                                              ((uint32_t)TxMessage->Data[2] << 16) |
-                                             ((uint32_t)TxMessage->Data[1] << 8) | 
+                                             ((uint32_t)TxMessage->Data[1] << 8) |
                                              ((uint32_t)TxMessage->Data[0]));
-    CANx->sTxMailBox[transmit_mailbox].TDHR = (((uint32_t)TxMessage->Data[7] << 24) | 
+    CANx->sTxMailBox[transmit_mailbox].TDHR = (((uint32_t)TxMessage->Data[7] << 24) |
                                              ((uint32_t)TxMessage->Data[6] << 16) |
                                              ((uint32_t)TxMessage->Data[5] << 8) |
                                              ((uint32_t)TxMessage->Data[4]));
@@ -598,7 +598,7 @@ uint8_t CAN_TransmitStatus(CAN_TypeDef* CANx, uint8_t TransmitMailbox)
 
 /**
   * @brief  Cancels a transmit request.
-  * @param  CANx: where x can be 1 or 2 to to select the CAN peripheral. 
+  * @param  CANx: where x can be 1 or 2 to to select the CAN peripheral.
   * @param  Mailbox: Mailbox number.
   * @retval None.
   */
@@ -623,7 +623,7 @@ void CAN_CancelTransmit(CAN_TypeDef* CANx, uint8_t Mailbox)
 
 /**
   * @brief  Releases a FIFO.
-  * @param  CANx: where x can be 1 or 2 to to select the CAN peripheral. 
+  * @param  CANx: where x can be 1 or 2 to to select the CAN peripheral.
   * @param  FIFONumber: FIFO to release, CAN_FIFO0 or CAN_FIFO1.
   * @retval None.
   */
@@ -675,7 +675,7 @@ uint8_t CAN_MessagePending(CAN_TypeDef* CANx, uint8_t FIFONumber)
   * @brief  Receives a message.
   * @param  CANx: where x can be 1 or 2 to to select the CAN peripheral.
   * @param  FIFONumber: Receive FIFO number, CAN_FIFO0 or CAN_FIFO1.
-  * @param  RxMessage: pointer to a structure receive message which 
+  * @param  RxMessage: pointer to a structure receive message which
   *   contains CAN Id, CAN DLC, CAN datas and FMI number.
   * @retval None.
   */
@@ -694,7 +694,7 @@ void CAN_Receive(CAN_TypeDef* CANx, uint8_t FIFONumber, CanRxMsg* RxMessage)
   {
     RxMessage->ExtId = (uint32_t)0x1FFFFFFF & (CANx->sFIFOMailBox[FIFONumber].RIR >> 3);
   }
-  
+
   RxMessage->RTR = (uint8_t)0x02 & CANx->sFIFOMailBox[FIFONumber].RIR;
   /* Get the DLC */
   RxMessage->DLC = (uint8_t)0x0F & CANx->sFIFOMailBox[FIFONumber].RDTR;
@@ -725,7 +725,7 @@ void CAN_DBGFreeze(CAN_TypeDef* CANx, FunctionalState NewState)
   /* Check the parameters */
   assert_param(IS_CAN_ALL_PERIPH(CANx));
   assert_param(IS_FUNCTIONAL_STATE(NewState));
-  
+
   if (NewState != DISABLE)
   {
     /* Enable Debug Freeze  */
@@ -746,13 +746,13 @@ void CAN_DBGFreeze(CAN_TypeDef* CANx, FunctionalState NewState)
 uint8_t CAN_Sleep(CAN_TypeDef* CANx)
 {
   uint8_t sleepstatus = CANSLEEPFAILED;
-  
+
   /* Check the parameters */
   assert_param(IS_CAN_ALL_PERIPH(CANx));
-    
+
   /* Request Sleep mode */
    CANx->MCR = (((CANx->MCR) & (uint32_t)(~MCR_INRQ)) | MCR_SLEEP);
-   
+
   /* Sleep mode status */
   if ((CANx->MSR & (CAN_MSR_SLAK|CAN_MSR_INAK)) == CAN_MSR_SLAK)
   {
@@ -772,13 +772,13 @@ uint8_t CAN_WakeUp(CAN_TypeDef* CANx)
 {
   uint32_t wait_slak = SLAK_TimeOut	;
   uint8_t wakeupstatus = CANWAKEUPFAILED;
-  
+
   /* Check the parameters */
   assert_param(IS_CAN_ALL_PERIPH(CANx));
-    
+
   /* Wake up request */
   CANx->MCR &= ~MCR_SLEEP;
-    
+
   /* Sleep mode status */
   while(((CANx->MSR & CAN_MSR_SLAK) == CAN_MSR_SLAK)&&(wait_slak!=0x00))
   {
@@ -842,7 +842,7 @@ void CAN_ClearFlag(CAN_TypeDef* CANx, uint32_t CAN_FLAG)
   * @param  CAN_IT: specifies the CAN interrupt source to check.
   *   This parameter can be: CAN_IT_RQCP0, CAN_IT_RQCP1, CAN_IT_RQCP2,
   *   CAN_IT_FF0, CAN_IT_FOV0, CAN_IT_FF1,
-  *   CAN_IT_FOV1, CAN_IT_EWG, CAN_IT_EPV, 
+  *   CAN_IT_FOV1, CAN_IT_EWG, CAN_IT_EPV,
   *   CAN_IT_BOF, CAN_IT_WKU or CAN_IT_SLK.
   * @retval The new state of CAN_IT (SET or RESET).
   */
@@ -961,7 +961,7 @@ void CAN_ClearITPendingBit(CAN_TypeDef* CANx, uint32_t CAN_IT)
 static ITStatus CheckITStatus(uint32_t CAN_Reg, uint32_t It_Bit)
 {
   ITStatus pendingbitstatus = RESET;
-  
+
   if ((CAN_Reg & It_Bit) != (uint32_t)RESET)
   {
     /* CAN_IT is set */
