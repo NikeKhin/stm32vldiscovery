@@ -10,11 +10,31 @@ See additional information in Russian [in the blog](https://c4arm.blogspot.com/)
 Example:
 ________
 ```C++
+int main()
 {
-    Dac dac(1);
-    dac.write(0);
+    DigitalOut<PortC> pc9(9);   //this pin wired to green LED
+    DigitalOutC pc8(8);         //this pin wired to blue LED
+    DigitalInA pa0(0);          //this pin connected to user button (blue one)
+
+    pc9=true;
+    pc8=false;
+
+    while (1)
+    {
+        // pause blinking when button is pressed
+        if(pa0.get())
+            wait(1_s);
+        // toggle LEDs
+        pc9=!pc9;
+        pc8=!pc8;
+        // insert delay
+        wait(500_ms);
+    }
+    return 0;
 }
 ```
+
+
 Current SPL libraries
 ==================
 STSW-STM32078 STM32VLDISCOVERY firmware package (AN3268)

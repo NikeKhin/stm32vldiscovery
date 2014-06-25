@@ -96,15 +96,18 @@ enum class AHB: uint32_t
 
 
 class Time{
-    uint64_t _time; //The time in microseconds
+    /// The time in microseconds
+    uint64_t _time;
 public:
+    /// Literal should have constexpr constructor
     constexpr Time(uint64_t t):_time{t}{
     }
+    /// Convert to long integer type
     operator uint64_t(){
         return _time;
     }
+    /// Convert the time to ticks using External High Speed oscillator (HSE) speed value
     uint64_t ticks(){
-        /// External High Speed oscillator (HSE) speed
         return HSE_VALUE*_time/1000000UL;
     }
 };

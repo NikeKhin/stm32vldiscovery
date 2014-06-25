@@ -68,20 +68,14 @@ public:
     void set(bool value){
         GPIO_WriteBit(T::_base, _pin, value?Bit_SET:Bit_RESET);
     }
-    /// Get current pin state
+    /// Get current pin state. To be overridden by In and Out subclasses.
     /// @returns bool the pin state
     virtual bool get() = 0;
+
     /// Cast to bool with current pin state
     /// @returns bool the pin state
-    operator bool(){
+    explicit operator bool(){
         return get();
-    }
-    /// Assignement operator
-    /// @param value the boolean value of pin state to be set
-    /// @returns Pin<T>& returns own reference
-    Pin<T>& operator=(bool value){
-        set(value);
-        return *this;
     }
 };
 
@@ -108,6 +102,13 @@ public:
     /// @returns bool the pin state
     virtual bool get() override {
         return static_cast<bool>(GPIO_ReadOutputDataBit(T::_base, Pin<T>::_pin));
+    }
+    /// Assignment operator
+    /// @param value the boolean value of pin state to be set
+    /// @returns Pin<T>& returns own reference
+    DigitalOut<T>& operator=(const bool value){
+        Pin<T>::set(value);
+        return *this;
     }
 };
 using DigitalOutA=DigitalOut<PortA>;
@@ -147,47 +148,5 @@ using DigitalInB=DigitalIn<PortB>;
 using DigitalInC=DigitalIn<PortC>;
 using DigitalInD=DigitalIn<PortD>;
 using DigitalInE=DigitalIn<PortE>;
-
-
-
-
-
-
-
-
-
-/**
-    @brief Specific pin of a 16-bit GPIO port configured to be floating input
-    Possible template parameters are PortA...PortE (see type aliasing above)
-    @class Device
-*/
-template<typename T>
-class InFloatingPin: public Pin<T>
-{
-public:
-    InFloatingPin(uint8_t id):Pin<T>(id){
-        GPIO_InitTypeDef GPIO_InitStructure;
-        GPIO_InitStructure.GPIO_Pin = Pin<T>::_pin;
-        GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-        GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
-        GPIO_Init(T::_base, &GPIO_InitStructure);
-    }
-};
-
-
-template<typename T>
-class OutAnalogPin: public Pin<T>
-{
-public:
-    OutAnalogPin(uint8_t id):Pin<T>(id){
-        GPIO_InitTypeDef GPIO_InitStructure;
-        GPIO_InitStructure.GPIO_Pin = Pin<T>::_pin;
-        GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
-        GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
-        GPIO_Init(T::_base, &GPIO_InitStructure);
-    }
-
-};
-
 
 #endif // PIN_H

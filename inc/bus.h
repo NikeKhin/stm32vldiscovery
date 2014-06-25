@@ -43,6 +43,9 @@ template <typename T>
 class Device
 {
     Device() = delete;
+    Device(const Device& value)=delete;
+    Device& operator=(const Device& value)=delete;
+
 private:
     /// Peripheral ID (one of DAC, ADC, TIM, GPIO etc.)
     T _pid;

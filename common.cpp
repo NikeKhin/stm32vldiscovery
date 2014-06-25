@@ -26,5 +26,5 @@ void assert_failed(uint8_t* file, uint32_t line)
 
 void wait(Time us)
 {
-    for(__IO uint64_t ticks = us.ticks()>>3; ticks != 0; ticks--);
+    for(uint64_t ticks = us.ticks()>>3; ticks != 0; ticks--)__NOP();
 }
