@@ -5,32 +5,32 @@
 #include "bus.h"
 
 /**
-    @class Device
+    @class Port
     @brief GPIO port (16-bit)
 
     Possible template parameters APB1 or APB2 and their corresponding values
-    @param T - the bus enum type, containing its peripheral device identifiers (e.g. APB1 or APB2)
-    @param pid - peripheral GPIO device identifier (e.g. APB2::gpioc)
+    @param T the bus enum type, containing its peripheral device identifiers (e.g. APB1 or APB2)
+    @param pid peripheral GPIO device identifier (e.g. APB2::gpioc)
 */
 template<typename T, T pid>
 class Port: public Device<T>
 {
-    // TODO: some static staff (common for all class instances) may come here
-    // i.e. the port state variables
-protected:
-    /// GPIO handle structure. Declared in standard peripheral library
-    GPIO_TypeDef *_base;
 public:
     /// Default specialized constructor
     Port();
     /// Read 16 bits of the port simultaneously
+    /// @returns 16-bit port value
     uint16_t read(){
         return GPIO_ReadInputData(_base);
     }
     /// Write 16 bits of the port simultaneously
+    /// @param 16-bit port value
     void write(uint16_t value){
         GPIO_Write(_base, value);
     }
+protected:
+    /// GPIO handle structure. Declared in standard peripheral library
+    GPIO_TypeDef *_base = nullptr;
 };
 
 /**
@@ -77,7 +77,7 @@ public:
         return get();
     }
     /// Assignement operator
-    /// @param the boolean value of pin state to be set
+    /// @param value the boolean value of pin state to be set
     /// @returns Pin<T>& returns own reference
     Pin<T>& operator=(bool value){
         set(value);
@@ -106,7 +106,7 @@ public:
     }
     /// Get current pin state
     /// @returns bool the pin state
-    bool get(){
+    virtual bool get() override {
         return static_cast<bool>(GPIO_ReadOutputDataBit(T::_base, Pin<T>::_pin));
     }
 };
@@ -138,7 +138,7 @@ public:
     }
     /// Get current pin state
     /// @returns bool the pin state
-    bool get(){
+    virtual bool get() override {
         return static_cast<bool>(GPIO_ReadInputDataBit(T::_base, Pin<T>::_pin));
     }
 };

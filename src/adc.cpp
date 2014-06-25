@@ -1,6 +1,6 @@
 #include "adc.h"
 
-
+#if 0
 ADConverter1::ADConverter1():/*bus(Bus2()),*/base(ADC1)
 {
     //RCC_ADCCLKConfig(RCC_PCLK2_Div2);
@@ -73,3 +73,4 @@ ADConverter1::~ADConverter1()
     ADC_DeInit(base);
 }
 
+#endif
