@@ -43,6 +43,68 @@ using PortD = Port<APB2, APB2::gpiod>;
 using PortE = Port<APB2, APB2::gpioe>;
 
 
+
+template<typename T>
+class Portx: public Device<T>
+{
+protected:
+    /// The set bit on the bit position of the pin number
+    uint16_t _pin;
+public:
+    Portx(APinID pin);
+    Portx(BPinID pin);
+    Portx(CPinID pin);
+    Portx(DPinID pin);
+    Portx(EPinID pin);
+
+    /// Read 16 bits of the port simultaneously
+    /// @returns 16-bit port value
+    uint16_t read(){
+        return GPIO_ReadInputData(_base);
+    }
+    /// Write 16 bits of the port simultaneously
+    /// @param 16-bit port value
+    void write(uint16_t value){
+        GPIO_Write(_base, value);
+    }
+
+protected:
+    /// GPIO handle structure. Declared in standard peripheral library
+    GPIO_TypeDef *_base = nullptr;
+};
+
+//Wonderful multiple inheritance could be used for MC with GPIO connected to several buses
+template<typename T>
+class PinOut: public Portx<T>
+{
+private:
+    void init(){
+        GPIO_InitTypeDef GPIO_InitStructure;
+        GPIO_InitStructure.GPIO_Pin = Portx<T>::_pin;
+        GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+        GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+        GPIO_Init(T::_base, &GPIO_InitStructure);
+    }
+
+public:
+    PinOut(APinID id):Portx<T>{id}{
+        init();
+    }
+    PinOut(BPinID id):Portx<T>{id}{
+        init();
+    }
+    PinOut(CPinID id):Portx<T>{id}{
+        init();
+    }
+    PinOut(DPinID id):Portx<T>{id}{
+        init();
+    }
+    PinOut(EPinID id):Portx<T>{id}{
+        init();
+    }
+};
+
+
 /**
     @class Pin
     @brief Specific pin of a 16-bit GPIO port

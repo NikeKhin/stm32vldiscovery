@@ -10,25 +10,25 @@ enum class LedID : uint8_t
     blue,green
 };
 
-enum class APinID : uint8_t
+enum class APinID : uint16_t
 {
-    pa0,pa1,pa2,pa3,pa4,pa5,pa6,pa7,pa8,pa9,pa10,pa11,pa12,pa13,pa14,pa15
+    p0=0x0001,p1=0x0002,p2=0x0004,p3=0x0008,p4=0x0010,p5=0x0020,p6=0x0040,p7=0x0080,p8=0x0100,p9=0x0200,p10=0x0400,p11=0x0800,p12=0x1000,p13=0x2000,p14=0x4000,p15=0x8000
 };
-enum class BPinID : uint8_t
+enum class BPinID : uint16_t
 {
-    pb0,pb1,pb2,pb3,pb4,pb5,pb6,pb7,pb8,pb9,pb10,pb11,pb12,pb13,pb14,pb15
+    p0=0x0001,p1=0x0002,p2=0x0004,p3=0x0008,p4=0x0010,p5=0x0020,p6=0x0040,p7=0x0080,p8=0x0100,p9=0x0200,p10=0x0400,p11=0x0800,p12=0x1000,p13=0x2000,p14=0x4000,p15=0x8000
 };
-enum class CPinID : uint8_t
+enum class CPinID : uint16_t
 {
-    pc0,pc1,pc2,pc3,pc4,pc5,pc6,pc7,pc8,pc9,pc10,pc11,pc12,pc13,pc14,pc15
+    p0=0x0001,p1=0x0002,p2=0x0004,p3=0x0008,p4=0x0010,p5=0x0020,p6=0x0040,p7=0x0080,p8=0x0100,p9=0x0200,p10=0x0400,p11=0x0800,p12=0x1000,p13=0x2000,p14=0x4000,p15=0x8000
 };
-enum class DPinID : uint8_t
+enum class DPinID : uint16_t
 {
-    pd0,pd1,pd2,pd3,pd4,pd5,pd6,pd7,pd8,pd9,pd10,pd11,pd12,pd13,pd14,pd15
+    p0=0x0001,p1=0x0002,p2=0x0004,p3=0x0008,p4=0x0010,p5=0x0020,p6=0x0040,p7=0x0080,p8=0x0100,p9=0x0200,p10=0x0400,p11=0x0800,p12=0x1000,p13=0x2000,p14=0x4000,p15=0x8000
 };
-enum class EPinID : uint8_t
+enum class EPinID : uint16_t
 {
-    pe0,pe1,pe2,pe3,pe4,pe5,pe6,pe7,pe8,pe9,pe10,pe11,pe12,pe13,pe14,pe15
+    p0=0x0001,p1=0x0002,p2=0x0004,p3=0x0008,p4=0x0010,p5=0x0020,p6=0x0040,p7=0x0080,p8=0x0100,p9=0x0200,p10=0x0400,p11=0x0800,p12=0x1000,p13=0x2000,p14=0x4000,p15=0x8000
 };
 
 
