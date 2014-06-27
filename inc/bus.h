@@ -38,6 +38,7 @@ public:
 
     Device aggregates Bus member of proper bus number
     Possible template parameters APB1 and APB2 enumerations (see common.h)
+    @param T the bus enum type, containing its peripheral device identifiers (e.g. APB1 or APB2)
 */
 template <typename T>
 class Device

@@ -55,11 +55,36 @@ public:
         ADC_InitTypeDef ADC_InitStructure;
         ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
         ADC_InitStructure.ADC_ScanConvMode = DISABLE;
-        ADC_InitStructure.ADC_ContinuousConvMode = ENABLE;
-        ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
+        ADC_InitStructure.ADC_ContinuousConvMode = ENABLE; //DISABLE for event
+        ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None; // ADC_ExternalTrigConv_T3_TRGO;
         ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
         ADC_InitStructure.ADC_NbrOfChannel = 1;
         ADC_Init(ADC1 , &ADC_InitStructure);
+
+        // Configure ADC_IN6
+        //ADC_RegularChannelConfig(ADC1 , ADC_Channel_6 , 1,,!ADC_SampleTime_55Cycles5);
+        // Enable ADC
+        //ADC_Cmd(ADC1 , ENABLE);
+
+        // Check the end of ADC1 reset calibration register
+        //while(ADC_GetResetCalibrationStatus(ADC1));
+        // Start ADC1 calibration
+        //ADC_StartCalibration(ADC1);
+        // Check the end of ADC1 calibration
+        //while(ADC_GetCalibrationStatus(ADC1));
+
+
+        //ADC_RegularChannelConfig(ADC1 , ADC_Channel_6 , 1, ADC_SampleTime_55Cycles5);
+        //ADC_ITConfig(ADC1 , ADC_IT_EOC , ENABLE);
+        //ADC_ExternalTrigConvCmd(ADC1 , ENABLE);
+        //ADC_Cmd(ADC1 , ENABLE);
+
+        //void ADC1_IRQHandler(void)
+        //{
+        // read ADC DR and set LED accordingly
+        //ADC_ClearITPendingBit(ADC1 , ADC_IT_EOC);
+        //}
+
     }
 };
 

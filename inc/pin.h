@@ -24,7 +24,7 @@ public:
         return GPIO_ReadInputData(_base);
     }
     /// Write 16 bits of the port simultaneously
-    /// @param 16-bit port value
+    /// @param value 16-bit port value
     void write(uint16_t value){
         GPIO_Write(_base, value);
     }
@@ -42,75 +42,12 @@ using PortC = Port<APB2, APB2::gpioc>;
 using PortD = Port<APB2, APB2::gpiod>;
 using PortE = Port<APB2, APB2::gpioe>;
 
-
-
-template<typename T>
-class Portx: public Device<T>
-{
-protected:
-    /// The set bit on the bit position of the pin number
-    uint16_t _pin;
-public:
-    Portx(APinID pin);
-    Portx(BPinID pin);
-    Portx(CPinID pin);
-    Portx(DPinID pin);
-    Portx(EPinID pin);
-
-    /// Read 16 bits of the port simultaneously
-    /// @returns 16-bit port value
-    uint16_t read(){
-        return GPIO_ReadInputData(_base);
-    }
-    /// Write 16 bits of the port simultaneously
-    /// @param 16-bit port value
-    void write(uint16_t value){
-        GPIO_Write(_base, value);
-    }
-
-protected:
-    /// GPIO handle structure. Declared in standard peripheral library
-    GPIO_TypeDef *_base = nullptr;
-};
-
-//Wonderful multiple inheritance could be used for MC with GPIO connected to several buses
-template<typename T>
-class PinOut: public Portx<T>
-{
-private:
-    void init(){
-        GPIO_InitTypeDef GPIO_InitStructure;
-        GPIO_InitStructure.GPIO_Pin = Portx<T>::_pin;
-        GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-        GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
-        GPIO_Init(T::_base, &GPIO_InitStructure);
-    }
-
-public:
-    PinOut(APinID id):Portx<T>{id}{
-        init();
-    }
-    PinOut(BPinID id):Portx<T>{id}{
-        init();
-    }
-    PinOut(CPinID id):Portx<T>{id}{
-        init();
-    }
-    PinOut(DPinID id):Portx<T>{id}{
-        init();
-    }
-    PinOut(EPinID id):Portx<T>{id}{
-        init();
-    }
-};
-
-
 /**
     @class Pin
     @brief Specific pin of a 16-bit GPIO port
 
     Possible template parameters are PortA...PortE (see type aliasing above)
-    @param T - the type alias for the specific GPIO port (e.g. PortC)
+    @param T the type alias for the specific GPIO port (e.g. PortC)
 */
 template<typename T>
 class Pin: public T
@@ -147,7 +84,7 @@ public:
     @brief Specific pin of a 16-bit GPIO port configured to be digital output push-pull mode
 
     Possible template parameters are PortA...PortE (see type aliasing above)
-    @param T - the type alias for the specific GPIO port (e.g. PortC)
+    @param T the type alias for the specific GPIO port (e.g. PortC)
 */
 template<typename T>
 class DigitalOut: public Pin<T>
@@ -167,7 +104,7 @@ public:
     }
     /// Assignment operator
     /// @param value the boolean value of pin state to be set
-    /// @returns Pin<T>& returns own reference
+    /// @returns DigitalOut<T>& returns own reference
     DigitalOut<T>& operator=(const bool value){
         Pin<T>::set(value);
         return *this;
@@ -186,7 +123,7 @@ using DigitalOutE=DigitalOut<PortE>;
     @brief Specific pin of a 16-bit GPIO port configured to be digital input mode
 
     Possible template parameters are PortA...PortE (see type aliasing above)
-    @param T - the type alias for the specific GPIO port (e.g. PortC)
+    @param T the type alias for the specific GPIO port (e.g. PortC)
 */
 template<typename T>
 class DigitalIn: public Pin<T>
@@ -210,5 +147,163 @@ using DigitalInB=DigitalIn<PortB>;
 using DigitalInC=DigitalIn<PortC>;
 using DigitalInD=DigitalIn<PortD>;
 using DigitalInE=DigitalIn<PortE>;
+
+
+
+
+/**
+    @class Portx
+    @brief Another implementation of GPIO port (16-bit)
+
+    Possible template parameters APB1 or APB2 and their corresponding values
+    @param T the bus enum type, containing its peripheral device identifiers (e.g. APB1 or APB2)
+*/
+template<typename T>
+class Portx: public Device<T>
+{
+public:
+    /// Specialized constructors
+    /// @param pin a pin name from strongly typed enumeration
+    Portx(APinID pin);
+    Portx(BPinID pin);
+    Portx(CPinID pin);
+    Portx(DPinID pin);
+    Portx(EPinID pin);
+
+    /// Read 16 bits of the port simultaneously
+    /// @returns 16-bit port value
+    uint16_t read(){
+        return GPIO_ReadInputData(_base);
+    }
+    /// Write 16 bits of the port simultaneously
+    /// @param value 16-bit port value
+    void write(uint16_t value){
+        GPIO_Write(_base, value);
+    }
+    /// Set/reset current pin value
+    /// @param value the boolean value of the set pin state
+    void set(bool value){
+        GPIO_WriteBit(_base, _pin, value?Bit_SET:Bit_RESET);
+    }
+
+protected:
+    /// GPIO handle structure. Declared in standard peripheral library
+    GPIO_TypeDef *_base = nullptr;
+    /// The set bit on the bit position of the pin number
+    uint16_t _pin;
+};
+
+/**
+    @class PinOutX
+    @brief Specific pin of a 16-bit GPIO port configured to be digital output push-pull mode
+
+    Possible template parameters APB1 or APB2 and their corresponding values
+    Wonderful multiple inheritance could be used for MC with GPIO connected to several buses.
+    @param T the bus enum type, containing its peripheral device identifiers (e.g. APB1 or APB2)
+*/
+template<typename T>
+class PinOutX: public Portx<T>
+{
+private:
+    void init(){
+        GPIO_InitTypeDef GPIO_InitStructure;
+        GPIO_InitStructure.GPIO_Pin = Portx<T>::_pin;
+        GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+        GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+        GPIO_Init(Portx<T>::_base, &GPIO_InitStructure);
+    }
+
+public:
+    PinOutX(APinID id):Portx<T>{id}{
+        init();
+    }
+    PinOutX(BPinID id):Portx<T>{id}{
+        init();
+    }
+    PinOutX(CPinID id):Portx<T>{id}{
+        init();
+    }
+    PinOutX(DPinID id):Portx<T>{id}{
+        init();
+    }
+    PinOutX(EPinID id):Portx<T>{id}{
+        init();
+    }
+    /// Get current pin state
+    /// @returns bool the pin state
+    virtual bool get() {
+        return static_cast<bool>(GPIO_ReadOutputDataBit(Portx<T>::_base, Portx<T>::_pin));
+    }
+    /// Cast to bool with current pin state
+    /// @returns bool the pin state
+    explicit operator bool(){
+        return get();
+    }
+    /// Assignment operator
+    /// @param value the boolean value of pin state to be set
+    /// @returns PinOutX<T>& returns own reference
+    PinOutX<T>& operator=(const bool value){
+        Portx<T>::set(value);
+        return *this;
+    }
+};
+using PinOut=PinOutX<APB2>;
+
+
+/**
+    @class PinInX
+    @brief Specific pin of a 16-bit GPIO port configured to be digital output push-pull mode
+
+    Possible template parameters APB1 or APB2 and their corresponding values
+    Wonderful multiple inheritance could be used for MC with GPIO connected to several buses.
+    @param T the bus enum type, containing its peripheral device identifiers (e.g. APB1 or APB2)
+*/
+template<typename T>
+class PinInX: public Portx<T>
+{
+private:
+    void init(){
+        GPIO_InitTypeDef GPIO_InitStructure;
+        GPIO_InitStructure.GPIO_Pin = Portx<T>::_pin;
+        GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+        GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+        GPIO_Init(Portx<T>::_base, &GPIO_InitStructure);
+    }
+
+public:
+    PinInX(APinID id):Portx<T>{id}{
+        init();
+    }
+    PinInX(BPinID id):Portx<T>{id}{
+        init();
+    }
+    PinInX(CPinID id):Portx<T>{id}{
+        init();
+    }
+    PinInX(DPinID id):Portx<T>{id}{
+        init();
+    }
+    PinInX(EPinID id):Portx<T>{id}{
+        init();
+    }
+    /// Get current pin state
+    /// @returns bool the pin state
+    virtual bool get() {
+        return static_cast<bool>(GPIO_ReadInputDataBit(Portx<T>::_base, Portx<T>::_pin));
+    }
+    /// Cast to bool with current pin state
+    /// @returns bool the pin state
+    explicit operator bool(){
+        return get();
+    }
+    /// Assignment operator
+    /// @param value the boolean value of pin state to be set
+    /// @returns PinInX<T>& returns own reference
+    PinInX<T>& operator=(const bool value){
+        Portx<T>::set(value);
+        return *this;
+    }
+};
+using PinIn=PinInX<APB2>;
 
 #endif // PIN_H

@@ -7,13 +7,13 @@
 
 int main()
 {
-    DigitalOut<PortC> pc9(9);   //this pin wired to green LED
-    //PinOut<APB2> pc9(CPinID::p9);
-    DigitalOutC pc8(8);         //this pin wired to blue LED
-    DigitalInA pa0(0);          //this pin connected to user button (blue one)
+    //DigitalOut<PortC> pc9(9);   //this pin wired to green LED
+    PinOut pc9(CPinID::p9);
+    PinOut pc8(CPinID::p8);         //this pin wired to blue LED
+    PinIn pa0(APinID::p0);          //this pin connected to user button (blue one)
 
-    pc9=true;
-    pc8=false;
+    pc9.set(true);
+    pc8.set(false);
 
     while (1)
     {

@@ -34,7 +34,9 @@ Port<APB2,APB2::gpioe>::Port():
     _base{GPIOE}
 {
 }
-//-----
+
+
+//==============================
 template<>
 Portx<APB2>::Portx(APinID pin):
     Device{APB2::gpioa},
@@ -70,3 +72,4 @@ Portx<APB2>::Portx(EPinID pin):
     _base{GPIOE}
 {
 }
+
