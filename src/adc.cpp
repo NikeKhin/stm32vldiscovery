@@ -112,6 +112,24 @@ ADC_SampleTime_55Cycles5
 ADC_SampleTime_71Cycles5
 ADC_SampleTime_239Cycles5
 
+PA0 ADC1_IN0
+PA1 ADC1_IN1
+PA2 ADC1_IN2
+PA3 ADC1_IN3
+PA4 ADC1_IN4
+PA5 ADC1_IN5
+PA6 ADC1_IN6
+PA7 ADC1_IN7
+PB0 ADC1_IN8
+PB1 ADC1_IN9
+PC0 ADC1_IN10
+PC1 ADC1_IN11
+PC2 ADC1_IN12
+PC3 ADC1_IN13
+PC4 ADC1_IN14
+PC5 ADC1_IN15
+
+
 */
 
 
@@ -129,9 +147,9 @@ void AnalogInX<T>::start()
     ADC_Cmd(_base, ENABLE);
 
     //ADC_RegularChannelConfig(ADC1 , ADC_Channel_6 , 1, ADC_SampleTime_55Cycles5);
-    // ADC_IT_EOC - end of conversion
-    // ADC_IT_AWD -
-    // ADC_IT_JEOC -
+    // ADC_IT_EOC - end of conversion IRQ
+    // ADC_IT_AWD - analog watchdog IRQ
+    // ADC_IT_JEOC - end of injected conversion IRQ
     //ADC_ITConfig(_base , ADC_IT_EOC , ENABLE);
     //ADC_ExternalTrigConvCmd(ADC1 , ENABLE);
     //ADC_Cmd(ADC1 , ENABLE);
