@@ -11,7 +11,6 @@
   * @param  line: assert_param error line source number
   * @retval None
   */
-
 void assert_failed(uint8_t* file, uint32_t line)
 {
     /* User can add his own implementation to report the file name and line number,
@@ -24,6 +23,11 @@ void assert_failed(uint8_t* file, uint32_t line)
 #endif
 
 
+/**
+  * @brief  Simple _nop delay
+  * @param  us approximate wait time in microseconds
+  * @retval None
+  */
 void wait(Time us)
 {
     for(uint64_t ticks = us.ticks()>>3; ticks != 0; ticks--)__NOP();
