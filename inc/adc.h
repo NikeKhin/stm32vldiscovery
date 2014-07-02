@@ -5,6 +5,12 @@
 #include "bus.h"
 #include "pin.h"
 
+/// ADC IRQ handler
+extern "C"
+void ADC1_IRQHandler();
+
+
+
 /**
     @class AnalogInX
     @brief ADC device
@@ -26,12 +32,12 @@ public:
     virtual uint16_t read();
     /// Destruct and deinit ADC resources
     virtual ~AnalogInX();
-    /// Interrupt handler
-    static void interrupt();
-    //static AnalogInX* adc1;
+    /// Registered ADC's
+    static AnalogInX<T>* adc[1];
 protected:
-    /// ADC handle structure. Declared in standard peripheral library.
+    /// ADC handle structure. Declared in standard peripheral library. E.g. ADC1, ADC2...
     ADC_TypeDef *_base = nullptr;
+    /// ADC initialization structure.
     ADC_InitTypeDef _init{
                         ADC_Mode_Independent,       //ADC_Mode
                         DISABLE,                    //ADC_ScanConvMode
@@ -39,7 +45,11 @@ protected:
                         ADC_ExternalTrigConv_None,  //ADC_ExternalTrigConv
                         ADC_DataAlign_Right,        //ADC_DataAlign
                         1};                         //ADC_NbrOfChannel
-
+private:
+    /// Interrupt handler for EOC event
+    virtual void end_of_conversion();
+    /// Physical IRQ itself
+    friend void ADC1_IRQHandler();
 };
 
 using AnalogIn=AnalogInX<APB2>;

@@ -1,5 +1,9 @@
 #include "adc.h"
 
+template<typename T>
+AnalogInX<T>* AnalogInX<T>::adc[] = {nullptr};
+
+
 template<>
 AnalogInX<APB2>::AnalogInX(APB2 id):
     Device{APB2::adc1},
@@ -27,12 +31,14 @@ AnalogInX<APB2>::AnalogInX(APB2 id):
     //ADC default configuration
     //void ADC_StructInit(ADC_InitTypeDef* ADC_InitStruct);
 
-    //AnalogInX::adc1 = this;
+    // Register this for IRQ handling
+    adc[0] = this;
     //load structure values to control and status registers
     ADC_Init(_base, &_init);
 }
 
 /*
+
 ADC_Mode:
 ADC_Mode_Independent
 ADC_Mode_RegInjecSimult
@@ -182,24 +188,19 @@ AnalogInX<T>::~AnalogInX()
 }
 
 template<typename T>
-void AnalogInX<T>::interrupt()
+void AnalogInX<T>::end_of_conversion()
 {
-    uint16_t value = ADC_GetConversionValue(ADC1);
+    uint16_t value = ADC_GetConversionValue(_base);
 }
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 void ADC1_IRQHandler(void)
 {
+    // Check if it is end of conversion
     if (ADC_GetITStatus(ADC1, ADC_IT_EOC)) {
         // Process interrupt
-        AnalogIn::interrupt();
+        AnalogInX<APB2>::adc[0]->end_of_conversion();
         // Clear specific IRQ pending bit for this specific ADC1_IRQ
         ADC_ClearITPendingBit(ADC1 , ADC_IT_EOC);
     }
 }
-#ifdef __cplusplus
-}
-#endif
