@@ -5,11 +5,9 @@
 #include "bus.h"
 #include "pin.h"
 
-/// ADC IRQ handler
+/// ADC IRQ handler to get C-linkage
 extern "C"
 void ADC1_IRQHandler();
-
-
 
 /**
     @class AnalogInX
@@ -17,6 +15,9 @@ void ADC1_IRQHandler();
 
     Possible template parameters APB1 or APB2 and their corresponding values
     @param T the bus enum type, containing its peripheral device identifiers (e.g. APB1 or APB2)
+    This parameter can be one of the following values:
+      @arg APB1
+      @arg APB2
 */
 template<typename T>
 class AnalogInX: public Device<T>
