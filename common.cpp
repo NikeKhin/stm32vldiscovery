@@ -32,3 +32,19 @@ void wait(Time us)
 {
     for(uint64_t ticks = us.ticks()>>3; ticks != 0; ticks--)__NOP();
 }
+
+
+template<>
+void irq_config<ADC1_IRQn>()
+{
+  NVIC_InitTypeDef NVIC_InitStructure;
+
+  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
+
+  /* Configure and enable ADC interrupt */
+  NVIC_InitStructure.NVIC_IRQChannel = ADC1_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+}

@@ -13,6 +13,7 @@
 				<Option compiler="armelfgcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="inc" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -22,6 +23,7 @@
 				<Option compiler="armelfgcc" />
 				<Compiler>
 					<Add option="-O3" />
+					<Add directory="inc" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -63,6 +65,7 @@
 		<Unit filename="inc/bus.h" />
 		<Unit filename="inc/common.h" />
 		<Unit filename="inc/dac.h" />
+		<Unit filename="inc/dma.h" />
 		<Unit filename="inc/led.h" />
 		<Unit filename="inc/pin.h" />
 		<Unit filename="inc/stm32f10x_conf.h" />
@@ -186,6 +189,7 @@
 		<Unit filename="src/adc.cpp" />
 		<Unit filename="src/bus.cpp" />
 		<Unit filename="src/dac.cpp" />
+		<Unit filename="src/dma.cpp" />
 		<Unit filename="src/led.cpp" />
 		<Unit filename="src/pin.cpp" />
 		<Unit filename="src/tim.cpp" />

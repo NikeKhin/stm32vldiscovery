@@ -7,29 +7,22 @@ AnalogInX<T>* AnalogInX<T>::adc[] = {nullptr};
 template<>
 AnalogInX<APB2>::AnalogInX(APB2 id):
     Device{APB2::adc1},
-    _base{ADC1},
-    _init{
+    _base{ADC1}
+{
+    // ADCCLK should be less than 14MHz
+    // Divider options: RCC_PCLK2_Div2,RCC_PCLK2_Div4,RCC_PCLK2_Div6,RCC_PCLK2_Div8
+    RCC_ADCCLKConfig(RCC_PCLK2_Div2);
+
+    //ADC default configuration
+    ADC_StructInit(&_init);
+    _init={
         ADC_Mode_Independent,       //ADC_Mode, select independent conversion mode (single)
         DISABLE,                    //ADC_ScanConvMode, convert single channel only
         DISABLE,                    //ADC_ContinuousConvMode, convert one time
         ADC_ExternalTrigConv_None,  //ADC_ExternalTrigConv, select no external triggering. ADC_ExternalTrigConv_T3_TRGO for timer event
         ADC_DataAlign_Right,        //ADC_DataAlign, right 12-bit data alignment in ADC data register
-        1}                          //ADC_NbrOfChannel, single channel conversion
+        1};                          //ADC_NbrOfChannel, single channel conversion
 
-{
-    //RCC_PCLK2_Div2
-    //RCC_PCLK2_Div4
-    //RCC_PCLK2_Div6
-    //RCC_PCLK2_Div8
-    //RCC_ADCCLKConfig(RCC_PCLK2_Div2);
-
-    // Clock the bus
-    //bus.enable(PeripheralID::adc1);
-    // Setup pin
-    //pin.setupSlowInAnalog();
-
-    //ADC default configuration
-    //void ADC_StructInit(ADC_InitTypeDef* ADC_InitStruct);
 
     // Register this for IRQ handling
     adc[0] = this;
@@ -129,7 +122,7 @@ PC3 ADC1_IN13
 PC4 ADC1_IN14
 PC5 ADC1_IN15
 
-
+http://www.keil.com/forum/18722/
 */
 
 
@@ -142,11 +135,12 @@ void AnalogInX<T>::start()
     //ADC channel16 () configuration
     //we select 41.5 cycles conversion for channel16
     //and rank=1 which doesn't matter in single mode
+    // Setup pin
     ADC_RegularChannelConfig(_base, ADC_Channel_16, 1, ADC_SampleTime_41Cycles5);
+    ADC_RegularChannelConfig(_base, ADC_Channel_17, 2, ADC_SampleTime_41Cycles5);
     //Enable ADC
     ADC_Cmd(_base, ENABLE);
 
-    //ADC_RegularChannelConfig(ADC1 , ADC_Channel_6 , 1, ADC_SampleTime_55Cycles5);
     // ADC_IT_EOC - end of conversion IRQ
     // ADC_IT_AWD - analog watchdog IRQ
     // ADC_IT_JEOC - end of injected conversion IRQ
@@ -211,14 +205,30 @@ void AnalogInX<T>::end_of_conversion()
     uint16_t value = ADC_GetConversionValue(_base);
 }
 
-
+/**
+    @brief Extern C IRQ handler for ADC1
+*/
 void ADC1_IRQHandler(void)
 {
     // Check if it is end of conversion
     if (ADC_GetITStatus(ADC1, ADC_IT_EOC)) {
-        // Process interrupt
+        // Process EOC interrupt
         AnalogInX<APB2>::adc[0]->end_of_conversion();
         // Clear specific IRQ pending bit for this specific ADC1_IRQ
-        ADC_ClearITPendingBit(ADC1 , ADC_IT_EOC);
+        ADC_ClearITPendingBit(ADC1, ADC_IT_EOC);
+    }
+    // Check if it is end of injected conversion
+    else if(ADC_GetITStatus(ADC1, ADC_IT_JEOC)){
+        // Process EOC interrupt
+        //AnalogInX<APB2>::adc[0]->end_of_jconversion();
+        // Clear specific IRQ pending bit for this specific ADC1_IRQ
+        ADC_ClearITPendingBit(ADC1, ADC_IT_JEOC);
+    }
+    // Check if it is end of injected conversion
+    else if(ADC_GetITStatus(ADC1, ADC_IT_AWD)){
+        // Process EOC interrupt
+        //AnalogInX<APB2>::adc[0]->end_of_jconversion();
+        // Clear specific IRQ pending bit for this specific ADC1_IRQ
+        ADC_ClearITPendingBit(ADC1, ADC_IT_AWD);
     }
 }

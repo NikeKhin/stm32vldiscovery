@@ -15,23 +15,103 @@ enum class LedID : uint8_t
 */
 enum APin : uint16_t
 {
-    a0=GPIO_Pin_0,a1=0x0002,a2=0x0004,a3=0x0008,a4=0x0010,a5=0x0020,a6=0x0040,a7=0x0080,a8=0x0100,a9=0x0200,a10=0x0400,a11=0x0800,a12=0x1000,a13=0x2000,a14=0x4000,a15=0x8000
+    a0=GPIO_Pin_0,
+    a1=GPIO_Pin_1,
+    a2=GPIO_Pin_2,
+    a3=GPIO_Pin_3,
+    a4=GPIO_Pin_4,
+    a5=GPIO_Pin_5,
+    a6=GPIO_Pin_6,
+    a7=GPIO_Pin_7,
+    a8=GPIO_Pin_8,
+    a9=GPIO_Pin_9,
+    a10=GPIO_Pin_10,
+    a11=GPIO_Pin_11,
+    a12=GPIO_Pin_12,
+    a13=GPIO_Pin_13,
+    a14=GPIO_Pin_14,
+    a15=GPIO_Pin_15,
+    a=GPIO_Pin_All
 };
 enum BPin : uint16_t
 {
-    b0=0x0001,b1=0x0002,b2=0x0004,b3=0x0008,b4=0x0010,b5=0x0020,b6=0x0040,b7=0x0080,b8=0x0100,b9=0x0200,b10=0x0400,b11=0x0800,b12=0x1000,b13=0x2000,b14=0x4000,b15=0x8000
+    b0=GPIO_Pin_0,
+    b1=GPIO_Pin_1,
+    b2=GPIO_Pin_2,
+    b3=GPIO_Pin_3,
+    b4=GPIO_Pin_4,
+    b5=GPIO_Pin_5,
+    b6=GPIO_Pin_6,
+    b7=GPIO_Pin_7,
+    b8=GPIO_Pin_8,
+    b9=GPIO_Pin_9,
+    b10=GPIO_Pin_10,
+    b11=GPIO_Pin_11,
+    b12=GPIO_Pin_12,
+    b13=GPIO_Pin_13,
+    b14=GPIO_Pin_14,
+    b15=GPIO_Pin_15,
+    b=GPIO_Pin_All
 };
 enum CPin : uint16_t
 {
-    c0=0x0001,c1=0x0002,c2=0x0004,c3=0x0008,c4=0x0010,c5=0x0020,c6=0x0040,c7=0x0080,c8=0x0100,c9=0x0200,c10=0x0400,c11=0x0800,c12=0x1000,c13=0x2000,c14=0x4000,c15=0x8000
+    c0=GPIO_Pin_0,
+    c1=GPIO_Pin_1,
+    c2=GPIO_Pin_2,
+    c3=GPIO_Pin_3,
+    c4=GPIO_Pin_4,
+    c5=GPIO_Pin_5,
+    c6=GPIO_Pin_6,
+    c7=GPIO_Pin_7,
+    c8=GPIO_Pin_8,
+    c9=GPIO_Pin_9,
+    c10=GPIO_Pin_10,
+    c11=GPIO_Pin_11,
+    c12=GPIO_Pin_12,
+    c13=GPIO_Pin_13,
+    c14=GPIO_Pin_14,
+    c15=GPIO_Pin_15,
+    c=GPIO_Pin_All
 };
 enum DPin : uint16_t
 {
-    d0=0x0001,d1=0x0002,d2=0x0004,d3=0x0008,d4=0x0010,d5=0x0020,d6=0x0040,d7=0x0080,d8=0x0100,d9=0x0200,d10=0x0400,d11=0x0800,d12=0x1000,d13=0x2000,d14=0x4000,d15=0x8000
+    d0=GPIO_Pin_0,
+    d1=GPIO_Pin_1,
+    d2=GPIO_Pin_2,
+    d3=GPIO_Pin_3,
+    d4=GPIO_Pin_4,
+    d5=GPIO_Pin_5,
+    d6=GPIO_Pin_6,
+    d7=GPIO_Pin_7,
+    d8=GPIO_Pin_8,
+    d9=GPIO_Pin_9,
+    d10=GPIO_Pin_10,
+    d11=GPIO_Pin_11,
+    d12=GPIO_Pin_12,
+    d13=GPIO_Pin_13,
+    d14=GPIO_Pin_14,
+    d15=GPIO_Pin_15,
+    d=GPIO_Pin_All
 };
 enum EPin : uint16_t
 {
-    e0=0x0001,e1=0x0002,e2=0x0004,e3=0x0008,e4=0x0010,e5=0x0020,e6=0x0040,e7=0x0080,e8=0x0100,e9=0x0200,e10=0x0400,e11=0x0800,e12=0x1000,e13=0x2000,e14=0x4000,e15=0x8000
+    e0=GPIO_Pin_0,
+    e1=GPIO_Pin_1,
+    e2=GPIO_Pin_2,
+    e3=GPIO_Pin_3,
+    e4=GPIO_Pin_4,
+    e5=GPIO_Pin_5,
+    e6=GPIO_Pin_6,
+    e7=GPIO_Pin_7,
+    e8=GPIO_Pin_8,
+    e9=GPIO_Pin_9,
+    e10=GPIO_Pin_10,
+    e11=GPIO_Pin_11,
+    e12=GPIO_Pin_12,
+    e13=GPIO_Pin_13,
+    e14=GPIO_Pin_14,
+    e15=GPIO_Pin_15,
+    e=GPIO_Pin_All
 };
 
 /**
@@ -126,5 +206,10 @@ constexpr Time operator"" _us(uint64_t t){
 
 
 void wait(Time us);
+
+
+template<IRQn_Type irq>
+void irq_config();
+
 
 #endif // COMMON_H
