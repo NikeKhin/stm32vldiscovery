@@ -1,34 +1,23 @@
 #include "adc.h"
 
 template<typename T>
-AnalogInX<T>* AnalogInX<T>::adc[] = {nullptr};
-
+AnalogX<T>* AnalogX<T>::adc[] = {nullptr};
 
 template<>
-AnalogInX<APB2>::AnalogInX(APB2 id):
-    Device{APB2::adc1},
-    _base{ADC1}
+AnalogX<APB2>::AnalogX(APB2 id):
+    Device{id},
+    _base{ (id==APB2::adc1)?ADC1:ADC2 } //TODO: we know id, let's detect base
 {
     // ADCCLK should be less than 14MHz
     // Divider options: RCC_PCLK2_Div2,RCC_PCLK2_Div4,RCC_PCLK2_Div6,RCC_PCLK2_Div8
+    // TODO: To be done once for all ADCs.
     RCC_ADCCLKConfig(RCC_PCLK2_Div2);
-
-    //ADC default configuration
-    ADC_StructInit(&_init);
-    _init={
-        ADC_Mode_Independent,       //ADC_Mode, select independent conversion mode (single)
-        DISABLE,                    //ADC_ScanConvMode, convert single channel only
-        DISABLE,                    //ADC_ContinuousConvMode, convert one time
-        ADC_ExternalTrigConv_None,  //ADC_ExternalTrigConv, select no external triggering. ADC_ExternalTrigConv_T3_TRGO for timer event
-        ADC_DataAlign_Right,        //ADC_DataAlign, right 12-bit data alignment in ADC data register
-        1};                          //ADC_NbrOfChannel, single channel conversion
-
 
     // Register this for IRQ handling
     adc[0] = this;
-    //load structure values to control and status registers
-    ADC_Init(_base, &_init);
+
 }
+
 
 /*
 
@@ -128,35 +117,37 @@ http://www.keil.com/forum/18722/
 
 
 template<typename T>
-void AnalogInX<T>::start()
+void AnalogX<T>::start(APin pin)
 {
-    //wake up temperature sensor
-    ADC_TempSensorVrefintCmd(ENABLE);
-    //ADC channel16 () configuration
-    //we select 41.5 cycles conversion for channel16
-    //and rank=1 which doesn't matter in single mode
+
+    //ADC default configuration
+    ADC_StructInit(&_init);
+    _init={
+        ADC_Mode_Independent,       //ADC_Mode, select independent conversion mode (single)
+        DISABLE,                    //ADC_ScanConvMode, convert single channel only
+        DISABLE,                    //ADC_ContinuousConvMode, convert one time
+        ADC_ExternalTrigConv_None,  //ADC_ExternalTrigConv, select no external triggering. ADC_ExternalTrigConv_T3_TRGO for timer event
+        ADC_DataAlign_Right,        //ADC_DataAlign, right 12-bit data alignment in ADC data register
+        1};                          //ADC_NbrOfChannel, single channel conversion
+    //load structure values to control and status registers
+    ADC_Init(_base, &_init);
+
+    // Optional wake up temperature sensor
+    //ADC_TempSensorVrefintCmd(ENABLE);
+    // ADC channel16 () configuration
     // Setup pin
     ADC_RegularChannelConfig(_base, ADC_Channel_16, 1, ADC_SampleTime_41Cycles5);
     ADC_RegularChannelConfig(_base, ADC_Channel_17, 2, ADC_SampleTime_41Cycles5);
-    //Enable ADC
-    ADC_Cmd(_base, ENABLE);
 
     // ADC_IT_EOC - end of conversion IRQ
     // ADC_IT_AWD - analog watchdog IRQ
     // ADC_IT_JEOC - end of injected conversion IRQ
+    // TODO: maybe after enabling by call to ADC_Cmd
     //ADC_ITConfig(_base , ADC_IT_EOC , ENABLE);
-    //ADC_ExternalTrigConvCmd(ADC1 , ENABLE);
-    //ADC_Cmd(ADC1 , ENABLE);
+    //ADC_ExternalTrigConvCmd(_base, ENABLE);
 
-
-    //NVIC_PriorityGroupConfig(NVIC_PriorityGroup_0);
-    //NVIC_InitTypeDef NVIC_InitStructure;
-    //NVIC_InitStructure.NVIC_IRQChannel = ADC1_IRQn; // or ADC1_2_IRQn
-    //NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-    //NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
-    //NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-    //NVIC_Init(&NVIC_InitStructure);
-
+    // Enable ADC
+    ADC_Cmd(_base, ENABLE);
 
     //Enable ADC1 reset calibration register
     ADC_ResetCalibration(_base);
@@ -169,14 +160,16 @@ void AnalogInX<T>::start()
 }
 
 template<typename T>
-void AnalogInX<T>::stop()
+void AnalogX<T>::stop()
 {
+    //Disable the interrupt
+    ADC_ITConfig(_base , ADC_IT_EOC , DISABLE);
     //Disable the ADC
     ADC_Cmd(_base, DISABLE);
 }
 
 template<typename T>
-uint16_t AnalogInX<T>::read()
+uint16_t AnalogX<T>::read()
 {
     uint16_t value;
     //start the ADC Software Conversion
@@ -192,7 +185,7 @@ uint16_t AnalogInX<T>::read()
 }
 
 template<typename T>
-AnalogInX<T>::~AnalogInX()
+AnalogX<T>::~AnalogX()
 {
     // Excessive but better stop if not be stopped by the next deinit/reset calls.
     stop();
@@ -200,7 +193,7 @@ AnalogInX<T>::~AnalogInX()
 }
 
 template<typename T>
-void AnalogInX<T>::end_of_conversion()
+void AnalogX<T>::end_of_conversion()
 {
     uint16_t value = ADC_GetConversionValue(_base);
 }
@@ -213,21 +206,21 @@ void ADC1_IRQHandler(void)
     // Check if it is end of conversion
     if (ADC_GetITStatus(ADC1, ADC_IT_EOC)) {
         // Process EOC interrupt
-        AnalogInX<APB2>::adc[0]->end_of_conversion();
+        AnalogX<APB2>::adc[0]->end_of_conversion();
         // Clear specific IRQ pending bit for this specific ADC1_IRQ
         ADC_ClearITPendingBit(ADC1, ADC_IT_EOC);
     }
     // Check if it is end of injected conversion
     else if(ADC_GetITStatus(ADC1, ADC_IT_JEOC)){
         // Process EOC interrupt
-        //AnalogInX<APB2>::adc[0]->end_of_jconversion();
+        //AnalogX<APB2>::adc[0]->end_of_jconversion();
         // Clear specific IRQ pending bit for this specific ADC1_IRQ
         ADC_ClearITPendingBit(ADC1, ADC_IT_JEOC);
     }
     // Check if it is end of injected conversion
     else if(ADC_GetITStatus(ADC1, ADC_IT_AWD)){
         // Process EOC interrupt
-        //AnalogInX<APB2>::adc[0]->end_of_jconversion();
+        //AnalogX<APB2>::adc[0]->end_of_jconversion();
         // Clear specific IRQ pending bit for this specific ADC1_IRQ
         ADC_ClearITPendingBit(ADC1, ADC_IT_AWD);
     }

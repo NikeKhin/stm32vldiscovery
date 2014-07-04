@@ -33,18 +33,22 @@ void wait(Time us)
     for(uint64_t ticks = us.ticks()>>3; ticks != 0; ticks--)__NOP();
 }
 
-
+/**
+    IRQ configuration block
+    //TODO: maybe move it to owner
+*/
 template<>
-void irq_config<ADC1_IRQn>()
+irq<ADC1_IRQn>::irq()
 {
-  NVIC_InitTypeDef NVIC_InitStructure;
-
+  // Select priority group.
+  // TODO: To be done once for all IRQ.
   NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
-
-  /* Configure and enable ADC interrupt */
+  // Configure and enable ADC interrupt
+  NVIC_InitTypeDef NVIC_InitStructure;
   NVIC_InitStructure.NVIC_IRQChannel = ADC1_IRQn;
   NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
   NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
   NVIC_Init(&NVIC_InitStructure);
 }
+

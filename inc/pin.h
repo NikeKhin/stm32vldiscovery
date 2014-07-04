@@ -86,11 +86,11 @@ template<typename T>
 class PinOutX: public Portx<T>
 {
 public:
-    PinOutX(APin id):Portx<T>{id,GPIO_Mode_Out_PP}{}
-    PinOutX(BPin id):Portx<T>{id,GPIO_Mode_Out_PP}{}
-    PinOutX(CPin id):Portx<T>{id,GPIO_Mode_Out_PP}{}
-    PinOutX(DPin id):Portx<T>{id,GPIO_Mode_Out_PP}{}
-    PinOutX(EPin id):Portx<T>{id,GPIO_Mode_Out_PP}{}
+    PinOutX(APin id, GPIOMode_TypeDef mode=GPIO_Mode_Out_PP):Portx<T>{id,mode}{}
+    PinOutX(BPin id, GPIOMode_TypeDef mode=GPIO_Mode_Out_PP):Portx<T>{id,mode}{}
+    PinOutX(CPin id, GPIOMode_TypeDef mode=GPIO_Mode_Out_PP):Portx<T>{id,mode}{}
+    PinOutX(DPin id, GPIOMode_TypeDef mode=GPIO_Mode_Out_PP):Portx<T>{id,mode}{}
+    PinOutX(EPin id, GPIOMode_TypeDef mode=GPIO_Mode_Out_PP):Portx<T>{id,mode}{}
     /// Get current pin state
     /// @returns bool the pin state
     virtual bool get() override {
@@ -126,11 +126,11 @@ template<typename T>
 class PinInX: public Portx<T>
 {
 public:
-    PinInX(APin id):Portx<T>{id,GPIO_Mode_IN_FLOATING}{}
-    PinInX(BPin id):Portx<T>{id,GPIO_Mode_IN_FLOATING}{}
-    PinInX(CPin id):Portx<T>{id,GPIO_Mode_IN_FLOATING}{}
-    PinInX(DPin id):Portx<T>{id,GPIO_Mode_IN_FLOATING}{}
-    PinInX(EPin id):Portx<T>{id,GPIO_Mode_IN_FLOATING}{}
+    PinInX(APin id, GPIOMode_TypeDef mode=GPIO_Mode_IN_FLOATING):Portx<T>{id,mode}{}
+    PinInX(BPin id, GPIOMode_TypeDef mode=GPIO_Mode_IN_FLOATING):Portx<T>{id,mode}{}
+    PinInX(CPin id, GPIOMode_TypeDef mode=GPIO_Mode_IN_FLOATING):Portx<T>{id,mode}{}
+    PinInX(DPin id, GPIOMode_TypeDef mode=GPIO_Mode_IN_FLOATING):Portx<T>{id,mode}{}
+    PinInX(EPin id, GPIOMode_TypeDef mode=GPIO_Mode_IN_FLOATING):Portx<T>{id,mode}{}
     /// Get current pin state
     /// @returns bool the pin state
     virtual bool get() override {
@@ -151,26 +151,6 @@ public:
 };
 using PinIn=PinInX<APB2>;
 
-/**
-    @class PinAnalogX
-    @brief Specific pin of a 16-bit GPIO port configured to be analog input/output mode
-
-    Possible template parameters APB1 or APB2
-    @param T the bus enum type, containing its peripheral device identifiers (e.g. APB1 or APB2)
-        @arg APB1
-        @arg APB2
-*/
-template<typename T>
-class PinAnalogX: public Portx<T>
-{
-public:
-    PinAnalogX(APin id):Portx<T>{id,GPIO_Mode_AIN}{}
-    PinAnalogX(BPin id):Portx<T>{id,GPIO_Mode_AIN}{}
-    PinAnalogX(CPin id):Portx<T>{id,GPIO_Mode_AIN}{}
-    PinAnalogX(DPin id):Portx<T>{id,GPIO_Mode_AIN}{}
-    PinAnalogX(EPin id):Portx<T>{id,GPIO_Mode_AIN}{}
-};
-using PinAnalog=PinAnalogX<APB2>;
 
 
 #endif // PIN_H

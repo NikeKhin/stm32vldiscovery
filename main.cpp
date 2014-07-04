@@ -15,7 +15,8 @@ int main()
     green.set(true);
     blue.set(false);
 
-    AnalogIn adc(APB2::adc1);
+    Analog adc(APB2::adc1);
+    adc.start(a1);
 
     while (1)
     {

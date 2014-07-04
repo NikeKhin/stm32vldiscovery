@@ -208,8 +208,12 @@ constexpr Time operator"" _us(uint64_t t){
 void wait(Time us);
 
 
-template<IRQn_Type irq>
-void irq_config();
+template<IRQn_Type T>
+class irq final{
+public:
+    irq();
+    ~irq(){/*no way to unregister interrupt*/}
+};
 
 
 #endif // COMMON_H
