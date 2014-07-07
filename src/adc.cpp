@@ -136,8 +136,11 @@ void AnalogX<T>::start(APin pin)
     //ADC_TempSensorVrefintCmd(ENABLE);
     // ADC channel16 () configuration
     // Setup pin
-    ADC_RegularChannelConfig(_base, ADC_Channel_16, 1, ADC_SampleTime_41Cycles5);
-    ADC_RegularChannelConfig(_base, ADC_Channel_17, 2, ADC_SampleTime_41Cycles5);
+    ADC_RegularChannelConfig(_base, ADC_Channel_16, 1, ADC_SampleTime_1Cycles5);
+    ADC_RegularChannelConfig(_base, ADC_Channel_17, 2, ADC_SampleTime_1Cycles5);
+
+    // configure NVIC
+    _irq();
 
     // ADC_IT_EOC - end of conversion IRQ
     // ADC_IT_AWD - analog watchdog IRQ

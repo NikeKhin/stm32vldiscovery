@@ -209,10 +209,13 @@ void wait(Time us);
 
 
 template<IRQn_Type T>
-class irq final{
+class irq {
 public:
-    irq();
-    ~irq(){/*no way to unregister interrupt*/}
+    irq(){
+      // Everything is preemptive
+      NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
+    }
+    void operator()();
 };
 
 

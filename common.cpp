@@ -38,11 +38,8 @@ void wait(Time us)
     //TODO: maybe move it to owner
 */
 template<>
-irq<ADC1_IRQn>::irq()
+void irq<ADC1_IRQn>::operator()()
 {
-  // Select priority group.
-  // TODO: To be done once for all IRQ.
-  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
   // Configure and enable ADC interrupt
   NVIC_InitTypeDef NVIC_InitStructure;
   NVIC_InitStructure.NVIC_IRQChannel = ADC1_IRQn;
