@@ -16,8 +16,114 @@ AnalogX<APB2>::AnalogX(APB2 id):
     // Register this for IRQ handling
     adc[0] = this;
 
+    // ADC default configuration
+    ADC_StructInit(&_init);
+    // Redefine with custom values
+    _init={
+        ADC_Mode_Independent,       //ADC_Mode, select independent conversion mode (single)
+        ENABLE,                     //ADC_ScanConvMode, convert single channel only when enabled
+        DISABLE,                    //ADC_ContinuousConvMode, convert one time
+        ADC_ExternalTrigConv_T3_TRGO,//ADC_ExternalTrigConv, ADC_ExternalTrigConv_T3_TRGO for timer event. ADC_ExternalTrigConv_None selects no external triggering.
+        ADC_DataAlign_Right,        //ADC_DataAlign, right 12-bit data alignment in ADC data register
+        1};                         //ADC_NbrOfChannel, single channel conversion
+    //load structure values to control and status registers
+    ADC_Init(_base, &_init);
 }
 
+
+template<typename T>
+void AnalogX<T>::start()
+{
+    // configure NVIC
+    _irq();
+
+    // ADC_IT_EOC - end of conversion IRQ
+    // ADC_IT_AWD - analog watchdog IRQ
+    // ADC_IT_JEOC - end of injected conversion IRQ
+    // TODO: maybe after enabling by call to ADC_Cmd
+    ADC_ITConfig(_base , ADC_IT_EOC , ENABLE);
+    // Enable conversion through external trigger
+    ADC_ExternalTrigConvCmd(_base, ENABLE);
+    // Enable ADC
+    ADC_Cmd(_base, ENABLE);
+    //Enable ADC1 reset calibration register
+    ADC_ResetCalibration(_base);
+    //Check the end of ADC1 reset calibration register
+    while(ADC_GetResetCalibrationStatus(_base));
+    //Start ADC1 calibration
+    ADC_StartCalibration(_base);
+    //Check the end of ADC1 calibration
+    while(ADC_GetCalibrationStatus(_base));
+}
+
+template<typename T>
+void AnalogX<T>::stop()
+{
+    // Disable external triggering
+    ADC_ExternalTrigConvCmd(_base, DISABLE);
+    //Disable the interrupt
+    ADC_ITConfig(_base , ADC_IT_EOC , DISABLE);
+    //Disable the ADC
+    ADC_Cmd(_base, DISABLE);
+}
+
+template<typename T>
+uint16_t AnalogX<T>::read()
+{
+    uint16_t value;
+    //start the ADC Software Conversion
+    ADC_SoftwareStartConvCmd(_base, ENABLE);
+    //wait for conversion complete
+    while(!ADC_GetFlagStatus(_base, ADC_FLAG_EOC)){}
+    //read ADC value
+    value=ADC_GetConversionValue(_base);
+    //clear EOC flag
+    ADC_ClearFlag(_base, ADC_FLAG_EOC);
+    //return the result
+    return value;
+}
+
+template<typename T>
+AnalogX<T>::~AnalogX()
+{
+    // Excessive but better stop if not be stopped by the next deinit/reset calls.
+    stop();
+    ADC_DeInit(_base);
+}
+
+template<typename T>
+void AnalogX<T>::end_of_conversion()
+{
+    uint16_t value = ADC_GetConversionValue(_base);
+}
+
+/**
+    @brief Extern C IRQ handler for ADC1
+*/
+void ADC1_IRQHandler(void)
+{
+    // Check if it is end of conversion
+    if (ADC_GetITStatus(ADC1, ADC_IT_EOC)) {
+        // Process EOC interrupt
+        AnalogX<APB2>::adc[0]->end_of_conversion();
+        // Clear specific IRQ pending bit for this specific ADC1_IRQ
+        ADC_ClearITPendingBit(ADC1, ADC_IT_EOC);
+    }
+    // Check if it is end of injected conversion
+    else if(ADC_GetITStatus(ADC1, ADC_IT_JEOC)){
+        // Process EOC interrupt
+        //AnalogX<APB2>::adc[0]->end_of_jconversion();
+        // Clear specific IRQ pending bit for this specific ADC1_IRQ
+        ADC_ClearITPendingBit(ADC1, ADC_IT_JEOC);
+    }
+    // Check if it is end of injected conversion
+    else if(ADC_GetITStatus(ADC1, ADC_IT_AWD)){
+        // Process EOC interrupt
+        //AnalogX<APB2>::adc[0]->end_of_jconversion();
+        // Clear specific IRQ pending bit for this specific ADC1_IRQ
+        ADC_ClearITPendingBit(ADC1, ADC_IT_AWD);
+    }
+}
 
 /*
 
@@ -113,118 +219,3 @@ PC5 ADC1_IN15
 
 http://www.keil.com/forum/18722/
 */
-
-
-
-template<typename T>
-void AnalogX<T>::start(APin pin)
-{
-
-    //ADC default configuration
-    ADC_StructInit(&_init);
-    _init={
-        ADC_Mode_Independent,       //ADC_Mode, select independent conversion mode (single)
-        DISABLE,                    //ADC_ScanConvMode, convert single channel only
-        DISABLE,                    //ADC_ContinuousConvMode, convert one time
-        ADC_ExternalTrigConv_None,  //ADC_ExternalTrigConv, select no external triggering. ADC_ExternalTrigConv_T3_TRGO for timer event
-        ADC_DataAlign_Right,        //ADC_DataAlign, right 12-bit data alignment in ADC data register
-        1};                          //ADC_NbrOfChannel, single channel conversion
-    //load structure values to control and status registers
-    ADC_Init(_base, &_init);
-
-    // Optional wake up temperature sensor
-    //ADC_TempSensorVrefintCmd(ENABLE);
-    // ADC channel16 () configuration
-    // Setup pin
-    ADC_RegularChannelConfig(_base, ADC_Channel_16, 1, ADC_SampleTime_1Cycles5);
-    ADC_RegularChannelConfig(_base, ADC_Channel_17, 2, ADC_SampleTime_1Cycles5);
-
-    // configure NVIC
-    _irq();
-
-    // ADC_IT_EOC - end of conversion IRQ
-    // ADC_IT_AWD - analog watchdog IRQ
-    // ADC_IT_JEOC - end of injected conversion IRQ
-    // TODO: maybe after enabling by call to ADC_Cmd
-    //ADC_ITConfig(_base , ADC_IT_EOC , ENABLE);
-    //ADC_ExternalTrigConvCmd(_base, ENABLE);
-
-    // Enable ADC
-    ADC_Cmd(_base, ENABLE);
-
-    //Enable ADC1 reset calibration register
-    ADC_ResetCalibration(_base);
-    //Check the end of ADC1 reset calibration register
-    while(ADC_GetResetCalibrationStatus(_base));
-    //Start ADC1 calibration
-    ADC_StartCalibration(_base);
-    //Check the end of ADC1 calibration
-    while(ADC_GetCalibrationStatus(_base));
-}
-
-template<typename T>
-void AnalogX<T>::stop()
-{
-    //Disable the interrupt
-    ADC_ITConfig(_base , ADC_IT_EOC , DISABLE);
-    //Disable the ADC
-    ADC_Cmd(_base, DISABLE);
-}
-
-template<typename T>
-uint16_t AnalogX<T>::read()
-{
-    uint16_t value;
-    //start the ADC Software Conversion
-    ADC_SoftwareStartConvCmd(_base, ENABLE);
-    //wait for conversion complete
-    while(!ADC_GetFlagStatus(_base, ADC_FLAG_EOC)){}
-    //read ADC value
-    value=ADC_GetConversionValue(_base);
-    //clear EOC flag
-    ADC_ClearFlag(_base, ADC_FLAG_EOC);
-    //return the result
-    return value;
-}
-
-template<typename T>
-AnalogX<T>::~AnalogX()
-{
-    // Excessive but better stop if not be stopped by the next deinit/reset calls.
-    stop();
-    ADC_DeInit(_base);
-}
-
-template<typename T>
-void AnalogX<T>::end_of_conversion()
-{
-    uint16_t value = ADC_GetConversionValue(_base);
-}
-
-/**
-    @brief Extern C IRQ handler for ADC1
-*/
-void ADC1_IRQHandler(void)
-{
-    // Check if it is end of conversion
-    if (ADC_GetITStatus(ADC1, ADC_IT_EOC)) {
-        // Process EOC interrupt
-        AnalogX<APB2>::adc[0]->end_of_conversion();
-        // Clear specific IRQ pending bit for this specific ADC1_IRQ
-        ADC_ClearITPendingBit(ADC1, ADC_IT_EOC);
-    }
-    // Check if it is end of injected conversion
-    else if(ADC_GetITStatus(ADC1, ADC_IT_JEOC)){
-        // Process EOC interrupt
-        //AnalogX<APB2>::adc[0]->end_of_jconversion();
-        // Clear specific IRQ pending bit for this specific ADC1_IRQ
-        ADC_ClearITPendingBit(ADC1, ADC_IT_JEOC);
-    }
-    // Check if it is end of injected conversion
-    else if(ADC_GetITStatus(ADC1, ADC_IT_AWD)){
-        // Process EOC interrupt
-        //AnalogX<APB2>::adc[0]->end_of_jconversion();
-        // Clear specific IRQ pending bit for this specific ADC1_IRQ
-        ADC_ClearITPendingBit(ADC1, ADC_IT_AWD);
-    }
-}

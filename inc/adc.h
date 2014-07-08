@@ -26,7 +26,7 @@ public:
     /// Default specialized constructor
     AnalogX(T id);
     /// Starts conversion
-    virtual void start(APin pin);
+    virtual void start();
     /// Stops conversion
     virtual void stop();
     /// Read 16 bits of the ADC data port
@@ -56,24 +56,57 @@ private:
     /// IRQ configuration
     irq<ADC1_IRQn> _irq;
 
-    /*
-    PinIn _pa0{a0,GPIO_Mode_AIN};// ADC1_IN0
-    PinIn _pa1{a1,GPIO_Mode_AIN};// ADC1_IN1
-    PinIn _pa2{a2,GPIO_Mode_AIN};// ADC1_IN2
-    PinIn _pa3{a3,GPIO_Mode_AIN};// ADC1_IN3
-    PinIn _pa4{a4,GPIO_Mode_AIN};// ADC1_IN4
-    PinIn _pa5{a5,GPIO_Mode_AIN};// ADC1_IN5
-    PinIn _pa6{a6,GPIO_Mode_AIN};// ADC1_IN6
-    PinIn _pa7{a7,GPIO_Mode_AIN};// ADC1_IN7
-    PinIn _pb0{b0,GPIO_Mode_AIN};// ADC1_IN8
-    PinIn _pb1{b1,GPIO_Mode_AIN};// ADC1_IN9
-    PinIn _pc0{c0,GPIO_Mode_AIN};// ADC1_IN10
-    PinIn _pc1{c1,GPIO_Mode_AIN};// ADC1_IN11
-    PinIn _pc2{c2,GPIO_Mode_AIN};// ADC1_IN12
-    PinIn _pc3{c3,GPIO_Mode_AIN};// ADC1_IN13
-    PinIn _pc4{c4,GPIO_Mode_AIN};// ADC1_IN14
-    PinIn _pc5{c5,GPIO_Mode_AIN};// ADC1_IN15
-    */
+
+    /// ADC channelsequence nimber (1 to 16) for sequential conversion
+    int channel_priority{1};
+
+    /// Nested channel type
+    template <typename U, U id, uint8_t channel>
+    class Channel {
+    public:
+        Channel(AnalogX &adc):_p{id,GPIO_Mode_AIN},_adc(adc){
+            ADC_RegularChannelConfig(_adc._base, channel, _adc.channel_priority++, ADC_SampleTime_1Cycles5);
+        }
+        uint16_t read(){ return 0;}
+        ~Channel(){_adc.channel_priority++;}
+    private:
+        PinIn _p;
+        AnalogX &_adc;
+    };
+    /// Specialization for special 16 and 17 channels not attached to pins
+    template <uint8_t channel>
+    class Channel<int,0,channel> {
+    public:
+        Channel(AnalogX &adc){
+            // TODO: Excessive for the 17th channel but let it be
+            ADC_TempSensorVrefintCmd(ENABLE);
+            ADC_RegularChannelConfig(adc._base, channel, adc.channel_priority++, ADC_SampleTime_1Cycles5);
+        }
+        ~Channel(){_adc.channel_priority++;}
+    private:
+        AnalogX &_adc;
+    };
+
+public:
+    /// Priority is assigned in the order of construction
+    using in0 = Channel<APin, a0, ADC_Channel_0>;// ADC1_IN0
+    using in1 = Channel<APin, a1, ADC_Channel_1>;// ADC1_IN1
+    using in2 = Channel<APin, a2, ADC_Channel_2>;// ADC1_IN2
+    using in3 = Channel<APin, a3, ADC_Channel_3>;// ADC1_IN3
+    using in4 = Channel<APin, a4, ADC_Channel_4>;// ADC1_IN4
+    using in5 = Channel<APin, a5, ADC_Channel_5>;// ADC1_IN5
+    using in6 = Channel<APin, a6, ADC_Channel_6>;// ADC1_IN6
+    using in7 = Channel<APin, a7, ADC_Channel_7>;// ADC1_IN7
+    using in8 = Channel<BPin, b0, ADC_Channel_8>;// ADC1_IN8
+    using in9 = Channel<BPin, b1, ADC_Channel_9>;// ADC1_IN9
+    using in10= Channel<CPin, c0, ADC_Channel_10>;// ADC1_IN10
+    using in11= Channel<CPin, c1, ADC_Channel_11>;// ADC1_IN11
+    using in12= Channel<CPin, c2, ADC_Channel_12>;// ADC1_IN12
+    using in13= Channel<CPin, c3, ADC_Channel_13>;// ADC1_IN13
+    using in14= Channel<CPin, c4, ADC_Channel_14>;// ADC1_IN14
+    using in15= Channel<CPin, c5, ADC_Channel_15>;// ADC1_IN15
+    using in16= Channel<int,   0, ADC_Channel_16>;// ADC1_IN16
+    using in17= Channel<int,   0, ADC_Channel_17>;// ADC1_IN17
 };
 
 using Analog=AnalogX<APB2>;

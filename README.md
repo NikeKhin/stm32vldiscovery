@@ -3,6 +3,8 @@ stm32vldiscovery C++ template based HAL
 Hardware abstraction library (HAL) implemented in C++ as a wrapper for Standard Peripheral Library (SPL) aka Standard Firmware Library provided by ST.
 The purpose is to provide simple and self-descriptive interface for peripherals and make it possible to start using it without reading manuals.
 
+The library has static resource allocation and small footprint.
+
 Interface is loosely similar to [mbed Microcontroller Library](https://mbed.org/handbook/mbed-SDK).
 
 See additional information in Russian [in the blog](https://c4arm.blogspot.com/)
