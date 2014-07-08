@@ -120,7 +120,7 @@ enum EPin : uint16_t
 
   Intended for use as a template parameter for various device classes
  */
-enum class APB1 : uint32_t
+enum APB1 : uint32_t
 {
     bkp=RCC_APB1Periph_BKP,
     cec=RCC_APB1Periph_CEC,
@@ -137,8 +137,7 @@ enum class APB1 : uint32_t
     tim7=RCC_APB1Periph_TIM7,
     usart2=RCC_APB1Periph_USART2,
     usart3=RCC_APB1Periph_USART3,
-    wwdg=RCC_APB1Periph_WWDG,
-    the_bus
+    wwdg=RCC_APB1Periph_WWDG
 };
 /**
   @class APB2
@@ -146,7 +145,7 @@ enum class APB1 : uint32_t
 
   Intended for use as a template parameter for various device classes
  */
-enum class APB2: uint32_t
+enum APB2: uint32_t
 {
     adc1=RCC_APB2Periph_ADC1,
     afio=RCC_APB2Periph_AFIO,
@@ -160,8 +159,7 @@ enum class APB2: uint32_t
     tim15=RCC_APB2Periph_TIM15,
     tim16=RCC_APB2Periph_TIM16,
     tim17=RCC_APB2Periph_TIM17,
-    usart1=RCC_APB2Periph_USART1,
-    the_bus
+    usart1=RCC_APB2Periph_USART1
 };
 /**
   @class AHB

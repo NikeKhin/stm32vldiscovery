@@ -15,7 +15,7 @@ int main()
     green.set(true);
     blue.set(false);
 
-    Analog adc(APB2::adc1);
+    Analog adc(adc1);
     Analog::in0 left_channel(adc);
     Analog::in1 right_channel(adc);
 
