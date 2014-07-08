@@ -59,7 +59,6 @@ private:
 
     /// ADC channelsequence nimber (1 to 16) for sequential conversion
     int channel_priority{1};
-
     /// Nested channel type
     template <typename U, U id, uint8_t channel>
     class Channel {

@@ -16,13 +16,13 @@ int main()
     blue.set(false);
 
     Analog adc(adc1);
-    Analog::in0 left_channel(adc);
-    Analog::in1 right_channel(adc);
+    Analog::in1 left_channel(adc);
+    Analog::in2 right_channel(adc);
 
     adc.start();
 
     int p = left_channel.read();
-    int q = left_channel.read();
+    int q = right_channel.read();
 
     while (1)
     {

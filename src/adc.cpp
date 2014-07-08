@@ -12,20 +12,10 @@ AnalogX<APB2>::AnalogX(APB2 id):
     // Divider options: RCC_PCLK2_Div2,RCC_PCLK2_Div4,RCC_PCLK2_Div6,RCC_PCLK2_Div8
     // TODO: To be done once for all ADCs.
     RCC_ADCCLKConfig(RCC_PCLK2_Div2);
-
     // Register this for IRQ handling
     adc[0] = this;
-
     // ADC default configuration
     ADC_StructInit(&_init);
-    // Redefine with custom values
-    _init={
-        ADC_Mode_Independent,       //ADC_Mode, select independent conversion mode (single)
-        ENABLE,                     //ADC_ScanConvMode, convert single channel only when enabled
-        DISABLE,                    //ADC_ContinuousConvMode, convert one time
-        ADC_ExternalTrigConv_T3_TRGO,//ADC_ExternalTrigConv, ADC_ExternalTrigConv_T3_TRGO for timer event. ADC_ExternalTrigConv_None selects no external triggering.
-        ADC_DataAlign_Right,        //ADC_DataAlign, right 12-bit data alignment in ADC data register
-        1};                         //ADC_NbrOfChannel, single channel conversion
     //load structure values to control and status registers
     ADC_Init(_base, &_init);
 }
@@ -36,6 +26,16 @@ void AnalogX<T>::start()
 {
     // configure NVIC
     _irq();
+
+    // Redefine with custom values
+    _init={
+        ADC_Mode_Independent,       //ADC_Mode, select independent conversion mode (single or multiple)
+        ENABLE,                     //ADC_ScanConvMode, convert single (disabled) or multiple (enabled) channel
+        DISABLE,                    //ADC_ContinuousConvMode, convert one time
+        ADC_ExternalTrigConv_T3_TRGO,//ADC_ExternalTrigConv, ADC_ExternalTrigConv_T3_TRGO for timer event. ADC_ExternalTrigConv_None selects no external triggering.
+        ADC_DataAlign_Right,        //ADC_DataAlign, right 12-bit data alignment in ADC data register
+        channel_priority            //ADC_NbrOfChannel, single or multiple channel conversion
+    };
 
     // ADC_IT_EOC - end of conversion IRQ
     // ADC_IT_AWD - analog watchdog IRQ
