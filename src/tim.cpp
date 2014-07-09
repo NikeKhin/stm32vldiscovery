@@ -19,6 +19,10 @@ TIM_TimeBaseStructInit(&timer);
     timer.TIM_Period = ;
      TIM_TimeBaseInit(TIM3, &timer);
 
+     see also
+     TIM_SetCompare2(TIM2 , pw);
+     TIM_OC2Init
+
 TIM_IT_Update
 TIM_IT_CC1
 TIM_IT_CC2

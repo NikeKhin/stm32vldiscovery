@@ -188,7 +188,7 @@ public:
     }
     /// Convert the time to ticks using External High Speed oscillator (HSE) speed value
     uint64_t ticks(){
-        return HSE_VALUE*_time/1000000UL;
+        return SystemCoreClock*_time/1000000UL;
     }
 };
 
