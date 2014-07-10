@@ -37,13 +37,11 @@ void wait(Time us)
     IRQ configuration block
     //TODO: maybe move it to owner
 */
-template<>
-void irq<ADC1_IRQn>::operator()()
+void irq::operator()(IRQn n)
 {
-  // Configure and enable ADC interrupt
   NVIC_InitTypeDef NVIC_InitStructure;
-  NVIC_InitStructure.NVIC_IRQChannel = ADC1_IRQn;
-  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
+  NVIC_InitStructure.NVIC_IRQChannel = n;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
   NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
   NVIC_Init(&NVIC_InitStructure);

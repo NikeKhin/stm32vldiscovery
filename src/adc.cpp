@@ -25,7 +25,7 @@ template<typename T>
 void AnalogX<T>::start()
 {
     // configure NVIC
-    _irq();
+    _irq(ADC1_IRQn);
 
     // Redefine with custom values
     _init={

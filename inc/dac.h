@@ -26,7 +26,7 @@ private:
     DAC_TypeDef* base = nullptr;//TODO: DAC channel is important
     //const BusBase &bus;
     //Pin<APinID> pin = {APinID::pa4};
-    Timer6 tim;
+    //Timer6 tim;
 };
 
 #endif // DAC_H

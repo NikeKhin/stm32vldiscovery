@@ -206,7 +206,6 @@ constexpr Time operator"" _us(uint64_t t){
 void wait(Time us);
 
 
-template<IRQn_Type T>
 class irq {
 public:
     /// Not specialized constructor
@@ -215,7 +214,7 @@ public:
       NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
     }
     /// Specialized for each IRQ type
-    void operator()();
+    void operator()(IRQn n);
 };
 
 

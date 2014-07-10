@@ -4,6 +4,7 @@
 #include "common.h"
 #include "bus.h"
 #include "pin.h"
+#include "tim.h"
 
 /// ADC IRQ handler to get C-linkage
 extern "C"
@@ -54,8 +55,9 @@ private:
     /// Physical IRQ itself
     friend void ADC1_IRQHandler();
     /// IRQ configuration
-    irq<ADC1_IRQn> _irq;
+    irq _irq;
 
+    Timer<APB1> _tim{tim3};
 
     /// ADC channelsequence nimber (1 to 16) for sequential conversion
     int channel_priority{1};
