@@ -21,7 +21,7 @@ void ADC1_IRQHandler();
       @arg APB2
 */
 template<typename T>
-class AnalogX: public Device<T>
+class AnalogX: public Device
 {
 public:
     /// Default specialized constructor

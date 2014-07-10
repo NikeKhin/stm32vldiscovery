@@ -14,7 +14,7 @@
         @arg APB2
 */
 template<typename T>
-class Portx: public Device<T>
+class Portx: public Device
 {
 protected:
     /// Specialized protected constructors.

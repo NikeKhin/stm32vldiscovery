@@ -30,7 +30,7 @@ void TIM3_IRQHandler();
         @arg AHB2
 */
 template<typename T>
-class Timer: public Device<T>
+class Timer: public Device
 {
 public:
     Timer(T id);

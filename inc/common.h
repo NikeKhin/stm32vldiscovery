@@ -170,8 +170,7 @@ enum APB2: uint32_t
 enum class AHB: uint32_t
 {
     crc=RCC_AHBPeriph_CRC,
-    dma1=RCC_AHBPeriph_DMA1,
-    the_bus
+    dma1=RCC_AHBPeriph_DMA1
 };
 
 

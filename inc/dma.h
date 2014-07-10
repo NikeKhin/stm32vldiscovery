@@ -14,7 +14,7 @@
         @arg AHB2
 */
 template<typename T>
-class Dma: public Device<T>
+class Dma: public Device
 {
 public:
     Dma();
