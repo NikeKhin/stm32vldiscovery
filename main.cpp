@@ -7,10 +7,9 @@
 
 int main()
 {
-    //DigitalOut<PortC> pc9(9);   //this pin wired to green LED
-    PinOut green(c9);
-    PinOut blue(CPin::c8);         //this pin wired to blue LED
-    PinIn button(a0);          //this pin connected to user button (blue one)
+    PinOut green(c9);          // output pin to light green LED
+    PinOut blue(CPin::c8);     // this pin wired to blue LED
+    PinIn button(a0);          // this pin connected to user button (blue one) in read mote
 
     green.set(true);
     blue.set(false);
@@ -21,11 +20,11 @@ int main()
 
     adc.start();
 
-    int p = left_channel.read();
-    int q = right_channel.read();
-
     while (1)
     {
+        // read two ADC channels in cycle
+        int p = left_channel.read();
+        int q = right_channel.read();
         // pause blinking when button is pressed
         if(button.get())
             wait(1_s);

@@ -29,11 +29,11 @@ void TIM3_IRQHandler();
         @arg AHB1
         @arg AHB2
 */
-template<typename T>
 class Timer: public Device
 {
 public:
-    Timer(T id);
+    Timer(APB1 id);
+    Timer(APB2 id);
     ~Timer();
     //virtual void start() = 0;
     //virtual void stop() = 0;

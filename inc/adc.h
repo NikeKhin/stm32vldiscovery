@@ -20,12 +20,12 @@ void ADC1_IRQHandler();
       @arg APB1
       @arg APB2
 */
-template<typename T>
-class AnalogX: public Device
+class Analog: public Device
 {
 public:
-    /// Default specialized constructor
-    AnalogX(T id);
+    /// Overloaded constructor
+    Analog(APB1 id);
+    Analog(APB2 id);
     /// Starts conversion
     virtual void start();
     /// Stops conversion
@@ -33,9 +33,9 @@ public:
     /// Read 16 bits of the ADC data port
     virtual uint16_t read();
     /// Destruct and deinit ADC resources
-    virtual ~AnalogX();
-    /// Registered ADC's
-    static AnalogX<T>* adc[];
+    virtual ~Analog();
+    /// All registered ADC's
+    static Analog* adc[];
 protected:
     /// ADC handle structure. Declared in standard peripheral library. E.g. ADC1, ADC2...
     ADC_TypeDef *_base = nullptr;
@@ -56,36 +56,36 @@ private:
     friend void ADC1_IRQHandler();
     /// IRQ configuration
     irq _irq;
-
-    Timer<APB1> _tim{tim3};
-
-    /// ADC channelsequence nimber (1 to 16) for sequential conversion
+    /// Internal timer
+    Timer _tim{tim3};
+    /// ADC channel sequence nimber (1 to 16) for sequential conversion
     int channel_priority{1};
+
     /// Nested channel type
     template <typename U, U id, uint8_t channel>
     class Channel {
     public:
-        Channel(AnalogX &adc):_p{id,GPIO_Mode_AIN},_adc(adc){
+        Channel(Analog &adc):_p{id,GPIO_Mode_AIN},_adc(adc){
             ADC_RegularChannelConfig(_adc._base, channel, _adc.channel_priority++, ADC_SampleTime_1Cycles5);
         }
         uint16_t read(){ return 0;}
         ~Channel(){_adc.channel_priority++;}
     private:
         PinIn _p;
-        AnalogX &_adc;
+        Analog &_adc;
     };
     /// Specialization for special 16 and 17 channels not attached to pins
     template <uint8_t channel>
     class Channel<int,0,channel> {
     public:
-        Channel(AnalogX &adc){
+        Channel(Analog &adc){
             // TODO: Excessive for the 17th channel but let it be
             ADC_TempSensorVrefintCmd(ENABLE);
             ADC_RegularChannelConfig(adc._base, channel, adc.channel_priority++, ADC_SampleTime_1Cycles5);
         }
         ~Channel(){_adc.channel_priority++;}
     private:
-        AnalogX &_adc;
+        Analog &_adc;
     };
 
 public:
@@ -109,8 +109,6 @@ public:
     using in16= Channel<int,   0, ADC_Channel_16>;// ADC1_IN16
     using in17= Channel<int,   0, ADC_Channel_17>;// ADC1_IN17
 };
-
-using Analog=AnalogX<APB2>;
 
 
 #endif // ADC_H

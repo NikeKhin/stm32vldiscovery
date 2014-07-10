@@ -1,15 +1,17 @@
 #include "tim.h"
 
-template<>
-Timer<APB1>::Timer(APB1 id):
+Timer::Timer(APB1 id):
     Device{id},
     _base{ TIM3 } // TODO: hardcoded
 {
     TIM_TimeBaseInitTypeDef timer;
     TIM_TimeBaseStructInit(&timer);
     timer.TIM_Prescaler = 24000-1;
-    timer.TIM_Period = 1000;
+    timer.TIM_Period = 5000;
     TIM_TimeBaseInit(_base, &timer);
+
+ TIM_SelectOutputTrigger (_base, TIM_TRGOSource_Update);
+ TIM_ARRPreloadConfig(_base, ENABLE);
     /*
     TIM_IT_Update
     TIM_IT_CC1
@@ -20,10 +22,15 @@ Timer<APB1>::Timer(APB1 id):
     TIM_IT_Trigger
     TIM_IT_Break
     */
-    _irq(TIM3_IRQn);
-    TIM_ITConfig(_base, TIM_IT_Update, ENABLE);
+    //_irq(TIM3_IRQn);
+    //TIM_ITConfig(_base, TIM_IT_Update, ENABLE);
     TIM_Cmd(_base, ENABLE);
-    NVIC_EnableIRQ(TIM3_IRQn);
+    //NVIC_EnableIRQ(TIM3_IRQn);
+}
+Timer::Timer(APB2 id):
+    Device{id}
+{
+
 }
 
 
@@ -41,8 +48,7 @@ TIM_TimeBaseStructInit(&timer);
 
       */
 
-template<>
-Timer<APB1>::~Timer()
+Timer::~Timer()
 {
    TIM_DeInit(_base);
 }

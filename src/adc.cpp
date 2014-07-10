@@ -1,10 +1,14 @@
 #include "adc.h"
 
-template<typename T>
-AnalogX<T>* AnalogX<T>::adc[] = {nullptr};
+Analog* Analog::adc[] = {nullptr};
 
-template<>
-AnalogX<APB2>::AnalogX(APB2 id):
+Analog::Analog(APB1 id):
+    Device{id}
+{
+}
+
+
+Analog::Analog(APB2 id):
     Device{id},
     _base{ (id==APB2::adc1)?ADC1:ADC2 } //TODO: we know id, let's detect base
 {
@@ -21,8 +25,7 @@ AnalogX<APB2>::AnalogX(APB2 id):
 }
 
 
-template<typename T>
-void AnalogX<T>::start()
+void Analog::start()
 {
     // configure NVIC
     _irq(ADC1_IRQn);
@@ -36,6 +39,7 @@ void AnalogX<T>::start()
         ADC_DataAlign_Right,        //ADC_DataAlign, right 12-bit data alignment in ADC data register
         channel_priority            //ADC_NbrOfChannel, single or multiple channel conversion
     };
+    ADC_Init(_base, &_init);
 
     // ADC_IT_EOC - end of conversion IRQ
     // ADC_IT_AWD - analog watchdog IRQ
@@ -54,10 +58,10 @@ void AnalogX<T>::start()
     ADC_StartCalibration(_base);
     //Check the end of ADC1 calibration
     while(ADC_GetCalibrationStatus(_base));
+
 }
 
-template<typename T>
-void AnalogX<T>::stop()
+void Analog::stop()
 {
     // Disable external triggering
     ADC_ExternalTrigConvCmd(_base, DISABLE);
@@ -67,8 +71,7 @@ void AnalogX<T>::stop()
     ADC_Cmd(_base, DISABLE);
 }
 
-template<typename T>
-uint16_t AnalogX<T>::read()
+uint16_t Analog::read()
 {
     uint16_t value;
     //start the ADC Software Conversion
@@ -83,16 +86,14 @@ uint16_t AnalogX<T>::read()
     return value;
 }
 
-template<typename T>
-AnalogX<T>::~AnalogX()
+Analog::~Analog()
 {
     // Excessive but better stop if not be stopped by the next deinit/reset calls.
     stop();
     ADC_DeInit(_base);
 }
 
-template<typename T>
-void AnalogX<T>::end_of_conversion()
+void Analog::end_of_conversion()
 {
     uint16_t value = ADC_GetConversionValue(_base);
 }
@@ -105,21 +106,21 @@ void ADC1_IRQHandler(void)
     // Check if it is end of conversion
     if (ADC_GetITStatus(ADC1, ADC_IT_EOC)) {
         // Process EOC interrupt
-        AnalogX<APB2>::adc[0]->end_of_conversion();
+        Analog::adc[0]->end_of_conversion();
         // Clear specific IRQ pending bit for this specific ADC1_IRQ
         ADC_ClearITPendingBit(ADC1, ADC_IT_EOC);
     }
     // Check if it is end of injected conversion
     else if(ADC_GetITStatus(ADC1, ADC_IT_JEOC)){
         // Process EOC interrupt
-        //AnalogX<APB2>::adc[0]->end_of_jconversion();
+        //Analog::adc[0]->end_of_jconversion();
         // Clear specific IRQ pending bit for this specific ADC1_IRQ
         ADC_ClearITPendingBit(ADC1, ADC_IT_JEOC);
     }
     // Check if it is end of injected conversion
     else if(ADC_GetITStatus(ADC1, ADC_IT_AWD)){
         // Process EOC interrupt
-        //AnalogX<APB2>::adc[0]->end_of_jconversion();
+        //Analog::adc[0]->end_of_jconversion();
         // Clear specific IRQ pending bit for this specific ADC1_IRQ
         ADC_ClearITPendingBit(ADC1, ADC_IT_AWD);
     }

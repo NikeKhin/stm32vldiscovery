@@ -137,7 +137,8 @@ enum APB1 : uint32_t
     tim7=RCC_APB1Periph_TIM7,
     usart2=RCC_APB1Periph_USART2,
     usart3=RCC_APB1Periph_USART3,
-    wwdg=RCC_APB1Periph_WWDG
+    wwdg=RCC_APB1Periph_WWDG,
+    apb1_none=0
 };
 /**
   @class APB2
@@ -159,7 +160,8 @@ enum APB2: uint32_t
     tim15=RCC_APB2Periph_TIM15,
     tim16=RCC_APB2Periph_TIM16,
     tim17=RCC_APB2Periph_TIM17,
-    usart1=RCC_APB2Periph_USART1
+    usart1=RCC_APB2Periph_USART1,
+    apb2_none=0
 };
 /**
   @class AHB
@@ -167,10 +169,11 @@ enum APB2: uint32_t
 
   Intended for use as a template parameter for various device classes
  */
-enum class AHB: uint32_t
+enum AHB: uint32_t
 {
     crc=RCC_AHBPeriph_CRC,
-    dma1=RCC_AHBPeriph_DMA1
+    dma1=RCC_AHBPeriph_DMA1,
+    ahb_none=0
 };
 
 

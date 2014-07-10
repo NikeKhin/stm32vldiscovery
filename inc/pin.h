@@ -13,17 +13,16 @@
         @arg APB1
         @arg APB2
 */
-template<typename T>
-class Portx: public Device
+class Port: public Device
 {
 protected:
     /// Specialized protected constructors.
     /// @param pin a pin name from strongly typed enumeration
-    Portx(APin pin, GPIOMode_TypeDef mode);
-    Portx(BPin pin, GPIOMode_TypeDef mode);
-    Portx(CPin pin, GPIOMode_TypeDef mode);
-    Portx(DPin pin, GPIOMode_TypeDef mode);
-    Portx(EPin pin, GPIOMode_TypeDef mode);
+    Port(APin pin, GPIOMode_TypeDef mode);
+    Port(BPin pin, GPIOMode_TypeDef mode);
+    Port(CPin pin, GPIOMode_TypeDef mode);
+    Port(DPin pin, GPIOMode_TypeDef mode);
+    Port(EPin pin, GPIOMode_TypeDef mode);
 
 public:
     /// Read 16 bits of the port simultaneously
@@ -82,19 +81,18 @@ private:
         @arg APB1
         @arg APB2
 */
-template<typename T>
-class PinOutX: public Portx<T>
+class PinOut: public Port
 {
 public:
-    PinOutX(APin id, GPIOMode_TypeDef mode=GPIO_Mode_Out_PP):Portx<T>{id,mode}{}
-    PinOutX(BPin id, GPIOMode_TypeDef mode=GPIO_Mode_Out_PP):Portx<T>{id,mode}{}
-    PinOutX(CPin id, GPIOMode_TypeDef mode=GPIO_Mode_Out_PP):Portx<T>{id,mode}{}
-    PinOutX(DPin id, GPIOMode_TypeDef mode=GPIO_Mode_Out_PP):Portx<T>{id,mode}{}
-    PinOutX(EPin id, GPIOMode_TypeDef mode=GPIO_Mode_Out_PP):Portx<T>{id,mode}{}
+    PinOut(APin id, GPIOMode_TypeDef mode=GPIO_Mode_Out_PP):Port{id,mode}{}
+    PinOut(BPin id, GPIOMode_TypeDef mode=GPIO_Mode_Out_PP):Port{id,mode}{}
+    PinOut(CPin id, GPIOMode_TypeDef mode=GPIO_Mode_Out_PP):Port{id,mode}{}
+    PinOut(DPin id, GPIOMode_TypeDef mode=GPIO_Mode_Out_PP):Port{id,mode}{}
+    PinOut(EPin id, GPIOMode_TypeDef mode=GPIO_Mode_Out_PP):Port{id,mode}{}
     /// Get current pin state
     /// @returns bool the pin state
     virtual bool get() override {
-        return static_cast<bool>(GPIO_ReadOutputDataBit(Portx<T>::_base, Portx<T>::_pin));
+        return static_cast<bool>(GPIO_ReadOutputDataBit(Port::_base, Port::_pin));
     }
     /// Cast to bool with current pin state
     /// @returns bool the pin state
@@ -104,12 +102,11 @@ public:
     /// Assignment operator
     /// @param value the boolean value of pin state to be set
     /// @returns PinOutX<T>& returns own reference
-    PinOutX<T>& operator=(const bool value){
-        Portx<T>::set(value);
+    PinOut& operator=(const bool value){
+        Port::set(value);
         return *this;
     }
 };
-using PinOut=PinOutX<APB2>;
 
 
 /**
@@ -122,19 +119,18 @@ using PinOut=PinOutX<APB2>;
         @arg APB1
         @arg APB2
 */
-template<typename T>
-class PinInX: public Portx<T>
+class PinIn: public Port
 {
 public:
-    PinInX(APin id, GPIOMode_TypeDef mode=GPIO_Mode_IN_FLOATING):Portx<T>{id,mode}{}
-    PinInX(BPin id, GPIOMode_TypeDef mode=GPIO_Mode_IN_FLOATING):Portx<T>{id,mode}{}
-    PinInX(CPin id, GPIOMode_TypeDef mode=GPIO_Mode_IN_FLOATING):Portx<T>{id,mode}{}
-    PinInX(DPin id, GPIOMode_TypeDef mode=GPIO_Mode_IN_FLOATING):Portx<T>{id,mode}{}
-    PinInX(EPin id, GPIOMode_TypeDef mode=GPIO_Mode_IN_FLOATING):Portx<T>{id,mode}{}
+    PinIn(APin id, GPIOMode_TypeDef mode=GPIO_Mode_IN_FLOATING):Port{id,mode}{}
+    PinIn(BPin id, GPIOMode_TypeDef mode=GPIO_Mode_IN_FLOATING):Port{id,mode}{}
+    PinIn(CPin id, GPIOMode_TypeDef mode=GPIO_Mode_IN_FLOATING):Port{id,mode}{}
+    PinIn(DPin id, GPIOMode_TypeDef mode=GPIO_Mode_IN_FLOATING):Port{id,mode}{}
+    PinIn(EPin id, GPIOMode_TypeDef mode=GPIO_Mode_IN_FLOATING):Port{id,mode}{}
     /// Get current pin state
     /// @returns bool the pin state
     virtual bool get() override {
-        return static_cast<bool>(GPIO_ReadInputDataBit(Portx<T>::_base, Portx<T>::_pin));
+        return static_cast<bool>(GPIO_ReadInputDataBit(Port::_base, Port::_pin));
     }
     /// Cast to bool with current pin state
     /// @returns bool the pin state
@@ -144,13 +140,11 @@ public:
     /// Assignment operator
     /// @param value the boolean value of pin state to be set
     /// @returns PinInX<T>& returns own reference
-    PinInX<T>& operator=(const bool value){
-        Portx<T>::set(value);
+    PinIn& operator=(const bool value){
+        Port::set(value);
         return *this;
     }
 };
-using PinIn=PinInX<APB2>;
-
 
 
 #endif // PIN_H

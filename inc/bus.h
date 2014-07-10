@@ -3,51 +3,43 @@
 
 #include "common.h"
 
-
-class Bus
-{
-public:
-    virtual void enable(AHB pid)  {};
-    virtual void enable(APB1 pid)  {};
-    virtual void enable(APB2 pid)  {};
-    virtual void disable() const {};
-    virtual void reset() const {};
-};
-
 /**
   @class Bus
-  @brief Template class for APB1 and APB2 bus types.
-
-  Possible template parameters APB1 and APB2 enumerations (see common.h)
+  @brief Class for APB1 and APB2 bus types.
  */
-template<typename T>
-class BusX : public Bus
+class ClockIt
 {
 public:
-    /// Default constructor
-    BusX()=default;
+    /// Overloaded constructor
+    ClockIt(APB1 pid):_apb1_pid{pid},_apb2_pid(),_ahb_pid(){
+        RCC_APB1PeriphClockCmd(static_cast<uint32_t>(pid), ENABLE);
+    }
+    ClockIt(APB2 pid):_apb2_pid{pid},_apb1_pid(),_ahb_pid(){
+        RCC_APB2PeriphClockCmd(static_cast<uint32_t>(pid), ENABLE);
+    }
+    ClockIt(AHB pid):_ahb_pid{pid},_apb1_pid(),_apb2_pid(){
+        RCC_AHBPeriphClockCmd(static_cast<uint32_t>(pid), ENABLE);
+    }
 
-     /// Start clocking the peripheral device identified by PID
-     /// @param pid - peripheral device identifier
-     /// @return void
-    //template<typename T>
-    void enable(T pid) override;
+    /// The solution to use all functions at once was chosen to avoid
+    /// using template parameters in user code
+    ~ClockIt(){
+        if(_apb1_pid){
+            RCC_APB1PeriphClockCmd(static_cast<uint32_t>(_apb1_pid), DISABLE);
+        }
+        else if(_apb2_pid){
+            RCC_APB2PeriphClockCmd(static_cast<uint32_t>(_apb2_pid), DISABLE);
+        }
+        else if(_ahb_pid){
+            RCC_AHBPeriphClockCmd(static_cast<uint32_t>(_ahb_pid), DISABLE);
+        }
 
-     /// Stop clocking the peripheral device identified by PID
-     /// @param pid - peripheral device identifier
-     /// @return void
-    //template<typename T>
-    void disable() const override;
-
-     /// Reset the peripheral device identified by PID
-     /// @param pid - peripheral device identifier
-     /// @return void
-    //template<typename T>
-    void reset() const override;
-
+    }
 private:
     /// Peripheral ID (one of DAC, ADC, TIM, GPIO etc.)
-    T _pid;
+    APB1 _apb1_pid;
+    APB2 _apb2_pid;
+    AHB  _ahb_pid;
 
 };
 
@@ -67,29 +59,21 @@ class Device
     Device(const Device& value)=delete;
     Device& operator=(const Device& value)=delete;
 
-private:
-    /// Peripheral ID (one of DAC, ADC, TIM, GPIO etc.)
-    //uint32_t _pid;
-
-    /// The bus to which the device is attached
-    Bus _attachement;
 protected:
     /// Protected constructor internally enables the device
     /// @param pid a peripheral ID enumerated value
-    Device(APB1 pid):_attachement{BusX<APB1>()}{
-        _attachement.enable(pid);
+    Device(APB1 pid):_clock{pid}{
     };
-    Device(APB2 pid):_attachement{BusX<APB2>()}{
-        _attachement.enable(pid);
+    Device(APB2 pid):_clock{pid}{
     };
-    Device(AHB pid):_attachement{BusX<AHB>()}{
-        _attachement.enable(pid);
+    Device(AHB pid):_clock{pid}{
     };
-    /// Protected destructor invoked by inheritance order
+    /// Protected destructor invoked in inheritance order
     ~Device(){
-        _attachement.disable();
     }
-
+private:
+    /// The bus to which the device is attached
+    ClockIt _clock;
 };
 
 
