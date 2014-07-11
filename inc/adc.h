@@ -27,7 +27,7 @@ public:
     Analog(APB1 id);
     Analog(APB2 id);
     /// Starts conversion
-    virtual void start();
+    virtual void start(const Timer *_tim=nullptr);
     /// Stops conversion
     virtual void stop();
     /// Read 16 bits of the ADC data port
@@ -57,7 +57,7 @@ private:
     /// IRQ configuration
     irq _irq;
     /// Internal timer
-    Timer _tim{tim3};
+    Timer *_tim;
     /// ADC channel sequence nimber (1 to 16) for sequential conversion
     int channel_priority{1};
 

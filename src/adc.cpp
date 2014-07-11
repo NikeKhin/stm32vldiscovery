@@ -1,18 +1,27 @@
 #include "adc.h"
 
+/**
+    @brief Array of all ADC's ever constructed
+*/
 Analog* Analog::adc[] = {nullptr};
 
+/**
+    @brief Empty constructor. No ADC attached to APB1 yet
+*/
 Analog::Analog(APB1 id):
     Device{id}
 {
 }
 
-
+/**
+    @brief ADC, connected to APB2 initialization
+    @param id ADC device identificator
+*/
 Analog::Analog(APB2 id):
     Device{id},
-    _base{ (id==APB2::adc1)?ADC1:ADC2 } //TODO: we know id, let's detect base
+    _base{ (id==APB2::adc1)?ADC1:ADC2 }
 {
-    // ADCCLK should be less than 14MHz
+    // ADCCLK should be less than 14MHz. Here ADCCLK = PCLK2/2 = 24/2 = 12MHz
     // Divider options: RCC_PCLK2_Div2,RCC_PCLK2_Div4,RCC_PCLK2_Div6,RCC_PCLK2_Div8
     // TODO: To be done once for all ADCs.
     RCC_ADCCLKConfig(RCC_PCLK2_Div2);
@@ -22,32 +31,49 @@ Analog::Analog(APB2 id):
     ADC_StructInit(&_init);
     //load structure values to control and status registers
     ADC_Init(_base, &_init);
+    // configure NVIC: list all necessary interrupts here
+    _irq(ADC1_IRQn);
 }
 
 
-void Analog::start()
+/**
+    @brief Starts conversion engine. Can use external trigger events or software event
+*/
+void Analog::start(const Timer *tim)
 {
-    // configure NVIC
-    _irq(ADC1_IRQn);
+/* Possible trigger events
+ADC_ExternalTrigConv_None
+ADC_ExternalTrigConv_T1_CC1
+ADC_ExternalTrigConv_T1_CC2
+ADC_ExternalTrigConv_T1_CC3
+ADC_ExternalTrigConv_T2_CC2
+ADC_ExternalTrigConv_T3_TRGO
+ADC_ExternalTrigConv_T4_CC4
+ADC_ExternalTrigConv_Ext_IT11_TIM8_TRGO
+*/
+    uint32_t trigger = ADC_ExternalTrigConv_None;
+    if(tim!= nullptr)
+        trigger = ADC_ExternalTrigConv_T3_TRGO;
 
     // Redefine with custom values
     _init={
-        ADC_Mode_Independent,       //ADC_Mode, select independent conversion mode (single or multiple)
-        ENABLE,                     //ADC_ScanConvMode, convert single (disabled) or multiple (enabled) channel
-        DISABLE,                    //ADC_ContinuousConvMode, convert one time
-        ADC_ExternalTrigConv_T3_TRGO,//ADC_ExternalTrigConv, ADC_ExternalTrigConv_T3_TRGO for timer event. ADC_ExternalTrigConv_None selects no external triggering.
-        ADC_DataAlign_Right,        //ADC_DataAlign, right 12-bit data alignment in ADC data register
-        channel_priority            //ADC_NbrOfChannel, single or multiple channel conversion
+        ADC_Mode_Independent,        //ADC_Mode, select independent conversion mode (single or multiple)
+        ENABLE,                      //ADC_ScanConvMode, convert single (disabled) or multiple (enabled) channel
+        DISABLE,                     //ADC_ContinuousConvMode, convert one time
+        trigger,                     //ADC_ExternalTrigConv, ADC_ExternalTrigConv_T3_TRGO for timer event. ADC_ExternalTrigConv_None selects no external triggering.
+        ADC_DataAlign_Right,         //ADC_DataAlign, right 12-bit data alignment in ADC data register
+        channel_priority             //ADC_NbrOfChannel, single or multiple channel conversion
     };
+    // Base initialization procedure
     ADC_Init(_base, &_init);
-
+    // Enable conversion through external trigger
+    if(trigger != ADC_ExternalTrigConv_None){
+        ADC_ExternalTrigConvCmd(_base, ENABLE);
+    }
     // ADC_IT_EOC - end of conversion IRQ
     // ADC_IT_AWD - analog watchdog IRQ
     // ADC_IT_JEOC - end of injected conversion IRQ
-    // TODO: maybe after enabling by call to ADC_Cmd
     ADC_ITConfig(_base , ADC_IT_EOC , ENABLE);
-    // Enable conversion through external trigger
-    ADC_ExternalTrigConvCmd(_base, ENABLE);
     // Enable ADC
     ADC_Cmd(_base, ENABLE);
     //Enable ADC1 reset calibration register
@@ -61,6 +87,9 @@ void Analog::start()
 
 }
 
+/**
+    @brief Stops conversion engine.
+*/
 void Analog::stop()
 {
     // Disable external triggering
@@ -71,6 +100,10 @@ void Analog::stop()
     ADC_Cmd(_base, DISABLE);
 }
 
+/**
+    @brief Reads conversion value.
+    @returns The value
+*/
 uint16_t Analog::read()
 {
     uint16_t value;
@@ -86,6 +119,9 @@ uint16_t Analog::read()
     return value;
 }
 
+/**
+    @brief Stops engine and deallocates resources.
+*/
 Analog::~Analog()
 {
     // Excessive but better stop if not be stopped by the next deinit/reset calls.
@@ -93,13 +129,16 @@ Analog::~Analog()
     ADC_DeInit(_base);
 }
 
+/**
+    @brief End Of Conversion handler. All physical staff was left in IRQ handler
+*/
 void Analog::end_of_conversion()
 {
     uint16_t value = ADC_GetConversionValue(_base);
 }
 
 /**
-    @brief Extern C IRQ handler for ADC1
+    @brief Extern C IRQ handler for ADC1 with all necessary physical bit manipulation
 */
 void ADC1_IRQHandler(void)
 {

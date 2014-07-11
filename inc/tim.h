@@ -23,11 +23,6 @@ void TIM3_IRQHandler();
 /**
     @class Timer
     @brief Implementation of Timer device
-
-    Possible template parameters AHB
-    @param T the bus enum type, containing its peripheral device identifiers (e.g. AHB1 or AHB2)
-        @arg AHB1
-        @arg AHB2
 */
 class Timer: public Device
 {

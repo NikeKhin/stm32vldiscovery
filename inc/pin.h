@@ -7,11 +7,6 @@
 /**
     @class Portx
     @brief Implementation of GPIO port (16-bit)
-
-    Possible template parameters APB1 or APB2
-    @param T the bus enum type, containing its peripheral device identifiers (e.g. APB1 or APB2)
-        @arg APB1
-        @arg APB2
 */
 class Port: public Device
 {

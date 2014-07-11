@@ -9,16 +9,17 @@ int main()
 {
     PinOut green(c9);          // output pin to light green LED
     PinOut blue(CPin::c8);     // this pin wired to blue LED
-    PinIn button(a0);          // this pin connected to user button (blue one) in read mote
+    PinIn button(a0);          // this pin connected to user button (blue one) in read mode
 
-    green.set(true);
-    blue.set(false);
+    green = true;
+    blue = false;
 
-    Analog adc(adc1);
-    Analog::in1 left_channel(adc);
-    Analog::in2 right_channel(adc);
+    Analog converter(adc1);
+    Analog::in1 left_channel(converter);
+    Analog::in2 right_channel(converter);
 
-    adc.start();
+    Timer timer{tim3};
+    converter.start(&timer);
 
     while (1)
     {
@@ -30,7 +31,7 @@ int main()
             wait(1_s);
         // toggle LEDs
         green=!green;
-        blue.toggle();
+        blue.toggle(); // explicit way to toggle LED
         // insert delay
         wait(500_ms);
     }

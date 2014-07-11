@@ -4,8 +4,8 @@
 #include "common.h"
 
 /**
-  @class Bus
-  @brief Class for APB1 and APB2 bus types.
+  @class ClockIt
+  @brief Class for enabling devices attached to AHB, APB1 and APB2.
  */
 class ClockIt
 {
@@ -50,8 +50,6 @@ private:
     @brief Protected constructor enables the device
 
     Device aggregates Bus member of proper bus number
-    Possible template parameters APB1 and APB2 enumerations (see common.h)
-    @param T the bus enum type, containing its peripheral device identifiers (e.g. APB1 or APB2)
 */
 class Device
 {

@@ -16,21 +16,30 @@ Example:
 
 int main()
 {
-    DigitalOut<PortC> pc9(9);   //this pin wired to green LED
-    DigitalOutC pc8(8);         //this pin wired to blue LED
-    DigitalInA pa0(0);          //this pin connected to user button (blue one)
+    PinOut green(c9);          // output pin to light green LED
+    PinOut blue(CPin::c8);     // this pin wired to blue LED
+    PinIn button(a0);          // this pin connected to user button (blue one) in read mode
 
-    pc9=true;
-    pc8=false;
+    green = true;
+    blue = false;
+
+    Analog converter(adc1);
+    Analog::in1 left_channel(converter);
+    Analog::in2 right_channel(converter);
+
+    converter.start();
 
     while (1)
     {
+        // read two ADC channels in cycle
+        int p = left_channel.read();
+        int q = right_channel.read();
         // pause blinking when button is pressed
-        if(pa0.get())
+        if(button.get())
             wait(1_s);
         // toggle LEDs
-        pc9=!pc9;
-        pc8=!pc8;
+        green=!green;
+        blue.toggle(); // explicit way to toggle LED
         // insert delay
         wait(500_ms);
     }
