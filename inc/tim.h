@@ -27,8 +27,8 @@ void TIM3_IRQHandler();
 class Timer: public Device
 {
 public:
-    Timer(APB1 id);
-    Timer(APB2 id);
+    Timer(const APB1 id, Time period);
+    Timer(const APB2 id, Time period);
     ~Timer();
     //virtual void start() = 0;
     //virtual void stop() = 0;

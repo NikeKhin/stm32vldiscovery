@@ -40,6 +40,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <stm32f10x.h>//NK: Added
+//#include <stm32l1xx.h>//NK: Added
 
 /***************************************************************************/
 //NK: Added platform specific

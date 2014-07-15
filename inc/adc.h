@@ -24,8 +24,8 @@ class Analog: public Device
 {
 public:
     /// Overloaded constructor
-    Analog(APB1 id);
-    Analog(APB2 id);
+    Analog(const APB1 id);
+    Analog(const APB2 id);
     /// Starts conversion
     virtual void start(const Timer *_tim=nullptr);
     /// Stops conversion

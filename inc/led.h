@@ -7,12 +7,12 @@
 class Led
 {
 public:
-    Led(LedID led);
+    //Led(LedID led);
     void on();
     void off();
     void toggle();
 protected:
-    Led_TypeDef base;
+    //Led_TypeDef base;
 };
 
 #endif // LED_H

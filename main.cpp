@@ -18,7 +18,7 @@ int main()
     Analog::in1 left_channel(converter);
     Analog::in2 right_channel(converter);
 
-    Timer timer{tim3};
+    Timer timer{tim3, 5_s};
     converter.start(&timer);
 
     while (1)
