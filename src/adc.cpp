@@ -62,7 +62,7 @@ ADC_ExternalTrigConv_Ext_IT11_TIM8_TRGO
         DISABLE,                     //ADC_ContinuousConvMode, convert one time
         trigger,                     //ADC_ExternalTrigConv, ADC_ExternalTrigConv_T3_TRGO for timer event. ADC_ExternalTrigConv_None selects no external triggering.
         ADC_DataAlign_Right,         //ADC_DataAlign, right 12-bit data alignment in ADC data register
-        channel_priority             //ADC_NbrOfChannel, single or multiple channel conversion
+        channel_count                //ADC_NbrOfChannel, single or multiple channel conversion
     };
     // Base initialization procedure
     ADC_Init(_base, &_init);
@@ -134,7 +134,10 @@ Analog::~Analog()
 */
 void Analog::end_of_conversion()
 {
-    uint16_t value = ADC_GetConversionValue(_base);
+    for (auto ch: channel_list){
+        uint16_t value = ADC_GetConversionValue(_base);
+        ch->write(value);
+    }
 }
 
 /**

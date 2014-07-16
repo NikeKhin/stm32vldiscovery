@@ -17,6 +17,10 @@
 #include "common_l1.h"
 #endif
 
+
+void gpio_defaults(GPIO_InitTypeDef *GPIO_InitStructure, GPIOMode_TypeDef mode);
+
+
 class Time{
     /// The time in microseconds
     uint64_t _time;

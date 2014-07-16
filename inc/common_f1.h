@@ -108,6 +108,11 @@ enum EPin : uint16_t
     e=GPIO_Pin_All
 };
 
+#define MODE_OUT GPIO_Mode_Out_PP
+#define MODE_IN GPIO_Mode_IN_FLOATING
+#define MODE_ANALOG GPIO_Mode_AIN
+
+
 /**
   @class APB1
   @brief Enumeration of all APB1 devices, initialized with original values from SPL.
@@ -170,7 +175,7 @@ enum AHB: uint32_t
     ahb_none=0
 };
 
-// F1 specific
+// Timers
 template <typename T>
 struct apb_timer_t
 {
@@ -200,6 +205,7 @@ constexpr TIM_TypeDef* tim_base(T id, apb_timer_t<T> const *timers)
 {
     return (id == timers->id) ? timers->base : tim_base(id, timers+1);
 }
+
 
 
 #endif // COMMON_F1_H

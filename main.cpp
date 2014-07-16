@@ -8,7 +8,7 @@
 int main()
 {
     PinOut green(c9);          // output pin to light green LED
-    PinOut blue(CPin::c8);     // this pin wired to blue LED
+    PinOut blue(CPin::c8);     // this pin of GPIO-C wired to blue LED
     PinIn button(a0);          // this pin connected to user button (blue one) in read mode
 
     green = true;

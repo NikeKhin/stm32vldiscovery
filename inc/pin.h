@@ -59,9 +59,10 @@ protected:
 private:
     void init(GPIOMode_TypeDef mode){
         GPIO_InitTypeDef GPIO_InitStructure;
+
+        gpio_defaults(&GPIO_InitStructure, mode);
+
         GPIO_InitStructure.GPIO_Pin = _pin;
-        GPIO_InitStructure.GPIO_Mode = mode;
-        GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
         GPIO_Init(_base, &GPIO_InitStructure);
     }
 };
@@ -79,11 +80,11 @@ private:
 class PinOut: public Port
 {
 public:
-    PinOut(APin id, GPIOMode_TypeDef mode=GPIO_Mode_Out_PP):Port{id,mode}{}
-    PinOut(BPin id, GPIOMode_TypeDef mode=GPIO_Mode_Out_PP):Port{id,mode}{}
-    PinOut(CPin id, GPIOMode_TypeDef mode=GPIO_Mode_Out_PP):Port{id,mode}{}
-    PinOut(DPin id, GPIOMode_TypeDef mode=GPIO_Mode_Out_PP):Port{id,mode}{}
-    PinOut(EPin id, GPIOMode_TypeDef mode=GPIO_Mode_Out_PP):Port{id,mode}{}
+    PinOut(APin id, GPIOMode_TypeDef mode=MODE_OUT):Port{id,mode}{}
+    PinOut(BPin id, GPIOMode_TypeDef mode=MODE_OUT):Port{id,mode}{}
+    PinOut(CPin id, GPIOMode_TypeDef mode=MODE_OUT):Port{id,mode}{}
+    PinOut(DPin id, GPIOMode_TypeDef mode=MODE_OUT):Port{id,mode}{}
+    PinOut(EPin id, GPIOMode_TypeDef mode=MODE_OUT):Port{id,mode}{}
     /// Get current pin state
     /// @returns bool the pin state
     virtual bool get() override {
@@ -117,11 +118,11 @@ public:
 class PinIn: public Port
 {
 public:
-    PinIn(APin id, GPIOMode_TypeDef mode=GPIO_Mode_IN_FLOATING):Port{id,mode}{}
-    PinIn(BPin id, GPIOMode_TypeDef mode=GPIO_Mode_IN_FLOATING):Port{id,mode}{}
-    PinIn(CPin id, GPIOMode_TypeDef mode=GPIO_Mode_IN_FLOATING):Port{id,mode}{}
-    PinIn(DPin id, GPIOMode_TypeDef mode=GPIO_Mode_IN_FLOATING):Port{id,mode}{}
-    PinIn(EPin id, GPIOMode_TypeDef mode=GPIO_Mode_IN_FLOATING):Port{id,mode}{}
+    PinIn(APin id, GPIOMode_TypeDef mode=MODE_IN):Port{id,mode}{}
+    PinIn(BPin id, GPIOMode_TypeDef mode=MODE_IN):Port{id,mode}{}
+    PinIn(CPin id, GPIOMode_TypeDef mode=MODE_IN):Port{id,mode}{}
+    PinIn(DPin id, GPIOMode_TypeDef mode=MODE_IN):Port{id,mode}{}
+    PinIn(EPin id, GPIOMode_TypeDef mode=MODE_IN):Port{id,mode}{}
     /// Get current pin state
     /// @returns bool the pin state
     virtual bool get() override {
