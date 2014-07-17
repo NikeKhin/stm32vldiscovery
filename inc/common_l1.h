@@ -112,6 +112,7 @@ enum EPin : uint16_t
     e=GPIO_Pin_All
 };
 
+
 /**
   @class APB1
   @brief Enumeration of all APB1 devices, initialized with original values from SPL.
@@ -184,6 +185,16 @@ enum AHB: uint32_t
     aes=RCC_AHBPeriph_AES,
     fsmc=RCC_AHBPeriph_FSMC,
     ahb_none=0
+};
+
+#define MODE_OUT GPIO_Mode_OUT
+#define MODE_IN GPIO_Mode_IN
+#define MODE_ANALOG GPIO_Mode_AN
+
+class adc_init_t{
+public:
+    ADC_InitTypeDef init;
+    adc_init_t(uint32_t trigger, uint8_t channel_count);
 };
 
 

@@ -28,9 +28,9 @@ Analog::Analog(APB2 id):
     // Register this for IRQ handling
     adc[0] = this;
     // ADC default configuration
-    ADC_StructInit(&_init);
+    //ADC_StructInit(&_init);
     //load structure values to control and status registers
-    ADC_Init(_base, &_init);
+    //ADC_Init(_base, &_init);
     // configure NVIC: list all necessary interrupts here
     _irq(ADC1_IRQn);
 }
@@ -41,7 +41,7 @@ Analog::Analog(APB2 id):
 */
 void Analog::start(const Timer *tim)
 {
-/* Possible trigger events
+/* Possible trigger events for F1
 ADC_ExternalTrigConv_None
 ADC_ExternalTrigConv_T1_CC1
 ADC_ExternalTrigConv_T1_CC2
@@ -50,22 +50,35 @@ ADC_ExternalTrigConv_T2_CC2
 ADC_ExternalTrigConv_T3_TRGO
 ADC_ExternalTrigConv_T4_CC4
 ADC_ExternalTrigConv_Ext_IT11_TIM8_TRGO
+
+    Possible trigger events for L1
+ADC_ExternalTrigConv_T2_CC3
+ADC_ExternalTrigConv_T2_CC2
+ADC_ExternalTrigConv_T2_TRGO
+ADC_ExternalTrigConv_T3_CC1
+ADC_ExternalTrigConv_T3_CC3
+ADC_ExternalTrigConv_T3_TRGO
+ADC_ExternalTrigConv_T4_CC4
+ADC_ExternalTrigConv_T4_TRGO
+ADC_ExternalTrigConv_T6_TRGO
+ADC_ExternalTrigConv_T9_CC2
+ADC_ExternalTrigConv_T9_TRGO
+ADC_ExternalTrigConv_Ext_IT11
+
+ADC_ExternalTrigConvEdge_None
+ADC_ExternalTrigConvEdge_Rising
+ADC_ExternalTrigConvEdge_Falling
+ADC_ExternalTrigConvEdge_RisingFalling
+
 */
-    uint32_t trigger = ADC_ExternalTrigConv_None;
+    uint32_t trigger = ADC_ExternalTrigConv_None; //L1: ADC_ExternalTrigConvEdge_None
     if(tim!= nullptr)
         trigger = ADC_ExternalTrigConv_T3_TRGO;
 
-    // Redefine with custom values
-    _init={
-        ADC_Mode_Independent,        //ADC_Mode, select independent conversion mode (single or multiple)
-        ENABLE,                      //ADC_ScanConvMode, convert single (disabled) or multiple (enabled) channel
-        DISABLE,                     //ADC_ContinuousConvMode, convert one time
-        trigger,                     //ADC_ExternalTrigConv, ADC_ExternalTrigConv_T3_TRGO for timer event. ADC_ExternalTrigConv_None selects no external triggering.
-        ADC_DataAlign_Right,         //ADC_DataAlign, right 12-bit data alignment in ADC data register
-        channel_count                //ADC_NbrOfChannel, single or multiple channel conversion
-    };
+    adc_init_t config(trigger,channel_count);
+
     // Base initialization procedure
-    ADC_Init(_base, &_init);
+    ADC_Init(_base, &config.init);
     // Enable conversion through external trigger
     if(trigger != ADC_ExternalTrigConv_None){
         ADC_ExternalTrigConvCmd(_base, ENABLE);
@@ -75,6 +88,7 @@ ADC_ExternalTrigConv_Ext_IT11_TIM8_TRGO
     // ADC_IT_JEOC - end of injected conversion IRQ
     ADC_ITConfig(_base , ADC_IT_EOC , ENABLE);
     // Enable ADC
+    //TODO: enabling really before calibration? Then IRQ enabling probably shoud go after calibration
     ADC_Cmd(_base, ENABLE);
     //Enable ADC1 reset calibration register
     ADC_ResetCalibration(_base);
@@ -84,7 +98,8 @@ ADC_ExternalTrigConv_Ext_IT11_TIM8_TRGO
     ADC_StartCalibration(_base);
     //Check the end of ADC1 calibration
     while(ADC_GetCalibrationStatus(_base));
-
+    //Iterate through regular channel group starting with the first
+    ch = channel_list.begin();
 }
 
 /**
@@ -134,10 +149,10 @@ Analog::~Analog()
 */
 void Analog::end_of_conversion()
 {
-    for (auto ch: channel_list){
-        uint16_t value = ADC_GetConversionValue(_base);
-        ch->write(value);
-    }
+    if (ch == channel_list.end())
+        ch = channel_list.begin();
+    (*ch)->write(ADC_GetConversionValue(_base));
+    ++ch;
 }
 
 /**

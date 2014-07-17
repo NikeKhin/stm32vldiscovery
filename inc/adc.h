@@ -42,13 +42,7 @@ protected:
     /// ADC handle structure. Declared in standard peripheral library. E.g. ADC1, ADC2...
     ADC_TypeDef *_base = nullptr;
     /// ADC initialization structure.
-    ADC_InitTypeDef _init{
-                        ADC_Mode_Independent,       //ADC_Mode
-                        DISABLE,                    //ADC_ScanConvMode
-                        DISABLE,                    //ADC_ContinuousConvMode
-                        ADC_ExternalTrigConv_None,  //ADC_ExternalTrigConv
-                        ADC_DataAlign_Right,        //ADC_DataAlign
-                        1};                         //ADC_NbrOfChannel
+    //ADC_InitTypeDef _init;
 private:
     /// Interrupt handler for EOC event
     virtual void end_of_conversion();
@@ -115,6 +109,7 @@ private:
 
     /// All channels, attached to ADC. TODO: uses dynamic memory
     std::forward_list<Buffer*> channel_list;
+    std::forward_list<Buffer*>::iterator ch;
 
     /// Register the channel
     template <typename U, U id, uint8_t channel>

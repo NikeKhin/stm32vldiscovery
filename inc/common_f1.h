@@ -108,11 +108,6 @@ enum EPin : uint16_t
     e=GPIO_Pin_All
 };
 
-#define MODE_OUT GPIO_Mode_Out_PP
-#define MODE_IN GPIO_Mode_IN_FLOATING
-#define MODE_ANALOG GPIO_Mode_AIN
-
-
 /**
   @class APB1
   @brief Enumeration of all APB1 devices, initialized with original values from SPL.
@@ -173,6 +168,17 @@ enum AHB: uint32_t
     crc=RCC_AHBPeriph_CRC,
     dma1=RCC_AHBPeriph_DMA1,
     ahb_none=0
+};
+
+/// Redefinitions
+#define MODE_OUT        GPIO_Mode_Out_PP
+#define MODE_IN         GPIO_Mode_IN_FLOATING
+#define MODE_ANALOG     GPIO_Mode_AIN
+
+class adc_init_t{
+public:
+    ADC_InitTypeDef init;
+    adc_init_t(uint32_t trigger, uint8_t channel_count);
 };
 
 // Timers

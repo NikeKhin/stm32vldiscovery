@@ -39,8 +39,15 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <stm32f10x.h>//NK: Added
-//#include <stm32l1xx.h>//NK: Added
+
+//NK: Added
+#ifdef STM32F10X_MD_VL
+#include <stm32f10x.h>
+#endif
+
+#ifdef STM32L1XX_MD
+#include <stm32l1xx.h>//NK: Added
+#endif
 
 /***************************************************************************/
 //NK: Added platform specific
