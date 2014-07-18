@@ -29,6 +29,8 @@ Timer::Timer(const APB1 id, Time period):
     */
     TIM_SelectOutputTrigger (_base, TIM_TRGOSource_Update);
     TIM_ARRPreloadConfig(_base, ENABLE);
+
+
     /*
     TIM_IT_Update
     TIM_IT_CC1
@@ -69,6 +71,27 @@ timer.TIM_Period = ;
 Timer::~Timer()
 {
     TIM_DeInit(_base);
+}
+
+
+uint32_t Timer::trigger() const {
+    /*
+ADC_ExternalTrigConv_None
+ADC_ExternalTrigConv_T1_CC1
+ADC_ExternalTrigConv_T1_CC2
+ADC_ExternalTrigConv_T1_CC3
+ADC_ExternalTrigConv_T2_CC2
+ADC_ExternalTrigConv_T2_CC3
+ADC_ExternalTrigConv_T3_TRGO
+ADC_ExternalTrigConv_T3_CC1
+ADC_ExternalTrigConv_T4_CC4
+ADC_ExternalTrigConv_T5_CC1
+ADC_ExternalTrigConv_T5_CC3
+ADC_ExternalTrigConv_T8_CC1
+ADC_ExternalTrigConv_T8_TRGO
+ADC_ExternalTrigConv_Ext_IT11_TIM8_TRGO
+    */
+    return ADC_ExternalTrigConv_T3_TRGO;
 }
 
 

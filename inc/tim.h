@@ -30,6 +30,7 @@ public:
     Timer(const APB1 id, Time period);
     Timer(const APB2 id, Time period);
     ~Timer();
+    uint32_t trigger() const;
     //virtual void start() = 0;
     //virtual void stop() = 0;
 private:

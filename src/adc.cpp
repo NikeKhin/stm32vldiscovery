@@ -19,7 +19,7 @@ Analog::Analog(APB1 id):
 */
 Analog::Analog(APB2 id):
     Device{id},
-    _base{ (id==APB2::adc1)?ADC1:ADC2 }
+    _base{ adc_base(id,apb2_adcs) }
 {
     // ADCCLK should be less than 14MHz. Here ADCCLK = PCLK2/2 = 24/2 = 12MHz
     // Divider options: RCC_PCLK2_Div2,RCC_PCLK2_Div4,RCC_PCLK2_Div6,RCC_PCLK2_Div8
@@ -39,7 +39,7 @@ Analog::Analog(APB2 id):
 /**
     @brief Starts conversion engine. Can use external trigger events or software event
 */
-void Analog::start(const Timer *tim)
+void Analog::start(const Timer * const tim)
 {
 /* Possible trigger events for F1
 ADC_ExternalTrigConv_None
@@ -71,16 +71,18 @@ ADC_ExternalTrigConvEdge_Falling
 ADC_ExternalTrigConvEdge_RisingFalling
 
 */
-    uint32_t trigger = ADC_ExternalTrigConv_None; //L1: ADC_ExternalTrigConvEdge_None
+
+
+    adc_trigger_t trigger;// = ADC_ExternalTrigConv_None; //L1: ADC_ExternalTrigConvEdge_None
     if(tim!= nullptr)
-        trigger = ADC_ExternalTrigConv_T3_TRGO;
+        trigger = tim;
 
     adc_init_t config(trigger,channel_count);
 
     // Base initialization procedure
     ADC_Init(_base, &config.init);
     // Enable conversion through external trigger
-    if(trigger != ADC_ExternalTrigConv_None){
+    if(trigger){
         ADC_ExternalTrigConvCmd(_base, ENABLE);
     }
     // ADC_IT_EOC - end of conversion IRQ

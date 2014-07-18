@@ -169,17 +169,55 @@ enum AHB: uint32_t
     dma1=RCC_AHBPeriph_DMA1,
     ahb_none=0
 };
-
+/// GPIO
 /// Redefinitions
 #define MODE_OUT        GPIO_Mode_Out_PP
 #define MODE_IN         GPIO_Mode_IN_FLOATING
 #define MODE_ANALOG     GPIO_Mode_AIN
 
+
+//ADC
+class Timer;
+
+#define FAST_SAMPLING ADC_SampleTime_1Cycles5
+
+template <typename T>
+struct apb_adc_t
+{
+    T id;
+    ADC_TypeDef* base;
+};
+constexpr apb_adc_t<APB1> apb1_adcs[] =
+{
+};
+constexpr apb_adc_t<APB2> apb2_adcs[] =
+{
+    { adc1, ADC1 }
+};
+template <typename T>
+constexpr ADC_TypeDef* adc_base(T id, apb_adc_t<T> const *adcs)
+{
+    return (id == adcs->id) ? adcs->base : adc_base(id, adcs+1);
+}
+
+
+class adc_trigger_t {
+    uint32_t trigger;
+public:
+    adc_trigger_t();
+    operator uint32_t();
+    operator bool();
+    adc_trigger_t& operator=(const Timer* value);
+};
+
+
 class adc_init_t{
 public:
     ADC_InitTypeDef init;
-    adc_init_t(uint32_t trigger, uint8_t channel_count);
+    adc_init_t(adc_trigger_t trigger, uint8_t channel_count);
 };
+
+
 
 // Timers
 template <typename T>

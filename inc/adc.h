@@ -29,7 +29,7 @@ public:
     Analog(const APB1 id);
     Analog(const APB2 id);
     /// Starts conversion
-    virtual void start(const Timer *_tim=nullptr);
+    virtual void start(const Timer *_tim);
     /// Stops conversion
     virtual void stop();
     /// Read 16 bits of the ADC data port
@@ -41,12 +41,9 @@ public:
 protected:
     /// ADC handle structure. Declared in standard peripheral library. E.g. ADC1, ADC2...
     ADC_TypeDef *_base = nullptr;
-    /// ADC initialization structure.
-    //ADC_InitTypeDef _init;
 private:
     /// Interrupt handler for EOC event
     virtual void end_of_conversion();
-
     //TODO: ADC1 specific below.
     /// Physical IRQ itself
     friend void ADC1_IRQHandler();
@@ -78,7 +75,7 @@ private:
     class Channel:public Buffer {
     public:
         Channel(Analog &adc):_p{id,MODE_ANALOG},_adc(adc){
-            ADC_RegularChannelConfig(_adc._base, channel, _adc.channel_count++, ADC_SampleTime_1Cycles5);
+            ADC_RegularChannelConfig(_adc._base, channel, _adc.channel_count++, FAST_SAMPLING);
             _adc.add_channel(this);
         }
         ~Channel(){
@@ -96,7 +93,7 @@ private:
         Channel(Analog &adc):_adc(adc){
             // TODO: Excessive for the 17th channel but let it be
             ADC_TempSensorVrefintCmd(ENABLE);
-            ADC_RegularChannelConfig(_adc._base, channel, adc.channel_count++, ADC_SampleTime_1Cycles5);
+            ADC_RegularChannelConfig(_adc._base, channel, adc.channel_count++, FAST_SAMPLING);
             _adc.add_channel(this);
         }
         ~Channel(){
